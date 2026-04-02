@@ -1,6 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import ProductsClient from "./ProductsClient";
 
 export default async function ProductsPage() {
@@ -22,18 +23,21 @@ export default async function ProductsPage() {
       currency: data.currency || "USD",
       productId: data.productId || "",
       isActive: data.isActive ?? true,
-      createdAt: data.createdAt ? data.createdAt.seconds : null, // ✅ convert timestamp to number
+      createdAt: data.createdAt ? data.createdAt.seconds : null,
     };
   });
 
   return (
     <>
       <Header />
+
       <main style={{ background: "#f5f5eb", minHeight: "100vh" }}>
         <div style={{ maxWidth: 1440, margin: "0 auto", padding: "32px 24px" }}>
           <ProductsClient products={products} />
         </div>
       </main>
+
+      <Footer />
     </>
   );
 }

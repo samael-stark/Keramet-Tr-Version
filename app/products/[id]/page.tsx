@@ -1,8 +1,11 @@
 import { doc, getDoc } from "firebase/firestore";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { db } from "@/lib/firebase";
 import ProductGallery from "./ProductGallery";
+import PriceDisplay from "@/components/PriceDisplay";
+import AddToCartButton from "./AddToCartButton";
 
 type Params = { id: string };
 
@@ -40,15 +43,13 @@ export default async function ProductDetailPage({
       <main style={{ background: "#f5f5eb", minHeight: "100vh" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto", padding: "40px 24px" }}>
           <div className="detail-layout">
-            {/* 🔥 GALLERY COMPONENT */}
-            <ProductGallery images={images} title={title} />
+            <ProductGallery images={images} title={title} productId={id} />
 
-            {/* RIGHT — PRODUCT INFO */}
             <div className="product-info">
               <h1>{title}</h1>
 
               <div className="price">
-                {currency} {price.toFixed(2)}
+                <PriceDisplay basePrice={price} />
               </div>
 
               {data.category && (
@@ -65,12 +66,11 @@ export default async function ProductDetailPage({
 
               <p className="description">{description}</p>
 
-              <button className="add-to-cart">Add to Cart</button>
+              <AddToCartButton productId={id} />
             </div>
           </div>
         </div>
 
-        {/* STYLES */}
         <style>{`
           .detail-layout {
             display: grid;
@@ -79,7 +79,6 @@ export default async function ProductDetailPage({
             align-items: start;
           }
 
-          /* thumbnails */
           .thumbs {
             display: flex;
             flex-direction: column;
@@ -100,7 +99,6 @@ export default async function ProductDetailPage({
             object-fit: cover;
           }
 
-          /* MAIN IMAGE — WHITE BG REMOVED */
           .main-image-wrapper {
             position: relative;
             display: flex;
@@ -122,13 +120,18 @@ export default async function ProductDetailPage({
             border-radius: 50%;
             border: none;
             background: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             font-size: 28px;
             cursor: pointer;
           }
 
-          .arrow.left { left: 20px; }
-          .arrow.right { right: 20px; }
+          .arrow.left {
+            left: 20px;
+          }
+
+          .arrow.right {
+            right: 20px;
+          }
 
           .product-info h1 {
             font-size: 28px;
@@ -148,10 +151,12 @@ export default async function ProductDetailPage({
             font-size: 14px;
           }
 
+          /* ✅ FIXED DESCRIPTION SPACING */
           .description {
             margin-top: 16px;
             font-size: 14px;
             line-height: 22px;
+            white-space: pre-line;
           }
 
           .add-to-cart {
@@ -178,6 +183,8 @@ export default async function ProductDetailPage({
           }
         `}</style>
       </main>
+
+      <Footer />
     </>
   );
 }

@@ -1,19 +1,50 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function ProductGallery({
   images,
   title,
+  productId, // 🔥 ADD THIS PROP
 }: {
   images: string[];
   title: string;
+  productId: string; // 🔥 ADD THIS TYPE
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isZoomOpen, setIsZoomOpen] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   const touchStartX = useRef<number | null>(null);
+
+  /* ===================== LOAD WISHLIST STATE ===================== */
+
+  useEffect(() => {
+    const stored = localStorage.getItem("wishlist");
+    const ids: string[] = stored ? JSON.parse(stored) : [];
+
+    if (ids.includes(productId)) {
+      setIsWishlisted(true);
+    }
+  }, [productId]);
+
+  const toggleWishlist = () => {
+    const stored = localStorage.getItem("wishlist");
+    let ids: string[] = stored ? JSON.parse(stored) : [];
+
+    if (ids.includes(productId)) {
+      ids = ids.filter((x) => x !== productId);
+      setIsWishlisted(false);
+    } else {
+      ids.push(productId);
+      setIsWishlisted(true);
+    }
+
+    localStorage.setItem("wishlist", JSON.stringify(ids));
+
+    // 🔥 Notify header to update count
+    window.dispatchEvent(new Event("wishlistUpdated"));
+  };
 
   if (!images || images.length === 0) return null;
 
@@ -36,11 +67,8 @@ export default function ProductGallery({
 
     const diff = touchStartX.current - e.changedTouches[0].clientX;
 
-    if (diff > 50) {
-      nextImage();
-    } else if (diff < -50) {
-      prevImage();
-    }
+    if (diff > 50) nextImage();
+    else if (diff < -50) prevImage();
 
     touchStartX.current = null;
   };
@@ -75,10 +103,21 @@ export default function ProductGallery({
 
         {/* ❤️ Wishlist Icon */}
         <button
-          className="heart-btn"
-          onClick={() => setIsWishlisted(!isWishlisted)}
+          className={`heart-btn ${isWishlisted ? "active" : ""}`}
+          onClick={toggleWishlist}
+          aria-label="Add to wishlist"
+          title="Wishlist"
         >
-          {isWishlisted ? "♥" : "♡"}
+          <svg viewBox="0 0 24 24" width="24" height="24" className="heart-svg">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+             2 5.42 4.42 3 7.5 3
+             c1.74 0 3.41.81 4.5 2.09
+             C13.09 3.81 14.76 3 16.5 3
+             19.58 3 22 5.42 22 8.5
+             c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
         </button>
 
         {/* Desktop Arrows */}
@@ -167,10 +206,29 @@ export default function ProductGallery({
           border: none;
           background: #fff;
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-          font-size: 20px;
           cursor: pointer;
           z-index: 3;
-          color: #7a1f1f;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+        }
+
+        .heart-svg {
+          fill: transparent;
+          stroke: #222;
+          stroke-width: 2;
+          transition: all 0.25s ease;
+        }
+
+        .heart-btn:hover .heart-svg {
+          fill: #7a1f1f;
+          stroke: #7a1f1f;
+        }
+
+        .heart-btn.active .heart-svg {
+          fill: #7a1f1f;
+          stroke: #7a1f1f;
         }
 
         .arrow {
@@ -191,12 +249,9 @@ export default function ProductGallery({
         .arrow.left {
           left: 20px;
         }
-
         .arrow.right {
           right: 20px;
         }
-
-        /* ================= FULLSCREEN ================= */
 
         .zoom-overlay {
           position: fixed;
@@ -228,8 +283,6 @@ export default function ProductGallery({
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        /* ================= MOBILE ================= */
-
         @media (max-width: 1100px) {
           .thumbs {
             flex-direction: row;
@@ -240,7 +293,6 @@ export default function ProductGallery({
             height: 500px;
           }
 
-          /* 🔥 Hide arrows on mobile */
           .arrow {
             display: none;
           }

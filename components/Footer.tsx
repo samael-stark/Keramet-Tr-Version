@@ -16,7 +16,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Useful Links (same order as header) */}
+          {/* Useful Links */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-widest text-custom-bg mb-4">
               Useful Links
@@ -33,7 +33,7 @@ export default function Footer() {
 
               <li>
                 <Link
-                  href="#categories"
+                  href="/#categories"
                   className="text-custom-bg/80 hover:text-custom-bg transition"
                 >
                   Rug Collection
@@ -41,18 +41,17 @@ export default function Footer() {
               </li>
 
               <li>
-                <span className="text-custom-bg/60 cursor-default">Shop</span>
-              </li>
-
-              <li>
-                <span className="text-custom-bg/60 cursor-default">
-                  Gallery
-                </span>
+                <Link
+                  href="/products"
+                  className="text-custom-bg/80 hover:text-custom-bg transition"
+                >
+                  Shop
+                </Link>
               </li>
 
               <li>
                 <Link
-                  href="#aboutus"
+                  href="/#aboutus"
                   className="text-custom-bg/80 hover:text-custom-bg transition"
                 >
                   About
@@ -61,7 +60,7 @@ export default function Footer() {
 
               <li>
                 <Link
-                  href="#contact"
+                  href="/#contact"
                   className="text-custom-bg/80 hover:text-custom-bg transition"
                 >
                   Contact

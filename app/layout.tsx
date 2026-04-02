@@ -34,7 +34,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-900`}
       >
-        <div className="min-h-screen">{children}</div>
+        {/* Added mobile bottom padding to prevent bottom nav overlap */}
+        <div className="min-h-screen">
+          <div className="pb-24 lg:pb-0">{children}</div>
+        </div>
       </body>
     </html>
   );
