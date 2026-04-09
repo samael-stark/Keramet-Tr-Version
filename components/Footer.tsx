@@ -21,52 +21,44 @@ export default function Footer() {
             <h4 className="text-sm font-semibold uppercase tracking-widest text-custom-bg mb-4">
               Useful Links
             </h4>
-            <ul className="space-y-3 font-medium">
-              <li>
-                <Link
-                  href="/"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  Home
-                </Link>
-              </li>
+           <ul className="space-y-3 font-medium">
+  <li>
+    <Link href="/" className="text-custom-bg/80 hover:text-custom-bg transition">
+      Home
+    </Link>
+  </li>
 
-              <li>
-                <Link
-                  href="/#categories"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  Rug Collection
-                </Link>
-              </li>
+  <li>
+    <Link href="/#categories" className="text-custom-bg/80 hover:text-custom-bg transition">
+      Rug Collection
+    </Link>
+  </li>
 
-              <li>
-                <Link
-                  href="/products"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  Shop
-                </Link>
-              </li>
+  <li>
+    <Link href="/products" className="text-custom-bg/80 hover:text-custom-bg transition">
+      Shop
+    </Link>
+  </li>
 
-              <li>
-                <Link
-                  href="/#aboutus"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  About
-                </Link>
-              </li>
+  {/* 🔥 NEW */}
+  <li>
+    <Link href="/track-order" className="text-custom-bg/80 hover:text-custom-bg transition">
+      Track Order
+    </Link>
+  </li>
 
-              <li>
-                <Link
-                  href="/#contact"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
+  <li>
+    <Link href="/#aboutus" className="text-custom-bg/80 hover:text-custom-bg transition">
+      About
+    </Link>
+  </li>
+
+  <li>
+    <Link href="/#contact" className="text-custom-bg/80 hover:text-custom-bg transition">
+      Contact
+    </Link>
+  </li>
+</ul>
           </div>
 
           {/* Socials */}

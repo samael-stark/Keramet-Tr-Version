@@ -113,7 +113,6 @@ export default function AdminLoginPage() {
                     href="/"
                     className="text-sm font-semibold text-custom-accent hover:underline"
                   >
-                    ← Back to website
                   </Link>
                 </div>
               </form>

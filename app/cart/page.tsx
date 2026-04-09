@@ -6,7 +6,13 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db, auth } from "@/lib/firebase";
-import { getCart, removeFromCart, clearCart, type CartItem } from "@/lib/cart";
+import { useRouter } from "next/navigation";
+import {
+  getCart,
+  removeFromCart,
+  clearCart,
+  type CartItem,
+} from "@/lib/cart";
 
 type ProductDoc = {
   id: string;
@@ -18,6 +24,8 @@ type ProductDoc = {
 };
 
 export default function CartPage() {
+  const router = useRouter();
+
   const [cart, setCart] = useState<CartItem[]>([]);
   const [products, setProducts] = useState<ProductDoc[]>([]);
   const [ready, setReady] = useState(false);
@@ -91,37 +99,15 @@ export default function CartPage() {
     showToast("Cart cleared");
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     const currentUser = auth.currentUser;
 
     if (!currentUser) {
-      window.location.href = "/auth?redirect=/cart";
+      router.push("/auth?redirect=/checkout");
       return;
     }
 
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          items: getCart(),
-          userId: currentUser.uid,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        showToast(data.error || "Checkout failed");
-        return;
-      }
-
-      console.log("Validated checkout:", data);
-      showToast("Checkout validated");
-    } catch (err) {
-      console.error(err);
-      showToast("Something went wrong");
-    }
+    router.push("/checkout");
   };
 
   return (
@@ -262,25 +248,6 @@ export default function CartPage() {
           border-color: #5f1717;
         }
 
-        .outlineBtn {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          border: 2px solid #7a1f1f;
-          color: #7a1f1f !important;
-          font-weight: 700;
-          padding: 10px 18px;
-          border-radius: 12px;
-          text-decoration: none !important;
-          transition: all 0.2s ease;
-          background: transparent;
-        }
-
-        .outlineBtn:hover {
-          background: #7a1f1f;
-          color: #fff !important;
-        }
-
         .wrap {
           max-width: 1200px;
           margin: 0 auto;
@@ -308,22 +275,6 @@ export default function CartPage() {
           gap: 12px;
           flex-wrap: wrap;
           justify-content: flex-end;
-        }
-
-        .link {
-          color: #7a1f1f;
-          font-weight: 700;
-          text-decoration: underline;
-          border: 1px solid rgba(122, 31, 31, 0.25);
-          background: rgba(255, 255, 255, 0.6);
-          padding: 10px 14px;
-          border-radius: 12px;
-          display: inline-block;
-          transition: all 0.2s ease;
-        }
-
-        .link:hover {
-          background: rgba(122, 31, 31, 0.08);
         }
 
         .ghost {
@@ -511,17 +462,6 @@ export default function CartPage() {
           margin: 0 auto 18px;
           color: rgba(0, 0, 0, 0.6);
           line-height: 1.6;
-        }
-
-        .cta {
-          display: inline-block;
-          background: #7a1f1f;
-          color: #fff;
-          font-weight: 900;
-          padding: 12px 18px;
-          border-radius: 12px;
-          text-decoration: none;
-          box-shadow: 0 10px 22px rgba(122, 31, 31, 0.22);
         }
 
         .toast {

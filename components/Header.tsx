@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
+import { getCartCount } from "@/lib/cart";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -22,7 +23,6 @@ export default function Header() {
   const [wishlistCount, setWishlistCount] = useState(0);
   const [cartCount, setCartCount] = useState(0);
 
-  /* ---------------- AUTH LISTENER ---------------- */
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -30,7 +30,6 @@ export default function Header() {
     return () => unsubscribe();
   }, []);
 
-  /* ---------------- Wishlist Count ---------------- */
   useEffect(() => {
     const updateWishlistCount = () => {
       const stored = localStorage.getItem("wishlist");
@@ -48,19 +47,10 @@ export default function Header() {
     };
   }, []);
 
-  /* ---------------- Cart Count ---------------- */
   useEffect(() => {
     const updateCartCount = () => {
-      const stored = localStorage.getItem("cart");
-      const items = stored ? JSON.parse(stored) : [];
-
-      const totalQty = items.reduce(
-        (sum: number, item: { id: string; qty?: number }) =>
-          sum + (item.qty || 1),
-        0,
-      );
-
-      setCartCount(totalQty);
+      const count = getCartCount();
+      setCartCount(count);
     };
 
     updateCartCount();
@@ -86,7 +76,6 @@ export default function Header() {
 
   return (
     <>
-      {/* ================= ORIGINAL HEADER ================= */}
       <header className="bg-custom-bg sticky top-0 z-50 shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between border-b border-gray-200 relative">
           <button
@@ -161,6 +150,7 @@ export default function Header() {
           </div>
         </div>
 
+        {/* DESKTOP NAV */}
         <nav className="hidden lg:flex justify-center py-3 text-gray-800 text-sm font-semibold">
           <div className="flex items-center gap-10">
             <Link href="/" className={navClass(isHome)}>
@@ -170,13 +160,22 @@ export default function Header() {
             <Link href="/products" className={navClass(isShop)}>
               SHOP
             </Link>
+
+            {/* ✅ TRACK LINK */}
+            <Link
+              href="/track-order"
+              className={navClass(pathname === "/track-order")}
+            >
+              TRACK ORDER
+            </Link>
+
             <Link href="/#aboutus">ABOUT</Link>
             <Link href="/#contact">CONTACT</Link>
           </div>
         </nav>
       </header>
 
-      {/* ================= MOBILE BOTTOM NAV ================= */}
+      {/* MOBILE NAV */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-custom-bg border-t border-gray-200 shadow-md z-50">
         <div className="flex justify-around py-3 text-xs font-medium">
           <Link
@@ -193,6 +192,15 @@ export default function Header() {
           >
             <FaStore className="text-lg mb-1" />
             <span>Shop</span>
+          </Link>
+
+          {/* ✅ TRACK BUTTON */}
+          <Link
+            href="/track-order"
+            className={`flex flex-col items-center ${bottomNavClass("/track-order")}`}
+          >
+            <FaStore className="text-lg mb-1" />
+            <span>Track</span>
           </Link>
 
           <Link
@@ -237,7 +245,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* ================= MOBILE ACCOUNT MODAL ================= */}
+      {/* ACCOUNT MODAL */}
       {showAccountModal && user && (
         <div className="fixed inset-0 z-[60] flex items-end justify-center lg:hidden">
           <div

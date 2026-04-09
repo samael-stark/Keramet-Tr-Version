@@ -23,11 +23,10 @@ export default function AdminPage() {
               Admin Dashboard
             </h1>
             <p className="mt-2 text-gray-700">
-              Add, edit, and remove products anytime.
+              Add, edit, and manage your store.
             </p>
           </div>
 
-          {/* Logout button – slightly more rounded */}
           <button
             onClick={logout}
             className="
@@ -48,6 +47,7 @@ export default function AdminPage() {
 
         {/* Cards */}
         <div className="mt-10 grid sm:grid-cols-2 gap-6">
+          {/* Products */}
           <Link
             href="/admin/products"
             className="
@@ -61,12 +61,15 @@ export default function AdminPage() {
               transition
             "
           >
-            <h2 className="text-xl font-bold text-gray-900">Manage Products</h2>
+            <h2 className="text-xl font-bold text-gray-900">
+              Manage Products
+            </h2>
             <p className="mt-2 text-gray-700">
               View all products, edit, or delete.
             </p>
           </Link>
 
+          {/* Add Product */}
           <Link
             href="/admin/products/new"
             className="
@@ -80,9 +83,33 @@ export default function AdminPage() {
               transition
             "
           >
-            <h2 className="text-xl font-bold text-gray-900">Add New Product</h2>
+            <h2 className="text-xl font-bold text-gray-900">
+              Add New Product
+            </h2>
             <p className="mt-2 text-gray-700">
               Upload images and publish a new rug.
+            </p>
+          </Link>
+
+          {/* ✅ NEW: Orders */}
+          <Link
+            href="/admin/orders"
+            className="
+              rounded-[1.75rem]
+              border border-white/50
+              bg-white/20
+              backdrop-blur-xl
+              p-6
+              shadow-xl
+              hover:shadow-2xl
+              transition
+            "
+          >
+            <h2 className="text-xl font-bold text-gray-900">
+              Orders
+            </h2>
+            <p className="mt-2 text-gray-700">
+              View and manage customer orders.
             </p>
           </Link>
         </div>
