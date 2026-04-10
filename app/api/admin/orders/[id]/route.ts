@@ -4,10 +4,17 @@ import { adminDb } from "@/lib/firebase-admin";
 import { resend, resendConfig } from "@/lib/resend";
 import { getOrderStatusEmailHtml } from "@/lib/email-templates";
 
+type OrderStatus =
+  | "order_confirmed"
+  | "processing"
+  | "shipped"
+  | "delivered"
+  | "cancelled";
+
 /**
  * Allowed fulfillment statuses
  */
-const ALLOWED_STATUSES = [
+const ALLOWED_STATUSES: OrderStatus[] = [
   "order_confirmed",
   "processing",
   "shipped",
@@ -15,7 +22,14 @@ const ALLOWED_STATUSES = [
   "cancelled",
 ];
 
-function getStatusLabel(status: string) {
+type StatusHistoryItem = {
+  status: OrderStatus;
+  label?: string;
+  createdAt?: any;
+  note?: string;
+};
+
+function getStatusLabel(status: OrderStatus | string) {
   switch (status) {
     case "order_confirmed":
       return "Order Confirmed";
@@ -52,11 +66,12 @@ export async function GET(
     }
 
     const data = snapshot.data();
-    const fulfillmentStatus = data?.fulfillmentStatus || "order_confirmed";
+    const fulfillmentStatus: OrderStatus =
+      (data?.fulfillmentStatus as OrderStatus) || "order_confirmed";
 
     const statusHistory =
       Array.isArray(data?.statusHistory) && data.statusHistory.length > 0
-        ? data.statusHistory.map((item: any) => ({
+        ? data.statusHistory.map((item: StatusHistoryItem) => ({
             status: item.status,
             label: item.label || getStatusLabel(item.status),
             createdAt: item.createdAt?.toDate
@@ -89,11 +104,17 @@ export async function GET(
           postalCode: data?.customer?.postalCode || "",
         },
         items: Array.isArray(data?.items)
-          ? data.items.map((item: any) => ({
-              title: item.title || "",
-              image: item.image || "",
-              price: item.price || 0,
-            }))
+          ? data.items.map(
+              (item: {
+                title?: string;
+                image?: string;
+                price?: number;
+              }) => ({
+                title: item.title || "",
+                image: item.image || "",
+                price: item.price || 0,
+              })
+            )
           : [],
         pricing: {
           subtotal: data?.pricing?.subtotal || 0,
@@ -126,7 +147,7 @@ export async function PATCH(
     const { id } = await params;
     const body = await req.json();
 
-    const status = String(body.status || "").trim();
+    const status = String(body.status || "").trim() as OrderStatus;
     const note = String(body.note || "").trim();
 
     if (!status) {
@@ -151,9 +172,9 @@ export async function PATCH(
     }
 
     const data = snapshot.data();
-    const currentStatus = data?.fulfillmentStatus || "order_confirmed";
+    const currentStatus: OrderStatus =
+      (data?.fulfillmentStatus as OrderStatus) || "order_confirmed";
 
-    // 🚫 Prevent duplicate updates
     if (currentStatus === status) {
       return NextResponse.json(
         { error: "Status is already set to this value" },
@@ -189,7 +210,7 @@ export async function PATCH(
               `${data.customer.firstName || ""} ${
                 data.customer.lastName || ""
               }`.trim() || "Customer",
-            status: status as any,
+            status,
             note,
             trackUrl: "https://yourdomain.com/track-order",
           }),
