@@ -30,11 +30,12 @@ export default function AdminLoginPage() {
 
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/admin");
-    } catch {
-      setError("Invalid email or password.");
-    } finally {
-      setLoading(false);
-    }
+   } catch (error: any) {
+  console.error("Admin login error:", error);
+  setError(error?.code || error?.message || "Login failed.");
+} finally {
+  setLoading(false);
+}
   };
 
   return (
