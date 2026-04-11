@@ -1,11 +1,12 @@
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductsClient from "./ProductsClient";
+import { adminDb } from "@/lib/firebase-admin";
+
+export const dynamic = "force-dynamic";
 
 export default async function ProductsPage() {
-  const snap = await getDocs(collection(db, "products"));
+  const snap = await adminDb.collection("products").get();
 
   const products = snap.docs.map((doc) => {
     const data = doc.data();
@@ -23,9 +24,13 @@ export default async function ProductsPage() {
       currency: data.currency || "USD",
       productId: data.productId || "",
       isActive: data.isActive ?? true,
-      createdAt: data.createdAt ? data.createdAt.seconds : null,
+      createdAt: data.createdAt?.toDate
+        ? data.createdAt.toDate().toISOString()
+        : null,
     };
   });
+
+  const activeProducts = products.filter((product) => product.isActive !== false);
 
   return (
     <>
@@ -33,7 +38,7 @@ export default async function ProductsPage() {
 
       <main style={{ background: "#f5f5eb", minHeight: "100vh" }}>
         <div style={{ maxWidth: 1440, margin: "0 auto", padding: "32px 24px" }}>
-          <ProductsClient products={products} />
+          <ProductsClient products={activeProducts} />
         </div>
       </main>
 
