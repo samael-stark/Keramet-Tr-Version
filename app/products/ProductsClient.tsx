@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 type Product = {
   id: string;
@@ -66,6 +67,8 @@ const SIZE_LABEL_TO_DB: Record<string, string> = {
 const PRODUCTS_PER_PAGE = 20;
 
 export default function ProductsClient({ products }: { products: Product[] }) {
+  const searchParams = useSearchParams();
+
   const [showSizes, setShowSizes] = useState(false);
   const [showCollections, setShowCollections] = useState(false);
 
@@ -81,6 +84,18 @@ export default function ProductsClient({ products }: { products: Product[] }) {
     const stored = localStorage.getItem("wishlist");
     if (stored) setWishlist(JSON.parse(stored));
   }, []);
+
+  useEffect(() => {
+    const categoryFromURL = searchParams.get("category");
+
+    if (categoryFromURL) {
+      setSelectedCollection(categoryFromURL);
+      setShowCollections(true);
+      setShowSizes(false);
+    } else {
+      setSelectedCollection("");
+    }
+  }, [searchParams]);
 
   const toggleWishlist = (id: string) => {
     let updated: string[];
@@ -217,6 +232,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
               <div className="filter-list">
                 {SIZE_OPTIONS.map((label) => {
                   const active = selectedSizeLabel === label;
+
                   return (
                     <button
                       key={label}
@@ -250,6 +266,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
               <div className="filter-list">
                 {COLLECTION_OPTIONS.map((collection) => {
                   const active = selectedCollection === collection;
+
                   return (
                     <button
                       key={collection}
@@ -271,7 +288,9 @@ export default function ProductsClient({ products }: { products: Product[] }) {
         <div className="content">
           <div className="topbar">
             <div className="topbar-left">
-              <h2 className="page-title">All items</h2>
+              <h2 className="page-title">
+                {selectedCollection ? `${selectedCollection} Rugs` : "All Rugs"}
+              </h2>
 
               <button
                 className="mobile-filter-btn"
@@ -427,6 +446,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
 
               {Array.from({ length: totalPages }).map((_, i) => {
                 const page = i + 1;
+
                 return (
                   <button
                     key={page}
