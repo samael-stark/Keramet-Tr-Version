@@ -13,8 +13,8 @@ const phoneNumbers = [
   },
   {
     label: "Second Phone",
-    display: "+90 XXX XXX XX XX",
-    href: "tel:+90XXXXXXXXXX",
+    display: "+90 531 921 45 75",
+    href: "tel:+905319214575",
   },
 ];
 
