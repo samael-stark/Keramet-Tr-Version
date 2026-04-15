@@ -9,7 +9,7 @@ const categories = [
     title: "MAMLUK",
     subtitle: "ORNATE HERITAGE",
     value: "Mamluk",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/mamluk.JPG",
   },
   {
     title: "BIDJAR",
@@ -27,13 +27,13 @@ const categories = [
     title: "PAZYRYK",
     subtitle: "ANCIENT INSPIRED",
     value: "Pazyryk",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/pazyryk.JPG",
   },
   {
     title: "GABBEH",
     subtitle: "MINIMAL & ARTISAN",
     value: "Gabbeh",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/Gabbeh.jpg",
   },
   {
     title: "BAKHTIARI",
@@ -51,7 +51,7 @@ const categories = [
     title: "KAZAK",
     subtitle: "BOLD GEOMETRY",
     value: "Kazak",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/kazak.jpg",
   },
   {
     title: "TREE OF LIFE",
@@ -63,19 +63,20 @@ const categories = [
     title: "KHAL MUHAMMADI",
     subtitle: "RICH RED TONES",
     value: "Khal Muhammadi",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/khalmuhammadi.JPG",
   },
-  {
-    title: "BELGIC",
-    subtitle: "EUROPEAN CHARACTER",
-    value: "Belgic",
-    image: "/img/sample.jpg",
-  },
+
   {
     title: "KILIM",
     subtitle: "FLAT-WOVEN ARTISTRY",
     value: "Kilim",
     image: "/img/sample.jpg",
+  },
+   {
+    title: "BELGIC",
+    subtitle: "EUROPEAN CHARACTER",
+    value: "Belgic",
+    image: "/img/Categories/belgic.jpg",
   },
   {
     title: "RUNNER",
@@ -99,19 +100,19 @@ const categories = [
     title: "SICKLE LEAF",
     subtitle: "ORNAMENTAL MOTIFS",
     value: "Sickle Leaf",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/Sickle Leaf.JPG",
   },
   {
     title: "KARAKUL",
     subtitle: "REGIONAL DISTINCTION",
     value: "Karakul",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/Karakul.JPG",
   },
   {
     title: "PICTORIAL BIRDS",
     subtitle: "ARTISTIC STORYTELLING",
     value: "Pictorial Birds",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/pictorialbirds.JPG",
   },
   {
     title: "SUZANI",
