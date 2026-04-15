@@ -48,13 +48,11 @@ export default function Contact() {
             Get in Touch
           </h3>
 
-          <h2 className="mt-3 text-3xl font-extrabold text-gray-800 sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-extrabold text-custom-accent md:text-4xl">
             Contact Us
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-gray-600 sm:text-lg">
-            Call us, follow us, or visit our store location.
-          </p>
+
         </div>
 
         <div className="overflow-hidden rounded-[30px] border border-[#eadfd8] bg-white/60 shadow-[0_18px_60px_rgba(0,0,0,0.06)] backdrop-blur-md">
@@ -129,7 +127,7 @@ export default function Contact() {
                   Store Location
                 </p>
 
-                <h3 className="mt-2 text-2xl font-bold leading-tight text-[#2f2a24] sm:text-[30px]">
+             <h3 className="mt-2 text-2xl font-bold leading-tight text-custom-accent sm:text-[30px]">
                   Keramet Halı Handmade Rugs & Kilims
                 </h3>
               </div>

@@ -27,7 +27,6 @@ export default async function ProductDetailPage({
 
   const title = data.title ?? "Untitled Product";
   const price = Number(data.price ?? 0);
-  const currency = data.currency ?? "USD";
   const description = data.description ?? "";
   const images =
     Array.isArray(data.images) && data.images.length > 0
@@ -36,37 +35,74 @@ export default async function ProductDetailPage({
         ? [data.coverUrl]
         : [];
 
+  const originalPrice = price > 0 ? price / 0.35 : 0;
+
+  const saleEndDate = new Date();
+  saleEndDate.setDate(saleEndDate.getDate() + 10);
+
+  const formattedSaleDate = saleEndDate.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+  });
+
   return (
     <>
       <Header />
 
       <main style={{ background: "#f5f5eb", minHeight: "100vh" }}>
-        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "40px 24px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "44px 24px 56px" }}>
           <div className="detail-layout">
             <ProductGallery images={images} title={title} productId={id} />
 
             <div className="product-info">
               <h1>{title}</h1>
 
-              <div className="price">
-                <PriceDisplay basePrice={price} />
+              <div className="price-block">
+                <div className="price-line">
+                  <span className="now-label">Now</span>
+
+                  <div className="current-price">
+                    <PriceDisplay basePrice={price} />
+                  </div>
+
+                  <div className="old-price">
+                    <PriceDisplay basePrice={originalPrice} />
+                  </div>
+                </div>
+
+                <div className="sale-note">
+                  <span>65% off</span>
+                  <span className="dot">•</span>
+                  <span>Sale ends on {formattedSaleDate}</span>
+                </div>
               </div>
 
-              {data.category && (
-                <div className="meta">
-                  <strong>Category:</strong> {data.category}
+              {(data.category || data.size) && (
+                <div className="meta-row">
+                  {data.category && (
+                    <div className="meta-pill">
+                      <span className="meta-label">Category</span>
+                      <span className="meta-value">{data.category}</span>
+                    </div>
+                  )}
+
+                  {data.size && (
+                    <div className="meta-pill">
+                      <span className="meta-label">Size</span>
+                      <span className="meta-value">{data.size}</span>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {data.size && (
-                <div className="meta">
-                  <strong>Size:</strong> {data.size}
-                </div>
-              )}
+              <div className="description-block">
+                <h3>Description</h3>
+                <p className="description">{description}</p>
+              </div>
 
-              <p className="description">{description}</p>
-
-              <AddToCartButton productId={id} />
+              <div className="cta-wrap">
+                <AddToCartButton productId={id} />
+              </div>
             </div>
           </div>
         </div>
@@ -74,111 +110,170 @@ export default async function ProductDetailPage({
         <style>{`
           .detail-layout {
             display: grid;
-            grid-template-columns: 100px 1fr 400px;
-            gap: 40px;
+            grid-template-columns: minmax(0, 1.1fr) 420px;
+            gap: 48px;
             align-items: start;
           }
 
-          .thumbs {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-          }
-
-          .thumb {
-            width: 90px;
-            height: 90px;
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-          }
-
-          .thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-
-          .main-image-wrapper {
-            position: relative;
-            display: flex;
-            justify-content: center;
-          }
-
-          .main-image {
-            max-width: 100%;
-            max-height: 700px;
-            object-fit: contain;
-          }
-
-          .arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            background: #fff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            font-size: 28px;
-            cursor: pointer;
-          }
-
-          .arrow.left {
-            left: 20px;
-          }
-
-          .arrow.right {
-            right: 20px;
+          .product-info {
+            position: sticky;
+            top: 24px;
+            background: #f8f6ef;
+            border: 1px solid rgba(122, 31, 31, 0.08);
+            border-radius: 28px;
+            padding: 28px 26px;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.04);
           }
 
           .product-info h1 {
-            font-size: 28px;
+            margin: 0 0 16px;
+            font-size: 33px;
+            line-height: 1.2;
             font-weight: 700;
-            margin-bottom: 10px;
+            color: #241f1a;
           }
 
-          .price {
-            font-size: 22px;
-            font-weight: 800;
+          .price-block {
+            margin-bottom: 22px;
+          }
+
+          .price-line {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 8px;
+          }
+
+          .now-label {
+            font-size: 14px;
+            font-weight: 700;
             color: #7a1f1f;
-            margin-bottom: 16px;
           }
 
-          .meta {
-            margin-bottom: 6px;
+          .current-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1f2a44;
+            line-height: 1;
+          }
+
+          .old-price {
+            font-size: 16px;
+            font-weight: 500;
+            color: #5f564d;
+            opacity: 0.9;
+            text-decoration: line-through;
+            line-height: 1;
+          }
+
+          .sale-note {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
             font-size: 14px;
+            font-weight: 700;
+            color: #5e8a1f;
           }
 
-          /* ✅ FIXED DESCRIPTION SPACING */
+          .dot {
+            color: #5e8a1f;
+          }
+
+          .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
+          }
+
+          .meta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: #efe8e3;
+            border: 1px solid rgba(122, 31, 31, 0.08);
+          }
+
+          .meta-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #8f8376;
+          }
+
+          .meta-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #413932;
+          }
+
+          .description-block {
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            padding-top: 20px;
+          }
+
+          .description-block h3 {
+            margin: 0 0 10px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #2a241f;
+            letter-spacing: 0.02em;
+          }
+
           .description {
-            margin-top: 16px;
-            font-size: 14px;
-            line-height: 22px;
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.85;
+            color: #4d463f;
             white-space: pre-line;
           }
 
-          .add-to-cart {
-            margin-top: 24px;
-            width: 100%;
-            background: #7a1f1f;
-            color: #fff;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer;
+          .cta-wrap {
+            margin-top: 26px;
           }
 
-          @media (max-width: 1100px) {
+          @media (max-width: 1180px) {
             .detail-layout {
               grid-template-columns: 1fr;
+              gap: 30px;
             }
 
-            .thumbs {
-              flex-direction: row;
-              overflow-x: auto;
+            .product-info {
+              position: static;
+            }
+          }
+
+          @media (max-width: 640px) {
+            .product-info {
+              padding: 22px 18px;
+              border-radius: 22px;
+            }
+
+            .product-info h1 {
+              font-size: 27px;
+            }
+
+            .current-price {
+              font-size: 22px;
+            }
+
+            .old-price {
+              font-size: 15px;
+            }
+
+            .sale-note {
+              font-size: 13px;
+            }
+
+            .description {
+              font-size: 14px;
+              line-height: 1.75;
             }
           }
         `}</style>

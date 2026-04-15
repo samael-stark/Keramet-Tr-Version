@@ -29,6 +29,7 @@ const SIZE_OPTIONS = [
 
 const COLLECTION_OPTIONS = [
   "Mamluk",
+  "Sultani",
   "Bidjar",
   "Serapi",
   "Pazyryk",
@@ -187,6 +188,14 @@ export default function ProductsClient({ products }: { products: Product[] }) {
   );
 
   const hasActiveFilters = !!selectedCollection || !!selectedSizeLabel || !!query;
+
+  const saleEndDate = new Date();
+  saleEndDate.setDate(saleEndDate.getDate() + 10);
+
+  const formattedSaleDate = saleEndDate.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+  });
 
   return (
     <div className="shop-shell">
@@ -367,6 +376,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
           <div className="product-grid">
             {paginatedProducts.map((p) => {
               const isActive = wishlist.includes(p.id);
+              const originalPrice = Number(p.price) > 0 ? Number(p.price) / 0.35 : 0;
 
               return (
                 <Link
@@ -414,11 +424,24 @@ export default function ProductsClient({ products }: { products: Product[] }) {
                       <div className="product-info">
                         {p.category && <p className="product-category">{p.category}</p>}
                         <p className="product-title">{p.title}</p>
-                        <p className="price">
-                          {ratesLoaded
-                            ? formatPrice(Number(p.price))
-                            : `USD ${Number(p.price).toFixed(2)}`}
-                        </p>
+
+                        <div className="price-block">
+                          <div className="price-line">
+                            <span className="price-current">
+                              {ratesLoaded
+                                ? formatPrice(Number(p.price))
+                                : `USD ${Number(p.price).toFixed(2)}`}
+                            </span>
+
+                            <span className="price-old">
+                              {ratesLoaded
+                                ? formatPrice(originalPrice)
+                                : `USD ${originalPrice.toFixed(2)}`}
+                            </span>
+                          </div>
+
+                          <p className="sale-note">65% off • Sale ends on {formattedSaleDate}</p>
+                        </div>
                       </div>
                     </div>
                   </article>
@@ -838,12 +861,39 @@ export default function ProductsClient({ products }: { products: Product[] }) {
           overflow: hidden;
         }
 
-        .price {
-          margin: 0;
+        .price-block {
+          margin-top: 2px;
+        }
+
+        .price-line {
+          display: flex;
+          align-items: baseline;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+
+        .price-current {
           font-weight: 800;
           color: #7a1f1f;
           font-size: 17px;
           letter-spacing: 0.01em;
+          line-height: 1.2;
+        }
+
+        .price-old {
+          font-size: 13px;
+          font-weight: 500;
+          color: #8d8479;
+          text-decoration: line-through;
+          line-height: 1.2;
+        }
+
+        .sale-note {
+          margin: 3px 0 0;
+          font-size: 11px;
+          font-weight: 700;
+          color: #5e8a1f;
+          line-height: 1.45;
         }
 
         .empty-state {
@@ -1043,8 +1093,16 @@ export default function ProductsClient({ products }: { products: Product[] }) {
             font-size: 13.5px;
           }
 
-          .price {
+          .price-current {
             font-size: 15px;
+          }
+
+          .price-old {
+            font-size: 12px;
+          }
+
+          .sale-note {
+            font-size: 10px;
           }
 
           .wish-btn {

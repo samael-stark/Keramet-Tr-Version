@@ -15,13 +15,13 @@ const categories = [
     title: "BIDJAR",
     subtitle: "DENSE & DURABLE",
     value: "Bidjar",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/bidjar.jpg",
   },
   {
     title: "SERAPI",
     subtitle: "TIMELESS MEDALLIONS",
     value: "Serapi",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/serapi.jpg",
   },
   {
     title: "PAZYRYK",
@@ -39,13 +39,13 @@ const categories = [
     title: "BAKHTIARI",
     subtitle: "TRIBAL ELEGANCE",
     value: "Bakhtiari",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/bakhtiari.jpg",
   },
   {
     title: "STRIPED",
     subtitle: "LINEAR RHYTHM",
     value: "Striped",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/striped.jpg",
   },
   {
     title: "KAZAK",
@@ -57,8 +57,14 @@ const categories = [
     title: "TREE OF LIFE",
     subtitle: "SYMBOLIC BEAUTY",
     value: "Tree of Life",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/treeoflife.jpg",
   },
+  {
+  title: "SULTANI",
+  subtitle: "ROYAL HERITAGE",
+  value: "Sultani",
+  image: "/img/Categories/sultani.jpg",
+},
   {
     title: "KHAL MUHAMMADI",
     subtitle: "RICH RED TONES",
@@ -70,7 +76,7 @@ const categories = [
     title: "KILIM",
     subtitle: "FLAT-WOVEN ARTISTRY",
     value: "Kilim",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/kilim .jpg",
   },
    {
     title: "BELGIC",
@@ -82,19 +88,19 @@ const categories = [
     title: "RUNNER",
     subtitle: "LONG HALLWAY STYLE",
     value: "Runner",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/runnerrugs.JPG",
   },
   {
     title: "PERSIAN",
     subtitle: "CLASSIC LUXURY",
     value: "Persian",
-    image: "/img/sample.jpg",
+      image: "/img/Categories/persian.JPG",
   },
   {
     title: "WAZIRI",
     subtitle: "TRADITIONAL CRAFT",
     value: "Waziri",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/waziri.JPG",
   },
   {
     title: "SICKLE LEAF",
@@ -118,13 +124,13 @@ const categories = [
     title: "SUZANI",
     subtitle: "DECORATIVE TEXTILES",
     value: "Suzani",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/suzani.JPG",
   },
   {
     title: "OVERDYE",
     subtitle: "MODERN VINTAGE LOOK",
     value: "OverDye",
-    image: "/img/sample.jpg",
+    image: "/img/Categories/overdye.JPG",
   },
 ];
 
@@ -145,10 +151,10 @@ export default function CategoriesSlider() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="mb-14 text-center lg:mb-16">
           <h3 className="text-sm font-medium uppercase tracking-[0.28em] text-gray-600">
-            Shop By Categories
+            Shop By Collection
           </h3>
 
-          <h2 className="mt-3 text-3xl font-extrabold leading-tight text-gray-800 md:text-4xl">
+          <h2 className="mt-3 text-3xl font-extrabold text-custom-accent md:text-4xl">
             Discover timeless rug collections for every space
           </h2>
         </div>

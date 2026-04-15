@@ -6,8 +6,8 @@ import Link from "next/link";
 const slides = [
   {
     image: "/img/BannerOne.png",
-    tag: "Discover Afghan Rugs",
-    title: "Beautiful Afghan Rugs",
+    tag: "Discover Elegant Rugs",
+    title: "Traditional Afghan Rugs",
     highlight: "Afghan Rugs",
     description:
       "Our custom-designed Afghan rugs provide unparalleled quality and spiritual comfort.",
@@ -15,16 +15,16 @@ const slides = [
   {
     image: "/img/BannerTwo.png",
     tag: "Timeless Craftsmanship",
-    title: "Handmade Persian Rugs",
-    highlight: "Persian Rugs",
+    title: "Fine Mamluk Rugs",
+    highlight: "Mamluk Rugs",
     description:
       "Experience generations of weaving tradition brought into modern living spaces.",
   },
   {
     image: "/img/BannerThree.png ",
     tag: "Authentic & Ethical",
-    title: "Luxury Rugs for Every Home",
-    highlight: "Luxury Rugs",
+    title: "Discover Transitional Rugs",
+    highlight: "Transitional Rugs",
     description:
       "Ethically sourced, handwoven rugs designed to last a lifetime.",
   },
