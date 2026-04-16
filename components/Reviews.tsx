@@ -1,28 +1,57 @@
 "use client";
 
+import Link from "next/link";
 import { useRef } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaStar, FaArrowRight } from "react-icons/fa";
 
 const reviews = [
   {
-    name: "Ahmed Khan",
-    country: "United Kingdom",
-    text: "Absolutely stunning rug. The quality exceeded my expectations and delivery was fast. It completely transformed our living room.",
+    name: "Lon",
+    date: "27 Mar, 2026",
+    rating: 5,
+    text: "This rug is spectacular and the quality is outstanding! Fast delivery and exactly as pictured and described. This is the place to buy your rugs!",
+    productTitle: "Product Title Here",
+    productImage: "/img/sample.jpg",
   },
   {
-    name: "Sarah Williams",
-    country: "United States",
-    text: "Beautiful craftsmanship and rich colors. You can feel the tradition and care that went into making this rug.",
+    name: "Irene",
+    date: "18 Feb, 2026",
+    rating: 5,
+    text: "Thank you for a beautiful product that arrived super fast and for great personal service. The only thing I miss is a certificate of origin that describes the product in detail. This would be important in case I would need to sell the product.",
+    productTitle: "Product Title Here",
+    productImage: "/img/sample.jpg",
   },
   {
-    name: "Omar Farooq",
-    country: "Canada",
-    text: "The rug arrived exactly as described. Premium feel, elegant design, and excellent customer service.",
+    name: "Azhir",
+    date: "07 Feb, 2026",
+    rating: 5,
+    text: "My purchase from this vendor was excellent. My wife and I were in the market for a large rug for a new house, and this vendor had the style I wanted. I messaged them to understand pricing and shipping options, and we made the sale. Shipping arrived extremely quick for an international sale and being very heavy/large. Overall, highly recommend.",
+    productTitle: "Product Title Here",
+    productImage: "/img/sample.jpg",
   },
   {
-    name: "Fatima Noor",
-    country: "Germany",
-    text: "Elegant, timeless, and clearly handmade with care. I will definitely be ordering again.",
+    name: "Cynthia",
+    date: "15 Dec, 2025",
+    rating: 5,
+    text: "Beautiful service, quick delivery, and great quality.",
+    productTitle: "Product Title Here",
+    productImage: "/img/sample.jpg",
+  },
+  {
+    name: "Kenneth",
+    date: "15 Dec, 2025",
+    rating: 5,
+    text: "I’m very pleased with the carpet. Beautiful colours and very well finished. Love the colourful binding around the edge tassels. It lies absolutely flat. The carpet looks very good in the room I bought it for. Shipping and delivery was very quick. I thoroughly recommend this seller. A+++",
+    productTitle: "Product Title Here",
+    productImage: "/img/sample.jpg",
+  },
+  {
+    name: "Catarina",
+    date: "15 Sept, 2025",
+    rating: 5,
+    text: "This rug is amazing! it's everything I hoped for. It is just as described and the photos don't do it justice. Also, Keramet was very thoughtful and packed a smaller rug as a gift :) I would buy again from this shop!",
+    productTitle: "Product Title Here",
+    productImage: "/img/sample.jpg",
   },
 ];
 
@@ -31,86 +60,235 @@ export default function Reviews() {
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
+
     scrollRef.current.scrollBy({
-      left: dir === "left" ? -360 : 360,
+      left: dir === "left" ? -scrollRef.current.clientWidth : scrollRef.current.clientWidth,
       behavior: "smooth",
     });
   };
 
   return (
-    <section className="py-24 bg-custom-bg border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        {/* Heading */}
-        <div className="text-center mb-20">
-          <h3 className="text-sm font-medium text-gray-600 uppercase tracking-widest">
+    <section className="border-t border-gray-200 bg-custom-bg py-24">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="mb-16 text-center">
+          <h3 className="text-sm font-medium uppercase tracking-widest text-gray-600">
             Testimonials
           </h3>
-          <h2 className="text-4xl font-extrabold text-gray-800 mt-3">
+          <h2 className="mt-3 text-4xl font-extrabold text-custom-accent">
             Our Happy Customers
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-            Real words from customers who value craftsmanship, authenticity, and
-            timeless design.
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600">
+            Real reviews from customers who appreciate craftsmanship, quality,
+            and timeless handmade design.
           </p>
         </div>
 
         <div className="relative flex items-center">
-          {/* Left arrow */}
           <button
             onClick={() => scroll("left")}
-            className="hidden lg:flex absolute -left-12 z-10 p-3 bg-white/60 backdrop-blur-md text-custom-accent shadow-xl rounded-full hover:bg-white/80 transition"
+            className="hidden lg:flex absolute -left-12 z-10 rounded-full bg-white/70 p-3 text-custom-accent shadow-xl backdrop-blur-md transition hover:bg-white"
             aria-label="Scroll testimonials left"
           >
             <FaChevronLeft />
           </button>
 
-          {/* Reviews slider */}
           <div
             ref={scrollRef}
-            className="flex gap-8 overflow-x-auto scroll-smooth no-scrollbar pb-6 -mx-6 px-6 lg:mx-0 lg:px-0"
+            className="no-scrollbar overflow-x-auto scroll-smooth -mx-6 px-6 pb-4 lg:mx-0 lg:px-0"
           >
-            {reviews.map((review, index) => (
-              <div key={index} className="flex-shrink-0 w-[22rem]">
-                {/* Glass card */}
-                <div
-                  className="
-                    rounded-2xl
-                    p-8
-                    bg-white/20 backdrop-blur-md
-                    border border-white/40
-                    shadow-lg
-                    hover:shadow-2xl
-                    transition
-                    h-full
-                  "
-                >
-                  <p className="text-gray-800 leading-relaxed text-lg italic mb-8">
-                    “{review.text}”
-                  </p>
-
-                  <div className="w-12 h-px bg-custom-accent mb-4" />
-
-                  <div className="text-sm font-semibold text-gray-900">
-                    {review.name}
+            <div className="grid grid-flow-col auto-cols-[88%] gap-6 sm:auto-cols-[60%] lg:auto-cols-[calc((100%-3rem)/3)]">
+              {reviews.map((review, index) => (
+                <article key={index} className="review-card">
+                  <div className="review-top">
+                    <div>
+                      <h4 className="review-name">{review.name}</h4>
+                      <p className="review-date">on {review.date}</p>
+                    </div>
                   </div>
-                  <div className="text-xs uppercase tracking-widest text-gray-600 mt-1">
-                    {review.country}
+
+                  <div className="stars" aria-label={`${review.rating} star review`}>
+                    {Array.from({ length: review.rating }).map((_, i) => (
+                      <FaStar key={i} />
+                    ))}
                   </div>
-                </div>
-              </div>
-            ))}
+
+                  <p className="review-text">{review.text}</p>
+
+                  <div className="product-tile">
+                    <div className="product-tile-image">
+                      <img src={review.productImage} alt={review.productTitle} />
+                    </div>
+
+                    <div className="product-tile-content">
+                      <p className="product-tile-label">Reviewed Product</p>
+                      <p className="product-tile-title">{review.productTitle}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
 
-          {/* Right arrow */}
           <button
             onClick={() => scroll("right")}
-            className="hidden lg:flex absolute -right-12 z-10 p-3 bg-white/60 backdrop-blur-md text-custom-accent shadow-xl rounded-full hover:bg-white/80 transition"
+            className="hidden lg:flex absolute -right-12 z-10 rounded-full bg-white/70 p-3 text-custom-accent shadow-xl backdrop-blur-md transition hover:bg-white"
             aria-label="Scroll testimonials right"
           >
             <FaChevronRight />
           </button>
         </div>
+
+        <div className="mt-14 text-center">
+          <a
+            href="https://www.etsy.com/shop/KERAMETHALI?dd_referrer=#reviews"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center rounded-full border border-custom-accent px-10 py-3 font-semibold text-custom-accent transition-colors hover:bg-custom-accent hover:text-white"
+          >
+            More Reviews
+            <FaArrowRight className="ml-2" />
+          </a>
+        </div>
       </div>
+
+      <style jsx>{`
+        .review-card {
+          height: 100%;
+          border-radius: 24px;
+          border: 1px solid rgba(122, 31, 31, 0.08);
+          background: rgba(255, 255, 255, 0.52);
+          padding: 24px;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+          backdrop-filter: blur(8px);
+          display: flex;
+          flex-direction: column;
+          transition:
+            transform 0.28s ease,
+            box-shadow 0.28s ease,
+            border-color 0.28s ease;
+        }
+
+        .review-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 18px 38px rgba(0, 0, 0, 0.08);
+          border-color: rgba(122, 31, 31, 0.14);
+        }
+
+        .review-top {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 12px;
+        }
+
+        .review-name {
+          margin: 0;
+          font-size: 21px;
+          font-weight: 700;
+          color: #601915;
+          line-height: 1.2;
+        }
+
+        .review-date {
+          margin: 4px 0 0;
+          font-size: 13px;
+          color: #7a7268;
+          font-weight: 600;
+        }
+
+        .stars {
+          margin-top: 14px;
+          display: flex;
+          gap: 6px;
+          color: #601915;
+          font-size: 16px;
+        }
+
+        .review-text {
+          margin: 18px 0 0;
+          color: #3f3933;
+          font-size: 15px;
+          line-height: 1.9;
+          flex-grow: 1;
+        }
+
+        .product-tile {
+          margin-top: 22px;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          border-top: 1px solid rgba(122, 31, 31, 0.08);
+          padding-top: 18px;
+        }
+
+        .product-tile-image {
+          width: 58px;
+          height: 58px;
+          flex-shrink: 0;
+          overflow: hidden;
+          border-radius: 14px;
+          border: 1px solid rgba(122, 31, 31, 0.08);
+          background: #ebe7db;
+        }
+
+        .product-tile-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .product-tile-content {
+          min-width: 0;
+        }
+
+        .product-tile-label {
+          margin: 0 0 4px;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: #9b8f80;
+        }
+
+        .product-tile-title {
+          margin: 0;
+          font-size: 14px;
+          font-weight: 600;
+          color: #2f2a24;
+          line-height: 1.45;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        @media (max-width: 640px) {
+          .review-card {
+            padding: 20px;
+            border-radius: 20px;
+          }
+
+          .review-name {
+            font-size: 19px;
+          }
+
+          .review-text {
+            font-size: 14px;
+            line-height: 1.8;
+          }
+
+          .product-tile-image {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+          }
+
+          .product-tile-title {
+            font-size: 13px;
+          }
+        }
+      `}</style>
     </section>
   );
 }

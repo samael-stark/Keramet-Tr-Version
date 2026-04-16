@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="bg-custom-accent">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
             <h3 className="text-2xl font-extrabold tracking-widest text-custom-bg">
@@ -21,44 +21,77 @@ export default function Footer() {
             <h4 className="text-sm font-semibold uppercase tracking-widest text-custom-bg mb-4">
               Useful Links
             </h4>
-           <ul className="space-y-3 font-medium">
-  <li>
-    <Link href="/" className="text-custom-bg/80 hover:text-custom-bg transition">
-      Home
-    </Link>
-  </li>
 
-  <li>
-    <Link href="/#categories" className="text-custom-bg/80 hover:text-custom-bg transition">
-      Rug Collection
-    </Link>
-  </li>
+            <ul className="space-y-3 font-medium">
+              <li>
+                <Link href="/" className="text-custom-bg/80 hover:text-custom-bg transition">
+                  Home
+                </Link>
+              </li>
 
-  <li>
-    <Link href="/products" className="text-custom-bg/80 hover:text-custom-bg transition">
-      Shop
-    </Link>
-  </li>
+              <li>
+                <Link href="/#categories" className="text-custom-bg/80 hover:text-custom-bg transition">
+                  Rug Collection
+                </Link>
+              </li>
 
-  {/* 🔥 NEW */}
-  <li>
-    <Link href="/track-order" className="text-custom-bg/80 hover:text-custom-bg transition">
-      Track Order
-    </Link>
-  </li>
+              <li>
+                <Link href="/products" className="text-custom-bg/80 hover:text-custom-bg transition">
+                  Shop
+                </Link>
+              </li>
 
-  <li>
-    <Link href="/#aboutus" className="text-custom-bg/80 hover:text-custom-bg transition">
-      About
-    </Link>
-  </li>
+              <li>
+                <Link href="/track-order" className="text-custom-bg/80 hover:text-custom-bg transition">
+                  Track Order
+                </Link>
+              </li>
 
-  <li>
-    <Link href="/#contact" className="text-custom-bg/80 hover:text-custom-bg transition">
-      Contact
-    </Link>
-  </li>
-</ul>
+              <li>
+                <Link href="/#aboutus" className="text-custom-bg/80 hover:text-custom-bg transition">
+                  About
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/#contact" className="text-custom-bg/80 hover:text-custom-bg transition">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Policies */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-widest text-custom-bg mb-4">
+              Policies
+            </h4>
+
+            <ul className="space-y-3 font-medium">
+              <li>
+                <Link href="/privacy-policy" className="text-custom-bg/80 hover:text-custom-bg transition">
+                  Privacy Policy
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/return-policy" className="text-custom-bg/80 hover:text-custom-bg transition">
+                  Return Policy
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/shipping-policy" className="text-custom-bg/80 hover:text-custom-bg transition">
+                  Shipping Policy
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/terms" className="text-custom-bg/80 hover:text-custom-bg transition">
+                  Terms & Conditions
+                </Link>
+              </li>
+            </ul>
           </div>
 
           {/* Socials */}
@@ -101,7 +134,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
         <div className="mt-16 pt-8 border-t border-custom-bg/30 text-center text-sm text-custom-bg/80">
           © 2026 Keramet Hali. All rights reserved.
         </div>
