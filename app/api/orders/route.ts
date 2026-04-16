@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
     }
 
     const shipping = typeof body.shipping === "number" ? body.shipping : 0;
-    const currency = body.currency || "TRY";
+    const currency = body.currency || "USD";
 
     const subtotal = body.items.reduce((sum, item) => sum + item.price, 0);
     const total = subtotal + shipping;
@@ -173,26 +173,37 @@ export async function POST(req: NextRequest) {
 
     let adminEmailResult: any = null;
     let customerEmailResult: any = null;
+    let emailErrors: string[] = [];
 
     if (resendConfig.adminEmail) {
-      adminEmailResult = await resend.emails.send({
-        from: resendConfig.from,
-        to: resendConfig.adminEmail,
-        subject: `New Order #${orderNumber}`,
-        html: getAdminEmailHtml(emailData),
-      });
+      try {
+        adminEmailResult = await resend.emails.send({
+          from: resendConfig.from,
+          to: resendConfig.adminEmail,
+          subject: `New Order #${orderNumber}`,
+          html: getAdminEmailHtml(emailData),
+        });
 
-      console.log("Admin email result:", adminEmailResult);
+        console.log("Admin email result:", adminEmailResult);
+      } catch (error: any) {
+        console.error("Admin email error:", error);
+        emailErrors.push("Failed to send admin email");
+      }
     }
 
-    customerEmailResult = await resend.emails.send({
-      from: resendConfig.from,
-      to: normalizedEmail,
-      subject: `Order Confirmation #${orderNumber}`,
-      html: getCustomerEmailHtml(emailData),
-    });
+    try {
+      customerEmailResult = await resend.emails.send({
+        from: resendConfig.from,
+        to: normalizedEmail,
+        subject: `Order Confirmation #${orderNumber}`,
+        html: getCustomerEmailHtml(emailData),
+      });
 
-    console.log("Customer email result:", customerEmailResult);
+      console.log("Customer email result:", customerEmailResult);
+    } catch (error: any) {
+      console.error("Customer email error:", error);
+      emailErrors.push("Failed to send customer email");
+    }
 
     return NextResponse.json({
       success: true,
@@ -200,6 +211,7 @@ export async function POST(req: NextRequest) {
       orderNumber,
       adminEmailResult,
       customerEmailResult,
+      emailErrors,
     });
   } catch (error: any) {
     console.error("Create order error:", error);

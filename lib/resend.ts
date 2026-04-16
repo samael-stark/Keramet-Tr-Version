@@ -8,7 +8,8 @@ if (!apiKey) {
 
 export const resend = new Resend(apiKey);
 
+// 🔐 Production-safe config
 export const resendConfig = {
-  from: process.env.RESEND_FROM_EMAIL || "Keramet <onboarding@resend.dev>",
+  from: process.env.RESEND_FROM_EMAIL!,
   adminEmail: process.env.RESEND_ADMIN_EMAIL || "",
 };

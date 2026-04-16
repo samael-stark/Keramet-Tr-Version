@@ -48,7 +48,10 @@ function getCurrencySymbol(currency: string) {
 
 function formatMoney(amount: number, currency: string) {
   const symbol = getCurrencySymbol(currency);
-  return `${symbol}${amount.toLocaleString()}`;
+  return `${symbol}${amount.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
 }
 
 function getStatusLabel(status: OrderStatusEmailData["status"]) {
@@ -256,7 +259,7 @@ export function getAdminEmailHtml(data: OrderEmailData) {
 }
 
 export function getCustomerEmailHtml(data: OrderEmailData) {
-  const trackUrl = "https://yourdomain.com/track-order";
+  const trackUrl = "https://keramethali.com/track-order";
 
   const content = `
     <div style="font-size: 16px; line-height: 1.8; color: #2a2a2a;">
@@ -319,7 +322,7 @@ export function getCustomerEmailHtml(data: OrderEmailData) {
 export function getOrderStatusEmailHtml(data: OrderStatusEmailData) {
   const statusLabel = getStatusLabel(data.status);
   const message = getStatusMessage(data.status);
-  const trackUrl = data.trackUrl || "https://yourdomain.com/track-order";
+  const trackUrl = data.trackUrl || "https://keramethali.com/track-order";
 
   const noteHtml = data.note
     ? `
