@@ -15,13 +15,13 @@ const categories = [
     title: "BIDJAR",
     subtitle: "DENSE & DURABLE",
     value: "Bidjar",
-    image: "/img/Categories/bidjar.JPG",
+    image: "/img/Categories/bidjar.jpg",
   },
   {
     title: "SERAPI",
     subtitle: "TIMELESS MEDALLIONS",
     value: "Serapi",
-    image: "/img/Categories/serapi.JPG",
+    image: "/img/Categories/serapi.jpg",
   },
   {
     title: "PAZYRYK",
@@ -39,25 +39,25 @@ const categories = [
     title: "BAKHTIARI",
     subtitle: "TRIBAL ELEGANCE",
     value: "Bakhtiari",
-    image: "/img/Categories/bakhtiari.JPG",
+    image: "/img/Categories/bakhtiari.jpg",
   },
   {
     title: "STRIPED",
     subtitle: "LINEAR RHYTHM",
     value: "Striped",
-    image: "/img/Categories/striped.JPG",
+    image: "/img/Categories/striped.jpg",
   },
   {
     title: "KAZAK",
     subtitle: "BOLD GEOMETRY",
     value: "Kazak",
-    image: "/img/Categories/kazak.JPG",
+    image: "/img/Categories/kazak.jpg",
   },
   {
     title: "TREE OF LIFE",
     subtitle: "SYMBOLIC BEAUTY",
     value: "Tree of Life",
-    image: "/img/Categories/treeoflife.JPG",
+    image: "/img/Categories/treeoflife.jpg",
   },
   {
   title: "SULTANI",
@@ -76,7 +76,7 @@ const categories = [
     title: "KILIM",
     subtitle: "FLAT-WOVEN ARTISTRY",
     value: "Kilim",
-    image: "/img/Categories/kilim .JPG",
+    image: "/img/Categories/kilim .jpg",
   },
    {
     title: "BELGIC",
@@ -88,19 +88,19 @@ const categories = [
     title: "RUNNER",
     subtitle: "LONG HALLWAY STYLE",
     value: "Runner",
-    image: "/img/Categories/runnerrugs.JPG",
+    image: "/img/Categories/runnerrugs.jpg",
   },
   {
     title: "PERSIAN",
     subtitle: "CLASSIC LUXURY",
     value: "Persian",
-      image: "/img/Categories/persian.JPG",
+      image: "/img/Categories/persian.jpg",
   },
   {
     title: "WAZIRI",
     subtitle: "TRADITIONAL CRAFT",
     value: "Waziri",
-    image: "/img/Categories/waziri.JPG",
+    image: "/img/Categories/waziri.jpg",
   },
   {
     title: "SICKLE LEAF",
@@ -124,13 +124,13 @@ const categories = [
     title: "SUZANI",
     subtitle: "DECORATIVE TEXTILES",
     value: "Suzani",
-    image: "/img/Categories/suzani.JPG",
+    image: "/img/Categories/suzani.jpg",
   },
   {
     title: "OVERDYE",
     subtitle: "MODERN VINTAGE LOOK",
     value: "OverDye",
-    image: "/img/Categories/overdye.JPG",
+    image: "/img/Categories/overdye.jpg",
   },
 ];
 
