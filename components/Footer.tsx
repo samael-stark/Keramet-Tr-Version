@@ -5,7 +5,9 @@ export default function Footer() {
   return (
     <footer className="bg-custom-accent">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+
           {/* Brand */}
           <div>
             <h3 className="text-2xl font-extrabold tracking-widest text-custom-bg">
@@ -68,6 +70,13 @@ export default function Footer() {
             </h4>
 
             <ul className="space-y-3 font-medium">
+
+              <li>
+                <Link href="/distance-selling-agreement" className="text-custom-bg/80 hover:text-custom-bg transition">
+                  Distance Selling Agreement
+                </Link>
+              </li>
+
               <li>
                 <Link href="/privacy-policy" className="text-custom-bg/80 hover:text-custom-bg transition">
                   Privacy Policy
@@ -105,7 +114,6 @@ export default function Footer() {
                 href="https://www.facebook.com/profile.php?id=61580349339271#"
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Facebook"
                 className="group w-12 h-12 rounded-xl border border-custom-bg/40 flex items-center justify-center transition hover:bg-custom-bg"
               >
                 <FaFacebookF className="text-custom-bg group-hover:text-custom-accent transition" />
@@ -115,7 +123,6 @@ export default function Footer() {
                 href="https://www.instagram.com/keramethali/"
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Instagram"
                 className="group w-12 h-12 rounded-xl border border-custom-bg/40 flex items-center justify-center transition hover:bg-custom-bg"
               >
                 <FaInstagram className="text-custom-bg group-hover:text-custom-accent transition" />
@@ -125,18 +132,19 @@ export default function Footer() {
                 href="https://www.tiktok.com/@keramet.hali"
                 target="_blank"
                 rel="noreferrer"
-                aria-label="TikTok"
                 className="group w-12 h-12 rounded-xl border border-custom-bg/40 flex items-center justify-center transition hover:bg-custom-bg"
               >
                 <FaTiktok className="text-custom-bg group-hover:text-custom-accent transition" />
               </a>
             </div>
           </div>
+
         </div>
 
         <div className="mt-16 pt-8 border-t border-custom-bg/30 text-center text-sm text-custom-bg/80">
           © 2026 Keramet Hali. All rights reserved.
         </div>
+
       </div>
     </footer>
   );
