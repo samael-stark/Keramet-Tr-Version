@@ -243,37 +243,55 @@ export default function CheckoutReviewPage() {
                 </div>
               </div>
 
-              <div className="card">
-                <div className="cardHeader">
-                  <h2>Payment method</h2>
-                  <button className="editBtn" onClick={handleEditAddress}>
-                    Edit
-                  </button>
-                </div>
+            <div className="card">
+  <div className="cardHeader">
+    <h2>Payment method</h2>
+    <button className="editBtn" onClick={handleEditAddress}>
+      Edit
+    </button>
+  </div>
 
-                <div className="paymentBox">
-                  <div className="paymentIcon">💳</div>
-                  <div>
-                    <p className="paymentTitle">Iyzico secure checkout</p>
-                    <p className="paymentText">
-                      You will be redirected to iyzico to complete your payment once the
-                      integration is enabled. For now, your order will be saved in our
-                      system after you place it.
-                    </p>
-                  </div>
-                </div>
+  <div className="paymentBox">
+    <div className="paymentIcon">💳</div>
 
-                <button
-                  type="button"
-                  className="placeBtn"
-                  onClick={handlePlaceOrder}
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Placing Order..." : "Place Order"}
-                </button>
+    <div>
+      <p className="paymentTitle">Iyzico secure checkout</p>
 
-                {orderError ? <p className="errorText">{orderError}</p> : null}
-              </div>
+      <p className="paymentText">
+        You will be redirected to iyzico to complete your payment once the
+        integration is enabled. For now, your order will be saved in our
+        system after you place it.
+      </p>
+
+      {/* PAYMENT LOGOS ADDED HERE */}
+      <div className="paymentLogos">
+        <img
+          src="/payment-logos/pay_with_iyzico.svg"
+          alt="Iyzico"
+        />
+        <img
+          src="/payment-logos/Visa_Inc._logo.svg"
+          alt="Visa"
+        />
+        <img
+          src="/payment-logos/Mastercard-logo.svg"
+          alt="Mastercard"
+        />
+      </div>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    className="placeBtn"
+    onClick={handlePlaceOrder}
+    disabled={isSubmitting}
+  >
+    {isSubmitting ? "Placing Order..." : "Place Order"}
+  </button>
+
+  {orderError ? <p className="errorText">{orderError}</p> : null}
+</div>
             </section>
 
             <aside className="summaryCard">
@@ -336,7 +354,36 @@ export default function CheckoutReviewPage() {
           margin: 0 auto;
           padding: 48px 20px 70px;
         }
+   .paymentLogos {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
 
+/* Base style */
+.paymentLogos img {
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Iyzico (medium size) */
+.paymentLogos img[alt="Iyzico"] {
+  height: 40px;
+}
+
+/* Visa (slightly smaller because SVG is visually heavy) */
+.paymentLogos img[alt="Visa"] {
+  height: 28px;
+}
+
+/* Mastercard (needs a bit more size) */
+.paymentLogos img[alt="Mastercard"] {
+  height: 47px;
+}
         .topbar {
           display: flex;
           align-items: flex-start;

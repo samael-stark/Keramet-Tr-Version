@@ -1,180 +1,248 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export default function DistanceSellingAgreementPage() {
+export default function DistanceSalesAgreementPage() {
   return (
     <>
       <Header />
 
       <main className="bg-custom-bg min-h-screen">
         <div className="max-w-4xl mx-auto px-6 lg:px-10 py-16 lg:py-20">
-
           <h1 className="text-4xl font-extrabold text-custom-accent">
-            Distance Selling Agreement
+            Distance Sales Agreement
           </h1>
 
-          <div className="mt-8 space-y-8 text-[#4e473f] leading-8">
+          <div className="mt-8 space-y-10 text-[#4e473f] leading-8">
 
+            {/* 1 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Overview</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">1. PARTIES</h2>
 
               <p className="mt-3">
-                Sample Distance Selling Agreement<br />
-                The distance selling contract included on this page is for illustrative purposes only.
-                The clauses may vary depending on the industry. You should adapt it to your company’s needs.
+                This Agreement has been signed between the following parties.
               </p>
 
               <p className="mt-3">
-                Access<br />
-                You can edit the agreements in Content Management &gt;&gt; Pages. Click here for help about Pages section.
+                <strong>BUYER</strong> – Name/Surname & Address provided during checkout.
               </p>
 
               <p className="mt-3">
-                The site owner is responsible for the content of the sample contract; no liability is accepted for its use.
+                <strong>SELLER</strong> – Keramet Halı Handmade Rugs & Kilims <br />
+                Address: BÜYÜK MİLAS HAN, Hobyar, Cemal Nadir Sk. NO:24 İÇ KAPI NO:107, 34112 Fatih/İstanbul, Türkiye <br />
+                Phone: +90 506 527 49 30 <br />
+                Email: support@keramethali.com
               </p>
 
               <p className="mt-3">
-                NOTE: THIS IS AN EXAMPLE. Please customize it and seek legal advice before using.
+                By accepting this contract, the BUYER agrees to pay all order-related costs including product price, shipping fees, customs duties (if applicable), bank charges, and all relevant taxes.
               </p>
             </section>
 
+            {/* 2 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">1. Parties</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">2. DEFINITIONS</h2>
 
               <p className="mt-3">
-                This Agreement is made between BUYER and SELLER under the terms below.
+                This Agreement is governed primarily by Turkish Consumer Protection Law No. 6502 and Distance Contracts Regulation.
               </p>
 
               <p className="mt-3">
-                BUYER:<br />
-                NAME-SURNAME:<br />
-                ADDRESS:
+                For international sales, mandatory consumer protection laws of the BUYER’s country may apply only where legally required. Otherwise, Turkish law shall remain the primary governing law.
               </p>
 
               <p className="mt-3">
-                SELLER:<br />
-                NAME-SURNAME:<br />
-                ADDRESS:
-              </p>
-
-              <p className="mt-3">
-                By placing an order, the BUYER agrees to pay all charges including product price,
-                taxes, and shipping fees.
+                All prices on the website are displayed in United States Dollars (USD). The BUYER acknowledges that currency conversion rates, bank fees, and payment provider charges may vary and are not controlled by the SELLER.
               </p>
             </section>
 
+            {/* 3 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">2. Definitions</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">3. SUBJECT</h2>
 
               <p className="mt-3">
-                MINISTER: Minister of Customs and Trade<br />
-                MINISTRY: Ministry of Customs and Trade<br />
-                LAW: Law No. 6502 on Consumer Protection<br />
-                REGULATION: Regulation on Distance Contracts<br />
-                SELLER: Company offering goods or services<br />
-                BUYER: Person purchasing goods or services for non-commercial use<br />
-                SITE: Seller’s website<br />
-                AGREEMENT: This contract between BUYER and SELLER<br />
-                GOODS: Physical or digital products
+                This Agreement regulates the rights and obligations of the parties regarding the sale, payment, international shipment, and delivery of handmade carpet and kilim products ordered electronically.
               </p>
             </section>
 
+            {/* 4 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">3. Subject</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">4. SELLER INFORMATION</h2>
 
               <p className="mt-3">
-                This agreement covers the sale and delivery of products ordered electronically through the website.
+                Keramet Halı Handmade Rugs & Kilims <br />
+                BÜYÜK MİLAS HAN, Hobyar, Cemal Nadir Sk. NO:24 İÇ KAPI NO:107, 34112 Fatih/İstanbul, Türkiye <br />
+                Phone: +90 506 527 49 30 <br />
+                Email: support@keramethali.com
               </p>
             </section>
 
+            {/* 5 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">4. Seller Information</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">5. BUYER INFORMATION</h2>
 
               <p className="mt-3">
-                Title:<br />
-                Address:<br />
-                Phone:<br />
-                Fax:<br />
-                Email:
+                The delivery address, contact details, and identity information provided by the BUYER during checkout shall be used as official order information.
               </p>
             </section>
 
+            {/* 6 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">5. Buyer Information</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                6. INTERNATIONAL SHIPPING, CUSTOMS & DELIVERY
+              </h2>
 
               <p className="mt-3">
-                Recipient:<br />
-                Delivery Address:<br />
-                Phone:<br />
-                Email:
+                The SELLER ships products worldwide. Delivery times may vary depending on destination country, customs procedures, courier services, and local regulations.
+              </p>
+
+              <p className="mt-3">
+                The BUYER acknowledges that international shipments may be subject to customs inspection, import restrictions, or delays beyond the SELLER’s control.
+              </p>
+
+              <p className="mt-3">
+                All customs duties, import taxes, VAT, brokerage fees, and any local charges are the sole responsibility of the BUYER.
+              </p>
+
+              <p className="mt-3">
+                The SELLER is not responsible for delays caused by customs authorities, courier companies, airline transport, or other third-party logistics providers.
+              </p>
+
+              <p className="mt-3">
+                Delivery times are estimates only and not guaranteed exact dates.
+              </p>
+
+              <p className="mt-3">
+                For international returns, all return shipping costs, customs return charges, and cross-border fees are the responsibility of the BUYER unless otherwise agreed in writing.
+              </p>
+
+              <p className="mt-3">
+                The BUYER is responsible for ensuring that imported goods comply with the laws of their country.
               </p>
             </section>
 
+            {/* 7 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">7. Product Information</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">7. PAYMENT TERMS</h2>
 
               <p className="mt-3">
-                Product details, pricing, and availability are shown on the website at the time of purchase.
+                All payments must be completed at the time of order via approved payment methods. Orders will not be processed until full payment is successfully received.
               </p>
 
               <p className="mt-3">
-                Product Description / Quantity / Unit Price / Total (VAT Included)<br />
-                Product<br />
-                Shipping Fee:<br />
-                Total:
+                The SELLER reserves the right to cancel, suspend, or verify any order in cases of payment failure, suspected fraud, or security concerns.
               </p>
             </section>
 
+            {/* 8 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">9. General Provisions</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">8. FRAUD PREVENTION & SECURITY</h2>
 
               <p className="mt-3">
-                The BUYER confirms they have read and accepted all terms before completing the order.
+                The SELLER reserves the right to request identity verification, payment confirmation, or additional documentation in order to prevent fraud or unauthorized transactions.
               </p>
 
               <p className="mt-3">
-                Delivery is completed within the legal timeframe not exceeding 30 days.
+                Failure to provide requested information may result in order cancellation without liability to the SELLER.
               </p>
             </section>
 
+            {/* 9 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">10. Right of Withdrawal</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">9. GENERAL PROVISIONS</h2>
+
+              <div className="mt-3 whitespace-pre-line">
+{`9. GENERAL PROVISIONS
+
+9.1. The BUYER accepts, declares and undertakes that he/she has read the basic characteristics, sales price and payment method of the product subject to the contract on the website of the SELLER, and the preliminary information regarding the delivery, and that he/she has been informed and has given the necessary confirmation electronically. BUYER; Confirming the Preliminary Information electronically, accepting, declaring and undertaking that he/she has obtained the address to be given to the BUYER by the SELLER before the establishment of the distance sales contract, the basic features of the ordered products, the price of the products including taxes, payment and delivery information accurately and completely.
+
+9.2. Each product subject to the contract is delivered to the BUYER or the person and/or organization at the address indicated by the BUYER within the period specified in the preliminary information section on the website, depending on the distance of the BUYER's residence, provided that it does not exceed the legal period of 30 days.
+
+9.3. The SELLER undertakes to deliver the product subject to the contract completely, in accordance with the order specifications and legal requirements.
+
+9.4. The SELLER may supply a product of equal quality and price with BUYER approval.
+
+9.5. If fulfillment becomes impossible, SELLER refunds within legal timeframes.
+
+9.6. The BUYER accepts electronic confirmation as binding agreement.
+
+9.7. Chargeback/fraud cases may require return of goods.
+
+9.8. Force majeure includes customs delays, logistics interruptions, war, strikes, pandemics, and government actions.
+
+9.9. Communication consent is granted by BUYER for order processing.
+
+9.10. Goods must be inspected upon delivery.
+
+9.11. SELLER may request identity verification in suspicious transactions.
+
+9.12. BUYER is responsible for accuracy of provided information.
+
+9.13. BUYER agrees to comply with applicable laws.
+
+9.14. Misuse of website is prohibited.
+
+9.15. External links are not under SELLER responsibility.
+
+9.16. Legal enforcement applies in case of violation.`}
+              </div>
+            </section>
+
+            {/* 10 */}
+            <section>
+              <h2 className="text-2xl font-bold text-[#2d2823]">10. RIGHT OF WITHDRAWAL</h2>
+
+              <div className="mt-3 whitespace-pre-line">
+{`10.1. BUYER may withdraw within 14 days of delivery without justification, in accordance with applicable law. Return shipping costs belong to BUYER unless item is defective or incorrect.
+
+10.2. Withdrawal requires written notice and return of unused product in original condition.`}
+              </div>
+            </section>
+
+            {/* 11 */}
+            <section>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                11. NON-RETURNABLE PRODUCTS
+              </h2>
 
               <p className="mt-3">
-                The BUYER may withdraw within 14 days of receiving the product without providing any reason.
+                Products that are custom-made, altered, or specially requested by the BUYER may not be eligible for return unless defective or incorrectly delivered.
               </p>
             </section>
 
+            {/* 12 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">11. Exceptions</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                12. DEFAULT AND LEGAL CONSEQUENCES
+              </h2>
 
               <p className="mt-3">
-                Custom-made products, hygiene items, and perishable goods are excluded from withdrawal rights.
+                The BUYER accepts responsibility for payment defaults including interest, collection costs, and legal enforcement expenses.
               </p>
             </section>
 
+            {/* 13 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">12. Payment Default</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">13. COMPETENT COURT</h2>
 
               <p className="mt-3">
-                In case of failed payment, the BUYER is responsible for bank charges and interest.
+                Turkish consumer arbitration boards and courts shall have jurisdiction, unless mandatory consumer protection laws of the BUYER’s country apply.
               </p>
             </section>
 
+            {/* 14 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">13. Disputes</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">14. ENFORCEMENT</h2>
 
               <p className="mt-3">
-                Consumer arbitration boards or courts in the buyer’s region will handle disputes.
+                Completion of payment confirms acceptance of this Agreement.
               </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">14. Acceptance</h2>
 
               <p className="mt-3">
-                The BUYER accepts all terms once payment is completed on the website.
+                SELLER: Keramet Halı Handmade Rugs & Kilims
               </p>
+
+              <p className="mt-3">BUYER:</p>
+              <p className="mt-3">DATE:</p>
             </section>
 
           </div>
