@@ -4,19 +4,18 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import {
-  FaBars,
   FaHeart,
   FaUser,
   FaShoppingBag,
   FaHome,
   FaStore,
+  FaTruck,
 } from "react-icons/fa";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { getCartCount } from "@/lib/cart";
 
 export default function Header() {
-  const [open, setOpen] = useState(false);
   const [showAccountModal, setShowAccountModal] = useState(false);
   const pathname = usePathname();
   const [user, setUser] = useState<User | null>(null);
@@ -78,14 +77,6 @@ export default function Header() {
     <>
       <header className="bg-custom-bg sticky top-0 z-50 shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between border-b border-gray-200 relative">
-          <button
-            className="lg:hidden text-custom-accent"
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-          >
-            <FaBars className="text-2xl" />
-          </button>
-
           <div className="hidden lg:block w-24 md:w-72" />
 
           <div className="flex flex-col items-center flex-1">
@@ -161,7 +152,6 @@ export default function Header() {
               SHOP
             </Link>
 
-            {/* ✅ TRACK LINK */}
             <Link
               href="/track-order"
               className={navClass(pathname === "/track-order")}
@@ -194,12 +184,12 @@ export default function Header() {
             <span>Shop</span>
           </Link>
 
-          {/* ✅ TRACK BUTTON */}
+          {/* UPDATED TRACK ICON */}
           <Link
             href="/track-order"
             className={`flex flex-col items-center ${bottomNavClass("/track-order")}`}
           >
-            <FaStore className="text-lg mb-1" />
+            <FaTruck className="text-lg mb-1" />
             <span>Track</span>
           </Link>
 
