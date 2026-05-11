@@ -9,19 +9,45 @@ export default function ThankYouPage() {
   const router = useRouter();
   const [orderNumber, setOrderNumber] = useState("");
 
-  useEffect(() => {
-    const storedOrderNumber = sessionStorage.getItem("pendingOrderNumber");
+ useEffect(() => {
+  const params = new URLSearchParams(
+    window.location.search
+  );
 
-    if (!storedOrderNumber) {
-      router.replace("/");
-      return;
-    }
+  const orderId = params.get("orderId");
 
+  const storedOrderNumber =
+    sessionStorage.getItem(
+      "pendingOrderNumber"
+    );
+
+  // NO ORDER DATA FOUND
+
+  if (!orderId && !storedOrderNumber) {
+    router.replace("/");
+    return;
+  }
+
+  if (storedOrderNumber) {
     setOrderNumber(storedOrderNumber);
+  } else if (orderId) {
+    setOrderNumber(orderId);
+  }
 
-    sessionStorage.removeItem("checkoutDetails");
-    sessionStorage.removeItem("pendingOrderId");
-  }, [router]);
+  // CLEAR TEMP STORAGE
+
+  sessionStorage.removeItem(
+    "checkoutDetails"
+  );
+
+  sessionStorage.removeItem(
+    "pendingOrderId"
+  );
+
+  sessionStorage.removeItem(
+    "pendingOrderNumber"
+  );
+}, [router]);
 
   const handleContinueShopping = () => {
     router.push("/products");
@@ -39,7 +65,7 @@ export default function ThankYouPage() {
             <h1 className="title">Thank you for your order</h1>
 
             <p className="subtitle">
-              Your order has been placed successfully and saved in our system.
+            Your payment was completed successfully and your order is now being processed.
             </p>
 
             {orderNumber ? (
@@ -50,7 +76,7 @@ export default function ThankYouPage() {
             ) : null}
 
             <p className="note">
-              We will review your order and contact you soon with the next update.
+           A confirmation email and order updates will be sent to you shortly.
             </p>
 
             <div className="actions">

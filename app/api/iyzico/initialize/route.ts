@@ -1,159 +1,427 @@
 import { NextRequest, NextResponse } from "next/server";
+
 import { FieldValue } from "firebase-admin/firestore";
-import { adminAuth, adminDb } from "@/lib/firebase-admin";
+
 import {
-  IYZICO_BASE_URL,
-  generateConversationId,
-  generateIyzicoAuthorization,
-} from "@/lib/iyzico";
+  adminAuth,
+  adminDb,
+} from "@/lib/firebase-admin";
 
-type InitializeBody = {
-  orderId: string;
-};
+export const runtime = "nodejs";
 
-export async function POST(req: NextRequest) {
+export const dynamic =
+  "force-dynamic";
+
+export async function POST(
+  req: NextRequest
+) {
   try {
-    const authHeader = req.headers.get("authorization");
+    // LOAD IYZICO ONLY INSIDE ROUTE
 
-    if (!authHeader?.startsWith("Bearer ")) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const Iyzipay =
+      eval("require")(
+        "iyzipay"
+      );
 
-    const idToken = authHeader.split("Bearer ")[1];
-    const decodedToken = await adminAuth.verifyIdToken(idToken);
+    const iyzipay =
+      new Iyzipay({
+        apiKey:
+          process.env
+            .IYZICO_API_KEY ||
+          "",
 
-    const body = (await req.json()) as InitializeBody;
-    const orderId = body.orderId;
+        secretKey:
+          process.env
+            .IYZICO_SECRET_KEY ||
+          "",
 
-    if (!orderId) {
-      return NextResponse.json({ error: "orderId is required" }, { status: 400 });
-    }
-
-    const orderRef = adminDb.collection("orders").doc(orderId);
-    const orderSnap = await orderRef.get();
-
-    if (!orderSnap.exists) {
-      return NextResponse.json({ error: "Order not found" }, { status: 404 });
-    }
-
-    const order = orderSnap.data();
-
-    if (!order) {
-      return NextResponse.json({ error: "Order data missing" }, { status: 404 });
-    }
-
-    if (order.customer?.uid !== decodedToken.uid) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-    }
-
-    if (!Array.isArray(order.items) || order.items.length === 0) {
-      return NextResponse.json({ error: "Order has no items" }, { status: 400 });
-    }
-
-    const origin = process.env.NEXT_PUBLIC_SITE_URL || req.nextUrl.origin;
-    const conversationId = generateConversationId(orderId);
-
-    const requestBody = {
-      locale: "en",
-      conversationId,
-      price: String(order.pricing.subtotal),
-      paidPrice: String(order.pricing.total),
-      currency: order.pricing.currency || "USD",
-      basketId: orderId,
-      paymentGroup: "PRODUCT",
-      callbackUrl: `${origin}/api/iyzico/callback`,
-      enabledInstallments: [1],
-      buyer: {
-        id: order.customer.uid,
-        name: order.customer.firstName,
-        surname: order.customer.lastName,
-        gsmNumber: order.customer.phone,
-        email: order.customer.email,
-        identityNumber: "11111111111",
-        registrationAddress: order.customer.addressLine1,
-        city: order.customer.city,
-        country: order.customer.country,
-        zipCode: order.customer.postalCode || "00000",
-        ip: "127.0.0.1",
-      },
-      shippingAddress: {
-        contactName: `${order.customer.firstName} ${order.customer.lastName}`,
-        city: order.customer.city,
-        country: order.customer.country,
-        address: `${order.customer.addressLine1} ${order.customer.addressLine2 || ""}`.trim(),
-        zipCode: order.customer.postalCode || "00000",
-      },
-      billingAddress: {
-        contactName: `${order.customer.firstName} ${order.customer.lastName}`,
-        city: order.customer.city,
-        country: order.customer.country,
-        address: `${order.customer.addressLine1} ${order.customer.addressLine2 || ""}`.trim(),
-        zipCode: order.customer.postalCode || "00000",
-      },
-      basketItems: order.items.map((item: any, index: number) => ({
-        id: item.productId || `item_${index + 1}`,
-        name: item.title,
-        category1: "Carpet",
-        itemType: "PHYSICAL",
-        price: String(item.price),
-      })),
-    };
-
-    const uriPath = "/payment/iyzipos/checkoutform/initialize/auth/ecom";
-    const bodyString = JSON.stringify(requestBody);
-    const randomString = Date.now().toString();
-
-    const authorization = generateIyzicoAuthorization(
-      uriPath,
-      bodyString,
-      randomString
-    );
-
-    const iyzicoRes = await fetch(`${IYZICO_BASE_URL}${uriPath}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: authorization,
-        "x-iyzi-rnd": randomString,
-      },
-      body: bodyString,
-    });
-
-    const iyzicoData = await iyzicoRes.json();
-
-    if (iyzicoData.status !== "success") {
-      await orderRef.update({
-        updatedAt: FieldValue.serverTimestamp(),
-        "payment.status": "failed",
+        uri:
+          process.env
+            .IYZICO_BASE_URL ||
+          "https://sandbox-api.iyzipay.com",
       });
 
+    // AUTH HEADER
+
+    const authHeader =
+      req.headers.get(
+        "authorization"
+      );
+
+    if (
+      !authHeader?.startsWith(
+        "Bearer "
+      )
+    ) {
       return NextResponse.json(
         {
-          error: iyzicoData.errorMessage || "iyzico initialize failed",
-          iyzico: iyzicoData,
+          error:
+            "Unauthorized",
+        },
+        { status: 401 }
+      );
+    }
+
+    const idToken =
+      authHeader.split(
+        "Bearer "
+      )[1];
+
+    const decodedToken =
+      await adminAuth.verifyIdToken(
+        idToken
+      );
+
+    // BODY
+
+    const body =
+      await req.json();
+
+    const orderId =
+      body.orderId;
+
+    if (!orderId) {
+      return NextResponse.json(
+        {
+          error:
+            "Order ID required",
         },
         { status: 400 }
       );
     }
 
+    // GET ORDER
+
+    const orderRef =
+      adminDb
+        .collection("orders")
+        .doc(orderId);
+
+    const orderSnap =
+      await orderRef.get();
+
+    if (!orderSnap.exists) {
+      return NextResponse.json(
+        {
+          error:
+            "Order not found",
+        },
+        { status: 404 }
+      );
+    }
+
+    const order =
+      orderSnap.data();
+
+    if (!order) {
+      return NextResponse.json(
+        {
+          error:
+            "Order missing",
+        },
+        { status: 404 }
+      );
+    }
+
+    // SECURITY CHECK
+
+    if (
+      order.customer?.uid !==
+      decodedToken.uid
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "Forbidden",
+        },
+        { status: 403 }
+      );
+    }
+
+    // SITE URL
+
+    const origin =
+      process.env
+        .NEXT_PUBLIC_SITE_URL ||
+      req.nextUrl.origin;
+
+    const conversationId = `ORDER_${Date.now()}`;
+
+    // PAYMENT REQUEST
+
+    const iyzicoData: any =
+      await new Promise(
+        (
+          resolve,
+          reject
+        ) => {
+          iyzipay.checkoutFormInitialize.create(
+            {
+              locale: "en",
+
+              conversationId,
+
+              price: Number(
+                order.pricing
+                  ?.subtotal || 0
+              ).toFixed(2),
+
+              paidPrice: Number(
+                order.pricing
+                  ?.total || 0
+              ).toFixed(2),
+
+              currency:
+                "USD",
+
+              basketId:
+                orderId,
+
+              paymentGroup:
+                "PRODUCT",
+
+              callbackUrl: `${origin}/api/iyzico/callback`,
+
+              enabledInstallments:
+                [1],
+
+              buyer: {
+                id:
+                  order.customer
+                    ?.uid ||
+                  "customer",
+
+                name:
+                  order.customer
+                    ?.firstName ||
+                  "Customer",
+
+                surname:
+                  order.customer
+                    ?.lastName ||
+                  "User",
+
+                gsmNumber:
+                  order.customer
+                    ?.phone ||
+                  "+10000000000",
+
+                email:
+                  order.customer
+                    ?.email ||
+                  "test@test.com",
+
+                identityNumber:
+                  "11111111111",
+
+                registrationAddress:
+                  order.customer
+                    ?.addressLine1 ||
+                  "Address",
+
+                city:
+                  order.customer
+                    ?.city ||
+                  "City",
+
+                country:
+                  order.customer
+                    ?.country ||
+                  "Country",
+
+                zipCode:
+                  order.customer
+                    ?.postalCode ||
+                  "00000",
+
+                ip:
+                  "127.0.0.1",
+              },
+
+              shippingAddress:
+                {
+                  contactName: `${order.customer?.firstName || ""} ${
+                    order.customer?.lastName ||
+                    ""
+                  }`,
+
+                  city:
+                    order.customer
+                      ?.city ||
+                    "City",
+
+                  country:
+                    order.customer
+                      ?.country ||
+                    "Country",
+
+                  address:
+                    order.customer
+                      ?.addressLine1 ||
+                    "Address",
+
+                  zipCode:
+                    order.customer
+                      ?.postalCode ||
+                    "00000",
+                },
+
+              billingAddress:
+                {
+                  contactName: `${order.customer?.firstName || ""} ${
+                    order.customer?.lastName ||
+                    ""
+                  }`,
+
+                  city:
+                    order.customer
+                      ?.city ||
+                    "City",
+
+                  country:
+                    order.customer
+                      ?.country ||
+                    "Country",
+
+                  address:
+                    order.customer
+                      ?.addressLine1 ||
+                    "Address",
+
+                  zipCode:
+                    order.customer
+                      ?.postalCode ||
+                    "00000",
+                },
+
+              basketItems:
+                (
+                  order.items ||
+                  []
+                ).map(
+                  (
+                    item: any,
+                    index: number
+                  ) => ({
+                    id:
+                      item.productId ||
+                      `item_${index}`,
+
+                    name:
+                      item.title ||
+                      "Product",
+
+                    category1:
+                      "Carpet",
+
+                    itemType:
+                      "PHYSICAL",
+
+                    price:
+                      Number(
+                        item.price ||
+                          0
+                      ).toFixed(
+                        2
+                      ),
+                  })
+                ),
+            },
+
+            function (
+              err: any,
+              result: any
+            ) {
+              if (err) {
+                console.error(
+                  "IYZICO SDK ERROR:",
+                  err
+                );
+
+                reject(err);
+              } else {
+                resolve(
+                  result
+                );
+              }
+            }
+          );
+        }
+      );
+
+    console.log(
+      "IYZICO RESPONSE:",
+      iyzicoData
+    );
+
+    // FAILED
+
+    if (
+      iyzicoData.status !==
+      "success"
+    ) {
+      await orderRef.update({
+        updatedAt:
+          FieldValue.serverTimestamp(),
+
+        "payment.status":
+          "failed",
+      });
+
+      return NextResponse.json(
+        {
+          error:
+            iyzicoData.errorMessage ||
+            "Payment initialize failed",
+
+          iyzico:
+            iyzicoData,
+        },
+        { status: 400 }
+      );
+    }
+
+    // SAVE PAYMENT DATA
+
     await orderRef.update({
-      updatedAt: FieldValue.serverTimestamp(),
-      "payment.status": "pending",
-      "payment.iyzicoConversationId": conversationId,
-      "payment.iyzicoToken": iyzicoData.token || "",
-      "payment.paymentPageUrl": iyzicoData.paymentPageUrl || "",
+      updatedAt:
+        FieldValue.serverTimestamp(),
+
+      "payment.status":
+        "pending",
+
+      "payment.conversationId":
+        conversationId,
+
+      "payment.token":
+        iyzicoData.token,
+
+      "payment.paymentPageUrl":
+        iyzicoData.paymentPageUrl,
     });
+
+    // SUCCESS
 
     return NextResponse.json({
       success: true,
-      token: iyzicoData.token,
-      paymentPageUrl: iyzicoData.paymentPageUrl,
-      conversationId,
+
+      paymentPageUrl:
+        iyzicoData.paymentPageUrl,
+
+      token:
+        iyzicoData.token,
     });
   } catch (error) {
-    console.error("iyzico initialize error:", error);
+    console.error(
+      "IYZICO INIT ERROR:",
+      error
+    );
+
     return NextResponse.json(
-      { error: "Failed to initialize payment" },
+      {
+        error:
+          "Payment initialization failed",
+      },
       { status: 500 }
     );
   }

@@ -83,80 +83,188 @@ export default function CheckoutReviewPage() {
   const handleEditAddress = () => {
     router.push("/checkout");
   };
+// chekout flow edited again for iyizico
+const handlePlaceOrder = async () => {
+  try {
+    setIsSubmitting(true);
+    setOrderError("");
 
-  const handlePlaceOrder = async () => {
-    try {
-      setIsSubmitting(true);
-      setOrderError("");
+    const user = auth.currentUser;
 
-      const user = auth.currentUser;
+    if (!user) {
+      router.push("/auth");
+      return;
+    }
 
-      if (!user) {
-        router.push("/auth");
-        return;
-      }
+    if (!checkoutData || !checkoutData.items?.length) {
+      setOrderError("Checkout details are missing.");
+      return;
+    }
 
-      if (!checkoutData || !checkoutData.items?.length) {
-        setOrderError("Checkout details are missing.");
-        return;
-      }
+    const idToken = await user.getIdToken();
 
-      const idToken = await user.getIdToken();
+    const trimmedName =
+      checkoutData.customer.fullName.trim();
 
-      const trimmedName = checkoutData.customer.fullName.trim();
-      const nameParts = trimmedName.split(/\s+/);
-      const firstName = nameParts[0] || "Guest";
-      const lastName = nameParts.slice(1).join(" ") || "-";
+    const nameParts =
+      trimmedName.split(/\s+/);
 
-      const orderPayload = {
-        customer: {
-          email: user.email || "",
-          firstName,
-          lastName,
-          phone: `${checkoutData.customer.countryCode} ${checkoutData.customer.phoneNumber}`.trim(),
-          country: checkoutData.customer.country,
-          city: checkoutData.customer.city,
-          addressLine1: checkoutData.customer.streetAddress,
-          addressLine2: checkoutData.customer.apartment || "",
-          postalCode: checkoutData.customer.postalCode || "",
-        },
-        items: checkoutData.items.map((item) => ({
-          productId: item.id,
-          title: item.title || "Untitled product",
-          price: Number(item.price || 0),
-          image: item.coverUrl || "",
-          quantity: 1 as const,
-        })),
-        shipping: 0,
-        currency: "USD",
-      };
+    const firstName =
+      nameParts[0] || "Guest";
 
-      const orderRes = await fetch("/api/orders", {
+    const lastName =
+      nameParts.slice(1).join(" ") || "-";
+
+    const orderPayload = {
+      customer: {
+        email: user.email || "",
+
+        firstName,
+
+        lastName,
+
+        phone: `${checkoutData.customer.countryCode} ${checkoutData.customer.phoneNumber}`.trim(),
+
+        country: checkoutData.customer.country,
+
+        city: checkoutData.customer.city,
+
+        addressLine1:
+          checkoutData.customer.streetAddress,
+
+        addressLine2:
+          checkoutData.customer.apartment || "",
+
+        postalCode:
+          checkoutData.customer.postalCode || "",
+      },
+
+      items: checkoutData.items.map((item) => ({
+        productId: item.id,
+
+        title:
+          item.title || "Untitled product",
+
+        price: Number(item.price || 0),
+
+        image: item.coverUrl || "",
+
+        quantity: 1 as const,
+      })),
+
+      shipping: 0,
+
+      currency: "USD",
+    };
+
+    // CREATE ORDER
+
+    const orderRes = await fetch(
+      "/api/orders",
+      {
         method: "POST",
+
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type":
+            "application/json",
+
           Authorization: `Bearer ${idToken}`,
         },
+
         body: JSON.stringify(orderPayload),
-      });
-
-      const orderData = await orderRes.json();
-
-      if (!orderRes.ok) {
-        throw new Error(orderData.error || "Failed to create order");
       }
+    );
 
-      sessionStorage.setItem("pendingOrderId", orderData.orderId);
-      sessionStorage.setItem("pendingOrderNumber", orderData.orderNumber);
+    const orderData = await orderRes.json();
 
-      router.push("/checkout/thank-you");
-    } catch (error: any) {
-      console.error("Place order flow failed:", error);
-      setOrderError(error.message || "Something went wrong while placing your order.");
-    } finally {
-      setIsSubmitting(false);
+    if (!orderRes.ok) {
+      throw new Error(
+        orderData.error ||
+          "Failed to create order"
+      );
     }
-  };
+
+    // SAVE ORDER INFO
+
+    sessionStorage.setItem(
+      "pendingOrderId",
+      orderData.orderId
+    );
+
+    sessionStorage.setItem(
+      "pendingOrderNumber",
+      orderData.orderNumber
+    );
+
+    // INITIALIZE IYZICO PAYMENT
+
+    const iyzicoRes = await fetch(
+      "/api/iyzico/initialize",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+
+          Authorization: `Bearer ${idToken}`,
+        },
+
+        body: JSON.stringify({
+          orderId: orderData.orderId,
+        }),
+      }
+    );
+
+const responseText =
+  await iyzicoRes.text();
+
+let iyzicoData: any = {};
+
+try {
+  iyzicoData =
+    JSON.parse(responseText);
+} catch {
+  console.error(
+    "Non-JSON response:",
+    responseText
+  );
+
+  throw new Error(
+    "Server returned invalid response"
+  );
+}
+    if (!iyzicoRes.ok) {
+      throw new Error(
+        iyzicoData.error ||
+          "Failed to initialize iyzico payment"
+      );
+    }
+
+    if (!iyzicoData.paymentPageUrl) {
+      throw new Error(
+        "iyzico payment page URL missing"
+      );
+    }
+
+    // REDIRECT TO IYZICO HOSTED PAGE
+
+    window.location.href =
+      iyzicoData.paymentPageUrl;
+  } catch (error: any) {
+    console.error(
+      "Place order flow failed:",
+      error
+    );
+
+    setOrderError(
+      error.message ||
+        "Something went wrong while placing your order."
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   if (!ready || !checkoutData) {
     return (
@@ -258,9 +366,7 @@ export default function CheckoutReviewPage() {
       <p className="paymentTitle">Iyzico secure checkout</p>
 
       <p className="paymentText">
-        You will be redirected to iyzico to complete your payment once the
-        integration is enabled. For now, your order will be saved in our
-        system after you place it.
+       You will be redirected to iyzico's secure hosted payment page to complete your order safely using Visa or Mastercard.
       </p>
 
       {/* PAYMENT LOGOS ADDED HERE */}
