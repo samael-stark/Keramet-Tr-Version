@@ -5,9 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname:
-          "firebasestorage.googleapis.com",
-
+        hostname: "firebasestorage.googleapis.com",
         pathname: "/v0/b/**",
       },
     ],
@@ -21,15 +19,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
-  experimental: {
-    serverComponentsExternalPackages: [
-      "iyzipay",
-    ],
-  },
-
-  serverExternalPackages: [
-    "iyzipay",
-  ],
+  serverExternalPackages: ["iyzipay"],
 };
 
 module.exports = nextConfig;
