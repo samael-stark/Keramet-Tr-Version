@@ -7,6 +7,7 @@ const nextConfig = {
         protocol: "https",
         hostname:
           "firebasestorage.googleapis.com",
+
         pathname: "/v0/b/**",
       },
     ],
@@ -18,6 +19,12 @@ const nextConfig = {
 
   typescript: {
     ignoreBuildErrors: true,
+  },
+
+  experimental: {
+    serverComponentsExternalPackages: [
+      "iyzipay",
+    ],
   },
 
   serverExternalPackages: [
