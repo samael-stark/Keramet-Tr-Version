@@ -15,7 +15,7 @@ const categories = [
     title: "BIDJAR",
     subtitle: "DENSE & DURABLE",
     value: "Bidjar",
-    image: "/img/Categories/bidjar.jpg",
+    image: "/img/Categories/",
   },
   {
     title: "SERAPI",
