@@ -19,7 +19,19 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
-  serverExternalPackages: ["iyzipay"],
+  serverExternalPackages: [
+    "iyzipay",
+  ],
+
+  outputFileTracingIncludes: {
+    "/api/iyzico/initialize": [
+      "./node_modules/iyzipay/**/*",
+    ],
+
+    "/api/iyzico/callback": [
+      "./node_modules/iyzipay/**/*",
+    ],
+  },
 };
 
 module.exports = nextConfig;
