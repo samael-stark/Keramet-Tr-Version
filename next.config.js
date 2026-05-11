@@ -5,7 +5,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "firebasestorage.googleapis.com",
+        hostname:
+          "firebasestorage.googleapis.com",
         pathname: "/v0/b/**",
       },
     ],
@@ -21,15 +22,18 @@ const nextConfig = {
 
   serverExternalPackages: [
     "iyzipay",
+    "postman-request",
   ],
 
   outputFileTracingIncludes: {
     "/api/iyzico/initialize": [
       "./node_modules/iyzipay/**/*",
+      "./node_modules/postman-request/**/*",
     ],
 
     "/api/iyzico/callback": [
       "./node_modules/iyzipay/**/*",
+      "./node_modules/postman-request/**/*",
     ],
   },
 };
