@@ -6,28 +6,37 @@ import { adminDb } from "@/lib/firebase-admin";
 
 export const runtime = "nodejs";
 
+export const dynamic =
+  "force-dynamic";
+
 export async function POST(
   req: NextRequest
 ) {
   try {
     // IMPORTANT
+    // LOAD IYZIPAY INSIDE ROUTE
 
     const Iyzipay =
-      require("iyzipay");
+      eval("require")(
+        "iyzipay"
+      );
 
     const iyzipay =
       new Iyzipay({
         apiKey:
           process.env
-            .IYZICO_API_KEY,
+            .IYZICO_API_KEY ||
+          "",
 
         secretKey:
           process.env
-            .IYZICO_SECRET_KEY,
+            .IYZICO_SECRET_KEY ||
+          "",
 
         uri:
           process.env
-            .IYZICO_BASE_URL,
+            .IYZICO_BASE_URL ||
+          "https://sandbox-api.iyzipay.com",
       });
 
     // FORM DATA
@@ -93,29 +102,6 @@ export async function POST(
       verifyData.paymentStatus !==
         "SUCCESS"
     ) {
-      const failedOrderId =
-        verifyData.basketId;
-
-      if (failedOrderId) {
-        await adminDb
-          .collection("orders")
-          .doc(failedOrderId)
-          .update({
-            updatedAt:
-              FieldValue.serverTimestamp(),
-
-            "payment.status":
-              "failed",
-
-            "payment.failureReason":
-              verifyData.errorMessage ||
-              "Payment failed",
-
-            "payment.rawResponse":
-              verifyData,
-          });
-      }
-
       return NextResponse.redirect(
         `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`
       );
@@ -153,23 +139,8 @@ export async function POST(
           verifyData.paymentId ||
           "",
 
-        "payment.conversationId":
-          verifyData.conversationId ||
-          "",
-
-        "payment.currency":
-          verifyData.currency ||
-          "USD",
-
-        "payment.paidPrice":
-          verifyData.paidPrice ||
-          "",
-
         "payment.rawResponse":
           verifyData,
-
-        orderStatus:
-          "processing",
       });
 
     return NextResponse.redirect(

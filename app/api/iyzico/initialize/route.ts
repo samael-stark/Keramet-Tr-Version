@@ -16,7 +16,8 @@ export async function POST(
   req: NextRequest
 ) {
   try {
-    // LOAD IYZICO ONLY INSIDE ROUTE
+    // IMPORTANT
+    // LOAD IYZIPAY INSIDE ROUTE
 
     const Iyzipay =
       eval("require")(
@@ -41,7 +42,7 @@ export async function POST(
           "https://sandbox-api.iyzipay.com",
       });
 
-    // AUTH HEADER
+    // AUTH
 
     const authHeader =
       req.headers.get(
@@ -123,7 +124,7 @@ export async function POST(
       );
     }
 
-    // SECURITY CHECK
+    // SECURITY
 
     if (
       order.customer?.uid !==
@@ -138,8 +139,6 @@ export async function POST(
       );
     }
 
-    // SITE URL
-
     const origin =
       process.env
         .NEXT_PUBLIC_SITE_URL ||
@@ -147,7 +146,7 @@ export async function POST(
 
     const conversationId = `ORDER_${Date.now()}`;
 
-    // PAYMENT REQUEST
+    // CREATE PAYMENT
 
     const iyzicoData: any =
       await new Promise(
@@ -333,11 +332,6 @@ export async function POST(
               result: any
             ) {
               if (err) {
-                console.error(
-                  "IYZICO SDK ERROR:",
-                  err
-                );
-
                 reject(err);
               } else {
                 resolve(
@@ -360,14 +354,6 @@ export async function POST(
       iyzicoData.status !==
       "success"
     ) {
-      await orderRef.update({
-        updatedAt:
-          FieldValue.serverTimestamp(),
-
-        "payment.status":
-          "failed",
-      });
-
       return NextResponse.json(
         {
           error:
@@ -381,7 +367,7 @@ export async function POST(
       );
     }
 
-    // SAVE PAYMENT DATA
+    // SAVE
 
     await orderRef.update({
       updatedAt:

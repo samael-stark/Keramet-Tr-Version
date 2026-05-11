@@ -219,20 +219,29 @@ const handlePlaceOrder = async () => {
 const responseText =
   await iyzicoRes.text();
 
+console.log(
+  "RAW RESPONSE:",
+  responseText
+);
+
 let iyzicoData: any = {};
 
 try {
   iyzicoData =
     JSON.parse(responseText);
-} catch {
+} catch (error) {
   console.error(
-    "Non-JSON response:",
+    "INVALID JSON RESPONSE:",
     responseText
   );
 
-  throw new Error(
-    "Server returned invalid response"
+  setOrderError(
+    responseText
   );
+
+  setIsSubmitting(false);
+
+  return;
 }
     if (!iyzicoRes.ok) {
       throw new Error(
