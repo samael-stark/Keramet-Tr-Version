@@ -216,53 +216,66 @@ async function handleCallback(
     const order =
       orderSnap.data();
 
-    // SEND CUSTOMER EMAIL
+// SEND CUSTOMER EMAIL
 
-    if (
-      order?.customer?.email
-    ) {
-      try {
-        await resend.emails.send({
-          from:
-            resendConfig.from,
+if (
+  order?.customer?.email
+) {
+  try {
+    console.log(
+      "SENDING CUSTOMER EMAIL..."
+    );
 
-          to:
-            order.customer.email,
+    const emailResult =
+      await resend.emails.send({
+        from:
+          resendConfig.from,
 
-          subject: `Order Confirmed #${order.orderNumber}`,
+        to:
+          order.customer.email,
 
-          html:
-            getOrderStatusEmailHtml({
-              orderNumber:
-                order.orderNumber || "",
+        subject: `Order Confirmed #${order.orderNumber}`,
 
-              customerName:
-                `${order.customer.firstName || ""} ${
-                  order.customer.lastName || ""
-                }`.trim() ||
-                "Customer",
+        html: `
+          <div style="font-family:Arial;padding:20px;">
+            <h1>Thank you for your order</h1>
 
-              status:
-                "order_confirmed",
+            <p>
+              Your payment was received successfully.
+            </p>
 
-              note:
-                "Your payment was received successfully.",
+            <p>
+              Order Number:
+              <strong>
+                #${order.orderNumber}
+              </strong>
+            </p>
 
-              trackUrl:
-                "https://www.keramethali.com/track-order",
-            }),
-        });
+            <p>
+              Total:
+              ${
+                order.pricing?.currency ||
+                "USD"
+              }
+              ${
+                order.pricing?.total || 0
+              }
+            </p>
+          </div>
+        `,
+      });
 
-        console.log(
-          "CUSTOMER EMAIL SENT"
-        );
-      } catch (emailError) {
-        console.error(
-          "CUSTOMER EMAIL ERROR:",
-          emailError
-        );
-      }
-    }
+    console.log(
+      "CUSTOMER EMAIL SENT:",
+      emailResult
+    );
+  } catch (emailError) {
+    console.error(
+      "CUSTOMER EMAIL ERROR:",
+      emailError
+    );
+  }
+}
 
     // SEND ADMIN EMAIL
 
