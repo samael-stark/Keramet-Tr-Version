@@ -23,17 +23,20 @@ const nextConfig = {
   serverExternalPackages: [
     "iyzipay",
     "postman-request",
+    "@postman/tough-cookie",
   ],
 
   outputFileTracingIncludes: {
     "/api/iyzico/initialize": [
       "./node_modules/iyzipay/**/*",
       "./node_modules/postman-request/**/*",
+      "./node_modules/@postman/tough-cookie/**/*",
     ],
 
     "/api/iyzico/callback": [
       "./node_modules/iyzipay/**/*",
       "./node_modules/postman-request/**/*",
+      "./node_modules/@postman/tough-cookie/**/*",
     ],
   },
 };

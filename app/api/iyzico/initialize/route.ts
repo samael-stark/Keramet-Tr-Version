@@ -16,25 +16,18 @@ export async function POST(
   req: NextRequest
 ) {
   try {
-    // IMPORTANT
-    // LOAD IYZIPAY INSIDE ROUTE
-
     const Iyzipay =
-      eval("require")(
-        "iyzipay"
-      );
+      require("iyzipay");
 
     const iyzipay =
       new Iyzipay({
         apiKey:
           process.env
-            .IYZICO_API_KEY ||
-          "",
+            .IYZICO_API_KEY || "",
 
         secretKey:
           process.env
-            .IYZICO_SECRET_KEY ||
-          "",
+            .IYZICO_SECRET_KEY || "",
 
         uri:
           process.env
@@ -234,6 +227,9 @@ export async function POST(
                   "00000",
 
                 ip:
+                  req.headers.get(
+                    "x-forwarded-for"
+                  ) ||
                   "127.0.0.1",
               },
 
@@ -332,6 +328,11 @@ export async function POST(
               result: any
             ) {
               if (err) {
+                console.error(
+                  "IYZICO SDK ERROR:",
+                  err
+                );
+
                 reject(err);
               } else {
                 resolve(
@@ -354,6 +355,14 @@ export async function POST(
       iyzicoData.status !==
       "success"
     ) {
+      await orderRef.update({
+        updatedAt:
+          FieldValue.serverTimestamp(),
+
+        "payment.status":
+          "failed",
+      });
+
       return NextResponse.json(
         {
           error:
@@ -367,7 +376,7 @@ export async function POST(
       );
     }
 
-    // SAVE
+    // SAVE PAYMENT
 
     await orderRef.update({
       updatedAt:
@@ -406,6 +415,8 @@ export async function POST(
     return NextResponse.json(
       {
         error:
+          (error as Error)
+            ?.message ||
           "Payment initialization failed",
       },
       { status: 500 }
