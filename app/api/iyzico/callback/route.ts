@@ -9,7 +9,7 @@ export const runtime = "nodejs";
 export const dynamic =
   "force-dynamic";
 
-export async function POST(
+async function handleCallback(
   req: NextRequest
 ) {
   try {
@@ -32,23 +32,32 @@ export async function POST(
           "https://sandbox-api.iyzipay.com",
       });
 
-    // FORM DATA
+    let token = "";
 
-    const formData =
-      await req.formData();
+    // HANDLE POST
 
-    const token =
-      formData
-        .get("token")
-        ?.toString() || "";
+    if (req.method === "POST") {
+      const formData =
+        await req.formData();
+
+      token =
+        formData
+          .get("token")
+          ?.toString() || "";
+    }
+
+    // HANDLE GET
+
+    if (req.method === "GET") {
+      token =
+        req.nextUrl.searchParams.get(
+          "token"
+        ) || "";
+    }
 
     if (!token) {
-      return NextResponse.json(
-        {
-          error:
-            "Token missing",
-        },
-        { status: 400 }
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`
       );
     }
 
@@ -130,12 +139,8 @@ export async function POST(
       verifyData.basketId;
 
     if (!orderId) {
-      return NextResponse.json(
-        {
-          error:
-            "Order ID missing",
-        },
-        { status: 400 }
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`
       );
     }
 
@@ -188,4 +193,20 @@ export async function POST(
       `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`
     );
   }
+}
+
+// POST SUPPORT
+
+export async function POST(
+  req: NextRequest
+) {
+  return handleCallback(req);
+}
+
+// GET SUPPORT
+
+export async function GET(
+  req: NextRequest
+) {
+  return handleCallback(req);
 }
