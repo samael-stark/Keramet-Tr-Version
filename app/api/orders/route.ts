@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { FieldValue, Timestamp } from "firebase-admin/firestore";
+import {
+  FieldValue,
+  Timestamp,
+} from "firebase-admin/firestore";
 
-import { adminAuth, adminDb } from "@/lib/firebase-admin";
+import {
+  adminAuth,
+  adminDb,
+} from "@/lib/firebase-admin";
 
 import { generateOrderNumber } from "@/lib/order-utils";
 
@@ -77,6 +83,8 @@ export async function POST(
   req: NextRequest
 ) {
   try {
+    // AUTHORIZATION
+
     const authHeader =
       req.headers.get(
         "authorization"
@@ -96,6 +104,8 @@ export async function POST(
       );
     }
 
+    // VERIFY USER
+
     const idToken =
       authHeader.split(
         "Bearer "
@@ -106,8 +116,12 @@ export async function POST(
         idToken
       );
 
+    // REQUEST BODY
+
     const body =
       (await req.json()) as CreateOrderRequest;
+
+    // VALIDATIONS
 
     if (!body.customer) {
       return NextResponse.json(
@@ -147,6 +161,8 @@ export async function POST(
       );
     }
 
+    // PRICING
+
     const shipping =
       typeof body.shipping ===
       "number"
@@ -166,6 +182,8 @@ export async function POST(
     const total =
       subtotal + shipping;
 
+    // ORDER META
+
     const orderNumber =
       generateOrderNumber();
 
@@ -177,126 +195,152 @@ export async function POST(
         .trim()
         .toLowerCase();
 
-    const orderData: OrderDocument =
-      {
-        orderNumber,
+    // ORDER DATA
+
+    const orderData: OrderDocument & {
+      emails: {
+        customerConfirmationSent: boolean;
+        adminNotificationSent: boolean;
+        sentAt: null;
+      };
+    } = {
+      orderNumber,
+
+      status: "pending",
+
+      fulfillmentStatus,
+
+      statusHistory: [
+        {
+          status:
+            fulfillmentStatus,
+
+          label:
+            getFulfillmentLabel(
+              fulfillmentStatus
+            ),
+
+          createdAt:
+            Timestamp.now(),
+
+          note: "",
+        },
+      ],
+
+      customer: {
+        uid:
+          decodedToken.uid,
+
+        email:
+          normalizedEmail,
+
+        firstName:
+          body.customer
+            .firstName,
+
+        lastName:
+          body.customer
+            .lastName,
+
+        phone:
+          body.customer.phone,
+
+        country:
+          body.customer
+            .country,
+
+        city:
+          body.customer.city,
+
+        addressLine1:
+          body.customer
+            .addressLine1,
+
+        addressLine2:
+          body.customer
+            .addressLine2 ||
+          "",
+
+        postalCode:
+          body.customer
+            .postalCode ||
+          "",
+      },
+
+      items: body.items.map(
+        (item) => ({
+          productId:
+            item.productId,
+
+          title:
+            item.title,
+
+          price:
+            item.price,
+
+          image:
+            item.image,
+
+          slug:
+            item.slug || "",
+
+          quantity: 1,
+        })
+      ),
+
+      pricing: {
+        subtotal,
+
+        shipping,
+
+        total,
+
+        currency,
+      },
+
+      payment: {
+        provider: "iyzico",
 
         status: "pending",
 
-        fulfillmentStatus,
+        iyzicoConversationId:
+          "",
 
-        statusHistory: [
-          {
-            status:
-              fulfillmentStatus,
+        iyzicoToken: "",
 
-            label:
-              getFulfillmentLabel(
-                fulfillmentStatus
-              ),
+        paidAt: null,
+      },
 
-            createdAt:
-              Timestamp.now(),
+      // EMAIL FLAGS
 
-            note: "",
-          },
-        ],
+      emails: {
+        customerConfirmationSent: false,
 
-        customer: {
-          uid:
-            decodedToken.uid,
+        adminNotificationSent: false,
 
-          email:
-            normalizedEmail,
+        sentAt: null,
+      },
 
-          firstName:
-            body.customer
-              .firstName,
+      createdAt:
+        FieldValue.serverTimestamp(),
 
-          lastName:
-            body.customer
-              .lastName,
+      updatedAt:
+        FieldValue.serverTimestamp(),
+    };
 
-          phone:
-            body.customer.phone,
-
-          country:
-            body.customer
-              .country,
-
-          city:
-            body.customer.city,
-
-          addressLine1:
-            body.customer
-              .addressLine1,
-
-          addressLine2:
-            body.customer
-              .addressLine2 ||
-            "",
-
-          postalCode:
-            body.customer
-              .postalCode ||
-            "",
-        },
-
-        items: body.items.map(
-          (item) => ({
-            productId:
-              item.productId,
-
-            title:
-              item.title,
-
-            price:
-              item.price,
-
-            image:
-              item.image,
-
-            slug:
-              item.slug || "",
-
-            quantity: 1,
-          })
-        ),
-
-        pricing: {
-          subtotal,
-
-          shipping,
-
-          total,
-
-          currency,
-        },
-
-        payment: {
-          provider: "iyzico",
-
-          status: "pending",
-
-          iyzicoConversationId:
-            "",
-
-          iyzicoToken: "",
-
-          paidAt: null,
-        },
-
-        createdAt:
-          FieldValue.serverTimestamp(),
-
-        updatedAt:
-          FieldValue.serverTimestamp(),
-      };
+    // CREATE ORDER
 
     const docRef =
       await adminDb
         .collection("orders")
         .add(orderData);
+
+    console.log(
+      "ORDER CREATED:",
+      docRef.id
+    );
+
+    // RESPONSE
 
     return NextResponse.json({
       success: true,
@@ -307,7 +351,7 @@ export async function POST(
     });
   } catch (error: any) {
     console.error(
-      "Create order error:",
+      "CREATE ORDER ERROR:",
       error
     );
 

@@ -6,9 +6,15 @@ import {
 
 import { adminDb } from "@/lib/firebase-admin";
 
-import { resend, resendConfig } from "@/lib/resend";
+import {
+  resend,
+  resendConfig,
+} from "@/lib/resend";
 
-import { getOrderStatusEmailHtml } from "@/lib/email-templates";
+import {
+  getCustomerEmailHtml,
+  getAdminEmailHtml,
+} from "@/lib/email-templates";
 
 export const runtime = "nodejs";
 
@@ -19,8 +25,6 @@ export async function POST(
   req: NextRequest
 ) {
   try {
-    // LOAD SDK
-
     const Iyzipay =
       eval("require")(
         "iyzipay"
@@ -42,7 +46,7 @@ export async function POST(
           "https://sandbox-api.iyzipay.com",
       });
 
-    // FORM DATA
+    // GET TOKEN
 
     const formData =
       await req.formData();
@@ -54,7 +58,8 @@ export async function POST(
 
     if (!token) {
       return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`
+        `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`,
+        303
       );
     }
 
@@ -72,16 +77,14 @@ export async function POST(
               token,
             },
 
-            function (
+            (
               err: any,
               result: any
-            ) {
+            ) => {
               if (err) {
                 reject(err);
               } else {
-                resolve(
-                  result
-                );
+                resolve(result);
               }
             }
           );
@@ -89,7 +92,7 @@ export async function POST(
       );
 
     console.log(
-      "VERIFY DATA:",
+      "IYZICO VERIFY:",
       verifyData
     );
 
@@ -130,7 +133,7 @@ export async function POST(
       );
     }
 
-    // SUCCESS
+    // ORDER ID
 
     const orderId =
       verifyData.basketId;
@@ -142,76 +145,110 @@ export async function POST(
       );
     }
 
-    // UPDATE ORDER
+    const orderRef =
+      adminDb
+        .collection("orders")
+        .doc(orderId);
 
-    await adminDb
-      .collection("orders")
-      .doc(orderId)
-      .update({
-        updatedAt:
-          FieldValue.serverTimestamp(),
-
-        status: "paid",
-
-        orderStatus:
-          "processing",
-
-        fulfillmentStatus:
-          "order_confirmed",
-
-        "payment.status":
-          "paid",
-
-        "payment.provider":
-          "iyzico",
-
-        "payment.paidAt":
-          FieldValue.serverTimestamp(),
-
-        "payment.paymentId":
-          verifyData.paymentId ||
-          "",
-
-        "payment.conversationId":
-          verifyData.conversationId ||
-          "",
-
-        "payment.currency":
-          verifyData.currency ||
-          "USD",
-
-        "payment.paidPrice":
-          verifyData.paidPrice ||
-          "",
-
-        "payment.rawResponse":
-          verifyData,
-      });
-
-    // GET UPDATED ORDER
+    // GET ORDER
 
     const orderSnap =
-      await adminDb
-        .collection("orders")
-        .doc(orderId)
-        .get();
+      await orderRef.get();
+
+    if (!orderSnap.exists) {
+      console.error(
+        "ORDER NOT FOUND:",
+        orderId
+      );
+
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`,
+        303
+      );
+    }
 
     const orderData =
       orderSnap.data();
 
+    // DUPLICATE CALLBACK PROTECTION
+
+    if (
+      orderData?.payment
+        ?.status === "paid"
+    ) {
+      console.log(
+        "ORDER ALREADY PAID:",
+        orderId
+      );
+
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/thank-you?orderId=${orderId}`,
+        303
+      );
+    }
+
+    // UPDATE ORDER
+
+    await orderRef.update({
+      updatedAt:
+        FieldValue.serverTimestamp(),
+
+      status: "paid",
+
+      orderStatus:
+        "processing",
+
+      fulfillmentStatus:
+        "order_confirmed",
+
+      "payment.status":
+        "paid",
+
+      "payment.provider":
+        "iyzico",
+
+      "payment.paidAt":
+        FieldValue.serverTimestamp(),
+
+      "payment.paymentId":
+        verifyData.paymentId ||
+        "",
+
+      "payment.conversationId":
+        verifyData.conversationId ||
+        "",
+
+      "payment.currency":
+        verifyData.currency ||
+        "USD",
+
+      "payment.paidPrice":
+        verifyData.paidPrice ||
+        "",
+
+      "payment.rawResponse":
+        verifyData,
+    });
+
+    // REFETCH UPDATED ORDER
+
+    const updatedSnap =
+      await orderRef.get();
+
+    const updatedOrder =
+      updatedSnap.data();
+
     // SEND EMAILS
 
     try {
-      if (
-        orderData?.customer?.email
-      ) {
-        const customerEmail =
-          orderData.customer.email;
+      const alreadySent =
+        updatedOrder?.emails
+          ?.customerConfirmationSent;
 
+      if (!alreadySent) {
         const customerName =
-          `${orderData.customer.firstName || ""} ${
-            orderData.customer.lastName ||
-            ""
+          `${updatedOrder?.customer?.firstName || ""} ${
+            updatedOrder?.customer?.lastName || ""
           }`.trim();
 
         // CUSTOMER EMAIL
@@ -220,27 +257,46 @@ export async function POST(
           from:
             resendConfig.from,
 
-          to: customerEmail,
+          to:
+            updatedOrder
+              ?.customer
+              ?.email,
 
-          subject: `Order Confirmed #${orderData.orderNumber}`,
+          subject: `Order Confirmed #${updatedOrder?.orderNumber}`,
 
           html:
-            getOrderStatusEmailHtml(
+            getCustomerEmailHtml(
               {
                 orderNumber:
-                  orderData.orderNumber ||
+                  updatedOrder?.orderNumber,
+
+                customerName,
+
+                email:
+                  updatedOrder
+                    ?.customer
+                    ?.email,
+
+                phone:
+                  updatedOrder
+                    ?.customer
+                    ?.phone ||
                   "",
 
-                customerName:
-                  customerName ||
-                  "Customer",
+                total:
+                  updatedOrder
+                    ?.pricing
+                    ?.total || 0,
 
-                status:
-                  "order_confirmed",
+                currency:
+                  updatedOrder
+                    ?.pricing
+                    ?.currency ||
+                  "USD",
 
-                note: `Thank you for your purchase from Keramet Hali. Your order has been received successfully.`,
-
-                trackUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/track-order`,
+                items:
+                  updatedOrder
+                    ?.items || [],
               }
             ),
         });
@@ -252,55 +308,75 @@ export async function POST(
             resendConfig.from,
 
           to:
-            process.env
-              .RESEND_ADMIN_EMAIL ||
-            "keramethalisecond@gmail.com",
+            resendConfig.adminEmail,
 
-          subject: `New Order Received #${orderData.orderNumber}`,
+          subject: `New Order Received #${updatedOrder?.orderNumber}`,
 
-          html: `
-            <div style="font-family:Arial;padding:24px">
-              <h2>New Order Received</h2>
+          html:
+            getAdminEmailHtml(
+              {
+                orderNumber:
+                  updatedOrder?.orderNumber,
 
-              <p>
-                <strong>Order Number:</strong>
-                ${orderData.orderNumber}
-              </p>
+                customerName,
 
-              <p>
-                <strong>Customer:</strong>
-                ${customerName}
-              </p>
+                email:
+                  updatedOrder
+                    ?.customer
+                    ?.email,
 
-              <p>
-                <strong>Email:</strong>
-                ${customerEmail}
-              </p>
+                phone:
+                  updatedOrder
+                    ?.customer
+                    ?.phone ||
+                  "",
 
-              <p>
-                <strong>Total:</strong>
-                ${orderData.pricing?.currency || "USD"} ${orderData.pricing?.total || 0}
-              </p>
+                total:
+                  updatedOrder
+                    ?.pricing
+                    ?.total || 0,
 
-              <p>
-                Payment completed successfully via iyzico.
-              </p>
-            </div>
-          `,
+                currency:
+                  updatedOrder
+                    ?.pricing
+                    ?.currency ||
+                  "USD",
+
+                items:
+                  updatedOrder
+                    ?.items || [],
+              }
+            ),
+        });
+
+        // MARK EMAILS SENT
+
+        await orderRef.update({
+          "emails.customerConfirmationSent":
+            true,
+
+          "emails.adminNotificationSent":
+            true,
+
+          "emails.sentAt":
+            FieldValue.serverTimestamp(),
         });
 
         console.log(
-          "ORDER EMAILS SENT"
+          "ORDER EMAILS SENT:",
+          orderId
         );
       }
     } catch (emailError) {
       console.error(
-        "EMAIL ERROR:",
+        "EMAIL SEND ERROR:",
         emailError
       );
+
+      // DO NOT FAIL PAYMENT
     }
 
-    // REDIRECT
+    // SUCCESS REDIRECT
 
     return NextResponse.redirect(
       `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/thank-you?orderId=${orderId}`,
