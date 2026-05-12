@@ -4,6 +4,15 @@ import { FieldValue } from "firebase-admin/firestore";
 
 import { adminDb } from "@/lib/firebase-admin";
 
+import {
+  resend,
+  resendConfig,
+} from "@/lib/resend";
+
+import {
+  getOrderStatusEmailHtml,
+} from "@/lib/email-templates";
+
 export const runtime = "nodejs";
 
 export const dynamic =
@@ -55,7 +64,7 @@ async function handleCallback(
         ) || "";
     }
 
-    // NO TOKEN
+    // TOKEN MISSING
 
     if (!token) {
       return NextResponse.redirect(
@@ -189,9 +198,71 @@ async function handleCallback(
         "payment.rawResponse":
           verifyData,
 
+        fulfillmentStatus:
+          "order_confirmed",
+
         orderStatus:
           "processing",
       });
+
+    // GET UPDATED ORDER
+
+    const orderSnap =
+      await adminDb
+        .collection("orders")
+        .doc(orderId)
+        .get();
+
+    const order =
+      orderSnap.data();
+
+    // SEND ORDER CONFIRMATION EMAIL
+
+    if (
+      order?.customer?.email
+    ) {
+      try {
+        await resend.emails.send({
+          from:
+            resendConfig.from,
+
+          to:
+            order.customer.email,
+
+          subject: `Order Confirmed #${order.orderNumber}`,
+
+          html:
+            getOrderStatusEmailHtml({
+              orderNumber:
+                order.orderNumber || "",
+
+              customerName:
+                `${order.customer.firstName || ""} ${
+                  order.customer.lastName || ""
+                }`.trim() ||
+                "Customer",
+
+              status:
+                "order_confirmed",
+
+              note:
+                "Your payment was received successfully.",
+
+              trackUrl:
+                "https://www.keramethali.com/track-order",
+            }),
+        });
+
+        console.log(
+          "ORDER EMAIL SENT"
+        );
+      } catch (emailError) {
+        console.error(
+          "ORDER EMAIL ERROR:",
+          emailError
+        );
+      }
+    }
 
     // SUCCESS REDIRECT
 
