@@ -55,9 +55,14 @@ async function handleCallback(
         ) || "";
     }
 
+    // NO TOKEN
+
     if (!token) {
       return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`
+        `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`,
+        {
+          status: 303,
+        }
       );
     }
 
@@ -97,7 +102,7 @@ async function handleCallback(
       verifyData
     );
 
-    // FAILED
+    // PAYMENT FAILED
 
     if (
       verifyData.status !==
@@ -129,20 +134,28 @@ async function handleCallback(
       }
 
       return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`
+        `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`,
+        {
+          status: 303,
+        }
       );
     }
 
-    // SUCCESS
+    // PAYMENT SUCCESS
 
     const orderId =
       verifyData.basketId;
 
     if (!orderId) {
       return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`
+        `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`,
+        {
+          status: 303,
+        }
       );
     }
+
+    // UPDATE ORDER
 
     await adminDb
       .collection("orders")
@@ -180,8 +193,13 @@ async function handleCallback(
           "processing",
       });
 
+    // SUCCESS REDIRECT
+
     return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/thank-you?orderId=${orderId}`
+      `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/thank-you?orderId=${orderId}`,
+      {
+        status: 303,
+      }
     );
   } catch (error) {
     console.error(
@@ -190,7 +208,10 @@ async function handleCallback(
     );
 
     return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`
+      `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/payment-failed`,
+      {
+        status: 303,
+      }
     );
   }
 }
