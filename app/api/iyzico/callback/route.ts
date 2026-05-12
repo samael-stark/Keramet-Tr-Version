@@ -216,7 +216,7 @@ async function handleCallback(
     const order =
       orderSnap.data();
 
-    // SEND ORDER CONFIRMATION EMAIL
+    // SEND CUSTOMER EMAIL
 
     if (
       order?.customer?.email
@@ -254,14 +254,85 @@ async function handleCallback(
         });
 
         console.log(
-          "ORDER EMAIL SENT"
+          "CUSTOMER EMAIL SENT"
         );
       } catch (emailError) {
         console.error(
-          "ORDER EMAIL ERROR:",
+          "CUSTOMER EMAIL ERROR:",
           emailError
         );
       }
+    }
+
+    // SEND ADMIN EMAIL
+
+    try {
+      await resend.emails.send({
+        from:
+          resendConfig.from,
+
+        to:
+          "keramethalisecond@gmail.com",
+
+        subject: `NEW PAID ORDER #${order?.orderNumber}`,
+
+        html: `
+          <div style="font-family:Arial,sans-serif;padding:20px;">
+            <h2>New Paid Order</h2>
+
+            <p>
+              <strong>Order:</strong>
+              #${order?.orderNumber || ""}
+            </p>
+
+            <p>
+              <strong>Customer:</strong>
+              ${
+                order?.customer
+                  ?.firstName || ""
+              }
+              ${
+                order?.customer
+                  ?.lastName || ""
+              }
+            </p>
+
+            <p>
+              <strong>Email:</strong>
+              ${
+                order?.customer
+                  ?.email || ""
+              }
+            </p>
+
+            <p>
+              <strong>Total:</strong>
+              ${
+                order?.pricing
+                  ?.currency ||
+                "USD"
+              }
+              ${
+                order?.pricing
+                  ?.total || 0
+              }
+            </p>
+
+            <p>
+              Payment received successfully.
+            </p>
+          </div>
+        `,
+      });
+
+      console.log(
+        "ADMIN EMAIL SENT"
+      );
+    } catch (adminEmailError) {
+      console.error(
+        "ADMIN EMAIL ERROR:",
+        adminEmailError
+      );
     }
 
     // SUCCESS REDIRECT
