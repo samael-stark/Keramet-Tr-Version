@@ -220,24 +220,23 @@ export default function PaymentFailedPage() {
 
           border-radius: 18px;
 
-          display: inline-flex;
+          display: flex;
+
           align-items: center;
+
           justify-content: center;
 
-          text-decoration: none;
+          text-decoration: none !important;
 
           font-size: 15px;
+
           font-weight: 800;
 
-          position: relative;
+          cursor: pointer;
 
-          transition:
-            transform 0.25s ease,
-            box-shadow 0.25s ease,
-            background 0.25s ease,
-            border-color 0.25s ease;
+          box-sizing: border-box;
 
-          overflow: hidden;
+          transition: all 0.25s ease;
         }
 
         .retryBtn {
@@ -247,9 +246,9 @@ export default function PaymentFailedPage() {
             #641919
           );
 
-          color: white;
+          color: #ffffff !important;
 
-          border: 2px solid #7a1f1f;
+          border: 2px solid #7a1f1f !important;
 
           box-shadow:
             0 18px 34px rgba(122, 31, 31, 0.22),
@@ -259,29 +258,18 @@ export default function PaymentFailedPage() {
         .retryBtn:hover {
           transform: translateY(-3px);
 
-          background: linear-gradient(
-            135deg,
-            #962929,
-            #5a1616
-          );
-
-          border-color: #5a1616;
-
-          box-shadow:
-            0 24px 42px rgba(122, 31, 31, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.16);
+          border: 2px solid #5a1616 !important;
         }
 
         .cartBtn {
-          background: white;
+          background: #ffffff;
 
-          color: #7a1f1f;
+          color: #7a1f1f !important;
 
-          border: 2px solid rgba(122, 31, 31, 0.22);
+          border: 2px solid #7a1f1f !important;
 
           box-shadow:
-            0 10px 24px rgba(122, 31, 31, 0.05),
-            inset 0 1px 0 rgba(255, 255, 255, 0.95);
+            0 10px 24px rgba(122, 31, 31, 0.05);
         }
 
         .cartBtn:hover {
@@ -289,11 +277,7 @@ export default function PaymentFailedPage() {
 
           background: rgba(122, 31, 31, 0.04);
 
-          border-color: #7a1f1f;
-
-          box-shadow:
-            0 18px 34px rgba(122, 31, 31, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.95);
+          border: 2px solid #641919 !important;
         }
 
         @media (max-width: 640px) {
