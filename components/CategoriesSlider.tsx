@@ -21,7 +21,7 @@ const categories = [
     title: "SERAPI",
     subtitle: "TIMELESS MEDALLIONS",
     value: "Serapi",
-    image: "/img/Categories/",
+    image: "/img/Categories/serapi.jpg",
   },
   {
     title: "PAZYRYK",
