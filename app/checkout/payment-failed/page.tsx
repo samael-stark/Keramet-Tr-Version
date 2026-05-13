@@ -35,12 +35,12 @@ export default function PaymentFailedPage() {
           </div>
 
           <div className="actions">
-            <Link href="/checkout/review" className="retryBtn">
-              Try Again
+            <Link href="/checkout/review" className="linkWrap">
+              <span className="retryBtn">Try Again</span>
             </Link>
 
-            <Link href="/cart" className="cartBtn">
-              Back to Cart
+            <Link href="/cart" className="linkWrap">
+              <span className="cartBtn">Back to Cart</span>
             </Link>
           </div>
         </div>
@@ -210,6 +210,10 @@ export default function PaymentFailedPage() {
           flex-wrap: wrap;
         }
 
+        .linkWrap {
+          text-decoration: none;
+        }
+
         .retryBtn,
         .cartBtn {
           min-width: 220px;
@@ -221,18 +225,11 @@ export default function PaymentFailedPage() {
           border-radius: 18px;
 
           display: flex;
-
           align-items: center;
-
           justify-content: center;
 
-          text-decoration: none !important;
-
           font-size: 15px;
-
           font-weight: 800;
-
-          cursor: pointer;
 
           box-sizing: border-box;
 
@@ -246,9 +243,9 @@ export default function PaymentFailedPage() {
             #641919
           );
 
-          color: #ffffff !important;
+          color: white;
 
-          border: 2px solid #7a1f1f !important;
+          border: 2px solid #7a1f1f;
 
           box-shadow:
             0 18px 34px rgba(122, 31, 31, 0.22),
@@ -257,16 +254,14 @@ export default function PaymentFailedPage() {
 
         .retryBtn:hover {
           transform: translateY(-3px);
-
-          border: 2px solid #5a1616 !important;
         }
 
         .cartBtn {
-          background: #ffffff;
+          background: white;
 
-          color: #7a1f1f !important;
+          color: #7a1f1f;
 
-          border: 2px solid #7a1f1f !important;
+          border: 2px solid #7a1f1f;
 
           box-shadow:
             0 10px 24px rgba(122, 31, 31, 0.05);
@@ -276,8 +271,6 @@ export default function PaymentFailedPage() {
           transform: translateY(-3px);
 
           background: rgba(122, 31, 31, 0.04);
-
-          border: 2px solid #641919 !important;
         }
 
         @media (max-width: 640px) {
@@ -318,10 +311,13 @@ export default function PaymentFailedPage() {
             flex-direction: column;
           }
 
+          .linkWrap {
+            width: 100%;
+          }
+
           .retryBtn,
           .cartBtn {
             width: 100%;
-            min-width: unset;
           }
         }
       `}</style>
