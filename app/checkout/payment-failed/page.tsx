@@ -229,11 +229,15 @@ export default function PaymentFailedPage() {
           font-size: 15px;
           font-weight: 800;
 
+          position: relative;
+
           transition:
             transform 0.25s ease,
             box-shadow 0.25s ease,
             background 0.25s ease,
             border-color 0.25s ease;
+
+          overflow: hidden;
         }
 
         .retryBtn {
@@ -245,7 +249,7 @@ export default function PaymentFailedPage() {
 
           color: white;
 
-          border: 1.5px solid rgba(255, 255, 255, 0.14);
+          border: 2px solid #7a1f1f;
 
           box-shadow:
             0 18px 34px rgba(122, 31, 31, 0.22),
@@ -261,19 +265,19 @@ export default function PaymentFailedPage() {
             #5a1616
           );
 
+          border-color: #5a1616;
+
           box-shadow:
             0 24px 42px rgba(122, 31, 31, 0.3),
             inset 0 1px 0 rgba(255, 255, 255, 0.16);
         }
 
         .cartBtn {
-          background: rgba(255, 255, 255, 0.78);
+          background: white;
 
           color: #7a1f1f;
 
-          border: 1.5px solid rgba(122, 31, 31, 0.14);
-
-          backdrop-filter: blur(10px);
+          border: 2px solid rgba(122, 31, 31, 0.22);
 
           box-shadow:
             0 10px 24px rgba(122, 31, 31, 0.05),
@@ -285,7 +289,7 @@ export default function PaymentFailedPage() {
 
           background: rgba(122, 31, 31, 0.04);
 
-          border-color: rgba(122, 31, 31, 0.24);
+          border-color: #7a1f1f;
 
           box-shadow:
             0 18px 34px rgba(122, 31, 31, 0.1),
