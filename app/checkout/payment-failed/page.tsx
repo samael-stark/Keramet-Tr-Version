@@ -36,49 +36,11 @@ export default function PaymentFailedPage() {
 
           <div className="actions">
             <Link href="/checkout/review" className="retryBtn">
-              <span>Try Again</span>
-
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  d="M5 12h14"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M13 5l7 7-7 7"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              Try Again
             </Link>
 
             <Link href="/cart" className="cartBtn">
-              <span>Back to Cart</span>
-
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  d="M6 6h15l-1.5 9h-12z"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M6 6L4 3H2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <circle cx="9" cy="20" r="1" />
-                <circle cx="18" cy="20" r="1" />
-              </svg>
+              Back to Cart
             </Link>
           </div>
         </div>
@@ -250,18 +212,17 @@ export default function PaymentFailedPage() {
 
         .retryBtn,
         .cartBtn {
-          position: relative;
-
           min-width: 220px;
 
           height: 58px;
+
+          padding: 0 24px;
 
           border-radius: 18px;
 
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 12px;
 
           text-decoration: none;
 
@@ -275,16 +236,6 @@ export default function PaymentFailedPage() {
             border-color 0.25s ease;
         }
 
-        .retryBtn svg,
-        .cartBtn svg {
-          width: 18px;
-          height: 18px;
-
-          transition: transform 0.25s ease;
-
-          flex-shrink: 0;
-        }
-
         .retryBtn {
           background: linear-gradient(
             135deg,
@@ -294,53 +245,51 @@ export default function PaymentFailedPage() {
 
           color: white;
 
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          border: 1.5px solid rgba(255, 255, 255, 0.14);
 
           box-shadow:
-            0 18px 34px rgba(122, 31, 31, 0.26),
-            inset 0 1px 0 rgba(255, 255, 255, 0.18);
+            0 18px 34px rgba(122, 31, 31, 0.22),
+            inset 0 1px 0 rgba(255, 255, 255, 0.16);
         }
 
         .retryBtn:hover {
           transform: translateY(-3px);
 
-          box-shadow:
-            0 24px 42px rgba(122, 31, 31, 0.34),
-            inset 0 1px 0 rgba(255, 255, 255, 0.18);
-        }
+          background: linear-gradient(
+            135deg,
+            #962929,
+            #5a1616
+          );
 
-        .retryBtn:hover svg {
-          transform: translateX(3px);
+          box-shadow:
+            0 24px 42px rgba(122, 31, 31, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.16);
         }
 
         .cartBtn {
-          background: rgba(255, 255, 255, 0.75);
+          background: rgba(255, 255, 255, 0.78);
 
           color: #7a1f1f;
 
-          border: 1px solid rgba(122, 31, 31, 0.12);
+          border: 1.5px solid rgba(122, 31, 31, 0.14);
 
           backdrop-filter: blur(10px);
 
           box-shadow:
-            0 10px 24px rgba(122, 31, 31, 0.06),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            0 10px 24px rgba(122, 31, 31, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.95);
         }
 
         .cartBtn:hover {
           transform: translateY(-3px);
 
-          background: rgba(122, 31, 31, 0.05);
+          background: rgba(122, 31, 31, 0.04);
 
-          border-color: rgba(122, 31, 31, 0.18);
+          border-color: rgba(122, 31, 31, 0.24);
 
           box-shadow:
-            0 18px 34px rgba(122, 31, 31, 0.12),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        }
-
-        .cartBtn:hover svg {
-          transform: scale(1.08);
+            0 18px 34px rgba(122, 31, 31, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.95);
         }
 
         @media (max-width: 640px) {
