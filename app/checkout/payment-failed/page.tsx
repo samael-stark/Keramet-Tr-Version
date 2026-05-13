@@ -36,11 +36,49 @@ export default function PaymentFailedPage() {
 
           <div className="actions">
             <Link href="/checkout/review" className="retryBtn">
-              Try Again
+              <span>Try Again</span>
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  d="M5 12h14"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M13 5l7 7-7 7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </Link>
 
             <Link href="/cart" className="cartBtn">
-              Back to Cart
+              <span>Back to Cart</span>
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  d="M6 6h15l-1.5 9h-12z"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M6 6L4 3H2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <circle cx="9" cy="20" r="1" />
+                <circle cx="18" cy="20" r="1" />
+              </svg>
             </Link>
           </div>
         </div>
@@ -84,7 +122,7 @@ export default function PaymentFailedPage() {
 
         .card {
           width: 100%;
-          max-width: 580px;
+          max-width: 600px;
           position: relative;
           z-index: 2;
 
@@ -94,9 +132,9 @@ export default function PaymentFailedPage() {
 
           border: 1px solid rgba(122, 31, 31, 0.08);
 
-          border-radius: 30px;
+          border-radius: 32px;
 
-          padding: 52px 42px;
+          padding: 56px 42px;
 
           text-align: center;
 
@@ -106,10 +144,10 @@ export default function PaymentFailedPage() {
         }
 
         .iconWrap {
-          width: 96px;
-          height: 96px;
+          width: 100px;
+          height: 100px;
 
-          margin: 0 auto 28px;
+          margin: 0 auto 30px;
 
           border-radius: 999px;
 
@@ -121,16 +159,22 @@ export default function PaymentFailedPage() {
 
           border: 1px solid rgba(122, 31, 31, 0.08);
 
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.8),
+            0 12px 30px rgba(122, 31, 31, 0.05);
         }
 
         .icon {
-          width: 62px;
-          height: 62px;
+          width: 64px;
+          height: 64px;
 
           border-radius: 999px;
 
-          background: #7a1f1f;
+          background: linear-gradient(
+            135deg,
+            #8d2626,
+            #641919
+          );
 
           color: white;
 
@@ -141,11 +185,13 @@ export default function PaymentFailedPage() {
           font-size: 30px;
           font-weight: 900;
 
-          box-shadow: 0 10px 24px rgba(122, 31, 31, 0.25);
+          box-shadow:
+            0 14px 30px rgba(122, 31, 31, 0.28),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .content {
-          margin-bottom: 34px;
+          margin-bottom: 38px;
         }
 
         .badge {
@@ -153,7 +199,7 @@ export default function PaymentFailedPage() {
           align-items: center;
           justify-content: center;
 
-          padding: 8px 14px;
+          padding: 8px 15px;
 
           border-radius: 999px;
 
@@ -163,15 +209,16 @@ export default function PaymentFailedPage() {
 
           font-size: 12px;
           font-weight: 800;
-          letter-spacing: 0.04em;
+
+          letter-spacing: 0.05em;
           text-transform: uppercase;
 
-          margin-bottom: 18px;
+          margin-bottom: 20px;
         }
 
         h1 {
-          font-size: 42px;
-          line-height: 1.1;
+          font-size: 44px;
+          line-height: 1.08;
           font-weight: 900;
           color: #7a1f1f;
           margin-bottom: 18px;
@@ -188,81 +235,133 @@ export default function PaymentFailedPage() {
           font-size: 15px;
           line-height: 1.7;
           color: rgba(0, 0, 0, 0.58);
-          max-width: 440px;
+
+          max-width: 460px;
+
           margin: 0 auto;
         }
 
         .actions {
           display: flex;
-          gap: 14px;
+          gap: 16px;
           justify-content: center;
           flex-wrap: wrap;
         }
 
         .retryBtn,
         .cartBtn {
-          min-width: 190px;
+          position: relative;
 
-          padding: 15px 22px;
+          min-width: 220px;
 
-          border-radius: 16px;
+          height: 58px;
 
-          font-weight: 800;
+          border-radius: 18px;
+
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
 
           text-decoration: none;
 
+          font-size: 15px;
+          font-weight: 800;
+
           transition:
-            transform 0.2s ease,
-            background 0.2s ease,
-            border-color 0.2s ease,
-            box-shadow 0.2s ease;
+            transform 0.25s ease,
+            box-shadow 0.25s ease,
+            background 0.25s ease,
+            border-color 0.25s ease;
+        }
+
+        .retryBtn svg,
+        .cartBtn svg {
+          width: 18px;
+          height: 18px;
+
+          transition: transform 0.25s ease;
+
+          flex-shrink: 0;
         }
 
         .retryBtn {
-          background: #7a1f1f;
+          background: linear-gradient(
+            135deg,
+            #8d2626,
+            #641919
+          );
+
           color: white;
 
-          box-shadow: 0 14px 30px rgba(122, 31, 31, 0.22);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+
+          box-shadow:
+            0 18px 34px rgba(122, 31, 31, 0.26),
+            inset 0 1px 0 rgba(255, 255, 255, 0.18);
         }
 
         .retryBtn:hover {
-          background: #641919;
-          transform: translateY(-2px);
+          transform: translateY(-3px);
+
+          box-shadow:
+            0 24px 42px rgba(122, 31, 31, 0.34),
+            inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        }
+
+        .retryBtn:hover svg {
+          transform: translateX(3px);
         }
 
         .cartBtn {
           background: rgba(255, 255, 255, 0.75);
 
+          color: #7a1f1f;
+
           border: 1px solid rgba(122, 31, 31, 0.12);
 
-          color: #7a1f1f;
+          backdrop-filter: blur(10px);
+
+          box-shadow:
+            0 10px 24px rgba(122, 31, 31, 0.06),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
         }
 
         .cartBtn:hover {
-          background: rgba(122, 31, 31, 0.04);
+          transform: translateY(-3px);
+
+          background: rgba(122, 31, 31, 0.05);
+
           border-color: rgba(122, 31, 31, 0.18);
-          transform: translateY(-2px);
+
+          box-shadow:
+            0 18px 34px rgba(122, 31, 31, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .cartBtn:hover svg {
+          transform: scale(1.08);
         }
 
         @media (max-width: 640px) {
           .page {
-            padding: 34px 16px;
+            padding: 36px 16px;
           }
 
           .card {
-            padding: 38px 24px;
-            border-radius: 24px;
+            padding: 40px 24px;
+            border-radius: 26px;
           }
 
           .iconWrap {
-            width: 82px;
-            height: 82px;
-            margin-bottom: 24px;
+            width: 86px;
+            height: 86px;
+            margin-bottom: 26px;
           }
 
           .icon {
-            width: 54px;
-            height: 54px;
+            width: 56px;
+            height: 56px;
             font-size: 24px;
           }
 
