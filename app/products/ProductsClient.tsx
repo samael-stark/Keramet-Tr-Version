@@ -112,50 +112,6 @@ export default function ProductsClient({ products }: { products: Product[] }) {
     window.dispatchEvent(new Event("wishlistUpdated"));
   };
 
-  const [currency, setCurrency] = useState("USD");
-  const [rates, setRates] = useState<Record<string, number>>({});
-  const [ratesLoaded, setRatesLoaded] = useState(false);
-
-  useEffect(() => {
-    const saved =
-      typeof window !== "undefined" ? localStorage.getItem("currency") : null;
-    if (saved) setCurrency(saved);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("currency", currency);
-    }
-  }, [currency]);
-
-  useEffect(() => {
-    async function fetchRates() {
-      try {
-        const res = await fetch("/api/exchange", { cache: "no-store" });
-        const data = await res.json();
-        setRates(data?.rates || {});
-      } catch {
-        setRates({});
-      } finally {
-        setRatesLoaded(true);
-      }
-    }
-
-    fetchRates();
-  }, []);
-
-  const convertPrice = (usd: number) => {
-    if (currency === "USD") return usd;
-    const rate = rates[currency];
-    if (!rate) return usd;
-    return usd * rate;
-  };
-
-  const formatPrice = (usd: number) => {
-    const value = convertPrice(usd);
-    return `${currency} ${value.toFixed(2)}`;
-  };
-
   const filteredProducts = products.filter((p) => {
     const matchesSearch = (p.title || "")
       .toLowerCase()
@@ -331,20 +287,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
                 </svg>
               </div>
 
-              <div className="currency">
-                <select
-                  value={currency}
-                  onChange={(e) => setCurrency(e.target.value)}
-                  aria-label="Currency"
-                  title="Currency"
-                >
-                  <option value="USD">USD $</option>
-                  <option value="TRY">TRY ₺</option>
-                  <option value="EUR">EUR €</option>
-                  <option value="GBP">GBP £</option>
-                  <option value="AED">AED د.إ</option>
-                </select>
-              </div>
+
             </div>
           </div>
 
@@ -428,15 +371,11 @@ export default function ProductsClient({ products }: { products: Product[] }) {
                         <div className="price-block">
                           <div className="price-line">
                             <span className="price-current">
-                              {ratesLoaded
-                                ? formatPrice(Number(p.price))
-                                : `USD ${Number(p.price).toFixed(2)}`}
+                              USD {Number(p.price).toFixed(2)}
                             </span>
 
                             <span className="price-old">
-                              {ratesLoaded
-                                ? formatPrice(originalPrice)
-                                : `USD ${originalPrice.toFixed(2)}`}
+                              USD {originalPrice.toFixed(2)}
                             </span>
                           </div>
 
@@ -689,23 +628,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
           pointer-events: none;
         }
 
-        .currency select {
-          height: 46px;
-          padding: 0 14px;
-          border-radius: 999px;
-          border: 1px solid rgba(0, 0, 0, 0.08);
-          background: rgba(255, 255, 255, 0.82);
-          font-weight: 700;
-          cursor: pointer;
-          outline: none;
-          color: #7a1f1f;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-        }
 
-        .currency select:focus {
-          border-color: #7a1f1f;
-          box-shadow: 0 0 0 3px rgba(122, 31, 31, 0.12);
-        }
 
         .active-filters {
           display: flex;
@@ -1055,13 +978,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
             width: 100%;
           }
 
-          .currency {
-            width: 100%;
-          }
 
-          .currency select {
-            width: 100%;
-          }
 
           .product-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
