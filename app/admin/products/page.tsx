@@ -383,21 +383,37 @@ export default function AdminProductsPage() {
                       </td>
 
                       {/* Actions */}
-                      <td className="px-6 py-5 text-right">
-                        <button
-                          onClick={() => onDelete(p)}
-                          className="
-                            inline-flex h-10 w-10 items-center justify-center
-                            rounded-full
-                            bg-red-50
-                            text-red-600
-                            hover:bg-red-100
-                            transition
-                          "
-                        >
-                          <FaTrash />
-                        </button>
-                      </td>
+                     <td className="px-6 py-5 text-right">
+  <div className="flex justify-end gap-2">
+    <Link
+      href={`/admin/products/edit/${p.id}`}
+      className="
+        inline-flex h-10 w-10 items-center justify-center
+        rounded-full
+        bg-blue-50
+        text-blue-600
+        hover:bg-blue-100
+        transition
+      "
+    >
+      ✏️
+    </Link>
+
+    <button
+      onClick={() => onDelete(p)}
+      className="
+        inline-flex h-10 w-10 items-center justify-center
+        rounded-full
+        bg-red-50
+        text-red-600
+        hover:bg-red-100
+        transition
+      "
+    >
+      <FaTrash />
+    </button>
+  </div>
+</td>
                     </tr>
                   ))}
                 </tbody>
