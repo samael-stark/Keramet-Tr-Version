@@ -179,11 +179,13 @@ export default function CategoriesSlider() {
                 className="group relative block w-64 flex-shrink-0 overflow-hidden rounded-[22px] bg-white shadow-[0_12px_35px_rgba(0,0,0,0.08)] transition duration-300 hover:-translate-y-1 md:w-72 lg:w-[32%]"
               >
                 <div className="relative h-[24rem] overflow-hidden">
-                  <img
-                    src={cat.image}
-                    alt={cat.title}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05] group-hover:blur-[1.5px]"
-                  />
+                 <img
+  src={cat.image}
+  alt={cat.title}
+  loading="lazy"
+  decoding="async"
+  className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05] group-hover:blur-[1.5px]"
+/>
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-black/10 transition duration-300 group-hover:from-black/75 group-hover:via-black/30 group-hover:to-black/20" />
 
