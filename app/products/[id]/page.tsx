@@ -25,7 +25,7 @@ export default async function ProductDetailPage({
 
   const data = snap.data();
 
-  const title = data.title ?? "Untitled Product";
+  const title = data.title ?? "İsimsiz Ürün";
   const price = Number(data.price ?? 0);
   const description = data.description ?? "";
   const images =
@@ -35,12 +35,13 @@ export default async function ProductDetailPage({
         ? [data.coverUrl]
         : [];
 
-  const originalPrice = price > 0 ? price / 0.35 : 0;
+  // Fake 15% discount
+  const originalPrice = price > 0 ? price / 0.85 : 0;
 
   const saleEndDate = new Date();
   saleEndDate.setDate(saleEndDate.getDate() + 10);
 
-  const formattedSaleDate = saleEndDate.toLocaleDateString("en-GB", {
+  const formattedSaleDate = saleEndDate.toLocaleDateString("tr-TR", {
     day: "numeric",
     month: "long",
   });
@@ -50,7 +51,13 @@ export default async function ProductDetailPage({
       <Header />
 
       <main style={{ background: "#f5f5eb", minHeight: "100vh" }}>
-        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "44px 24px 56px" }}>
+        <div
+          style={{
+            maxWidth: 1400,
+            margin: "0 auto",
+            padding: "44px 24px 56px",
+          }}
+        >
           <div className="detail-layout">
             <ProductGallery images={images} title={title} productId={id} />
 
@@ -59,7 +66,7 @@ export default async function ProductDetailPage({
 
               <div className="price-block">
                 <div className="price-line">
-                  <span className="now-label">Now</span>
+                  <span className="now-label">Şimdi</span>
 
                   <div className="current-price">
                     <PriceDisplay basePrice={price} />
@@ -71,9 +78,9 @@ export default async function ProductDetailPage({
                 </div>
 
                 <div className="sale-note">
-                  <span>65% off</span>
+                  <span>%15 İndirim</span>
                   <span className="dot">•</span>
-                  <span>Sale ends on {formattedSaleDate}</span>
+                  <span>{formattedSaleDate} tarihine kadar</span>
                 </div>
               </div>
 
@@ -81,14 +88,14 @@ export default async function ProductDetailPage({
                 <div className="meta-row">
                   {data.category && (
                     <div className="meta-pill">
-                      <span className="meta-label">Category</span>
+                      <span className="meta-label">Kategori</span>
                       <span className="meta-value">{data.category}</span>
                     </div>
                   )}
 
                   {data.size && (
                     <div className="meta-pill">
-                      <span className="meta-label">Size</span>
+                      <span className="meta-label">Ölçü</span>
                       <span className="meta-value">{data.size}</span>
                     </div>
                   )}
@@ -96,7 +103,7 @@ export default async function ProductDetailPage({
               )}
 
               <div className="description-block">
-                <h3>Description</h3>
+                <h3>Açıklama</h3>
                 <p className="description">{description}</p>
               </div>
 

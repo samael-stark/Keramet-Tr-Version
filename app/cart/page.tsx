@@ -1,5 +1,5 @@
 "use client";
-
+import PriceDisplay from "@/components/PriceDisplay";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
@@ -91,12 +91,12 @@ export default function CartPage() {
 
   const onRemove = (id: string) => {
     removeFromCart(id);
-    showToast("Removed from cart");
+    showToast("Ürün sepetten kaldırıldı");
   };
 
   const onClear = () => {
     clearCart();
-    showToast("Cart cleared");
+  showToast("Sepet temizlendi");
   };
 
   const handleCheckout = () => {
@@ -117,16 +117,16 @@ export default function CartPage() {
       <main className="page">
         <div className="wrap">
           <div className="top">
-            <h1 className="title">Your Cart</h1>
+         <h1 className="title">Sepetim</h1>
             <div className="actions">
               {items.length > 0 && (
                 <>
                   <Link href="/products">
-                    <span className="filledBtn">Continue shopping</span>
+                    <span className="filledBtn">Alışverişe Devam Et</span>
                   </Link>
 
                   <button className="ghost" onClick={onClear}>
-                    Clear cart
+                    Sepeti Temizle
                   </button>
                 </>
               )}
@@ -140,13 +140,12 @@ export default function CartPage() {
             </div>
           ) : items.length === 0 ? (
             <div className="empty">
-              <h2>Nothing in your cart yet.</h2>
+              <h2>Sepetiniz henüz boş.</h2>
               <p>
-                Add a rug, then come back here to review your order and
-                checkout.
+               Beğendiğiniz halıları sepetinize ekleyin ve siparişinizi tamamlayın.
               </p>
               <Link href="/products">
-                <span className="filledBtn">Browse rugs</span>
+                <span className="filledBtn">Halıları İncele</span>
               </Link>
             </div>
           ) : (
@@ -155,12 +154,12 @@ export default function CartPage() {
                 {items.map((p) => (
                   <div key={p.id} className="row">
                     <Link href={`/products/${p.id}`} className="thumb">
-                      <img src={p.coverUrl || ""} alt={p.title || "Product"} />
+                      <img src={p.coverUrl || ""} alt={p.title || "Ürün"} />
                     </Link>
 
                     <div className="info">
                       <Link href={`/products/${p.id}`} className="name">
-                        {p.title || "Untitled product"}
+                        {p.title || "İsimsiz Ürün"}
                       </Link>
 
                       <div className="meta">
@@ -168,20 +167,22 @@ export default function CartPage() {
                         {p.size ? <span>• {p.size}</span> : null}
                       </div>
 
-                      <span className="scarcity">Only one piece available</span>
+                      <span className="scarcity">Sadece 1 adet kaldı</span>
 
                       <div className="controls">
                         <button
                           className="remove"
                           onClick={() => onRemove(p.id)}
                         >
-                          Remove
+                          Kaldır
                         </button>
                       </div>
                     </div>
 
                     <div className="price">
-                      <div className="line">USD {p.price.toFixed(2)}</div>
+                      <div className="line">
+  <PriceDisplay basePrice={p.price} />
+</div>
                     </div>
                   </div>
                 ))}
@@ -189,30 +190,34 @@ export default function CartPage() {
 
               <aside className="summary">
                 <div className="summaryCard">
-                  <h3>Order summary</h3>
+                  <h3>Sipariş Özeti</h3>
 
                   <div className="sumRow">
-                    <span>Subtotal</span>
-                    <strong>USD {subtotal.toFixed(2)}</strong>
+                    <span>Ara Toplam</span>
+                    <strong>
+  <PriceDisplay basePrice={subtotal} />
+</strong>
                   </div>
                   <div className="sumRow">
-                    <span>Delivery</span>
-                    <strong>Free</strong>
+                    <span>Teslimat</span>
+                    <strong>Ücretsiz</strong>
                   </div>
                   <div
                     className="sumRow"
                     style={{ marginTop: "10px", fontWeight: "900" }}
                   >
-                    <span>Total</span>
-                    <strong>USD {subtotal.toFixed(2)}</strong>
+                    <span>Toplam</span>
+                  <strong>
+  <PriceDisplay basePrice={subtotal} />
+</strong>
                   </div>
 
                   <button className="checkout" onClick={handleCheckout}>
-                    Checkout
+                  Ödemeye Geç
                   </button>
 
                   <div className="safe">
-                    Secure checkout. Your payment is encrypted.
+                   Güvenli ödeme. Ödemeniz şifrelenerek korunur.
                   </div>
                 </div>
               </aside>
