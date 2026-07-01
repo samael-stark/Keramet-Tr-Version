@@ -21,7 +21,7 @@ export default async function ProductsPage() {
       description: data.description || "",
       images: data.images || [],
       madeYear: data.madeYear || null,
-      currency: data.currency || "USD",
+      currency: data.currency || "TRY",
       productId: data.productId || "",
       isActive: data.isActive ?? true,
       createdAt: data.createdAt?.toDate

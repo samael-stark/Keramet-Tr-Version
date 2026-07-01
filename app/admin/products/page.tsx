@@ -34,7 +34,7 @@ type ProductDoc = {
 
 const ADMIN_EMAIL =
   process.env.NEXT_PUBLIC_ADMIN_EMAIL ||
-  "keramethalisecond@gmail.com";
+  "keramethalithird@gmail.com";
 
 export default function AdminProductsPage() {
   const router = useRouter();
@@ -103,20 +103,22 @@ export default function AdminProductsPage() {
   const getThumb = (p: ProductDoc) =>
     p.coverUrl || p.images?.[0] || "";
 
-  const formatPrice = (
-    p?: number,
-    currency?: string,
-  ) => {
-    if (!p || p <= 0) return "—";
+ const formatPrice = (
+  p?: number,
+  currency?: string,
+) => {
+  if (!p || p <= 0) return "—";
 
-    if (
-      (currency || "USD").toUpperCase() === "USD"
-    ) {
-      return `$${p.toFixed(2)}`;
-    }
+  if ((currency || "TRY").toUpperCase() === "TRY") {
+    return new Intl.NumberFormat("tr-TR", {
+      style: "currency",
+      currency: "TRY",
+      minimumFractionDigits: 2,
+    }).format(p);
+  }
 
-    return `${p.toFixed(2)} ${currency}`;
-  };
+  return p.toFixed(2);
+};
 
   const onDelete = async (product: ProductDoc) => {
     const ok = confirm(
@@ -268,7 +270,7 @@ export default function AdminProductsPage() {
             </span>
 
             <span>
-              Currency: <b>USD</b>
+              Currency: <b>TRY</b>
             </span>
           </div>
 

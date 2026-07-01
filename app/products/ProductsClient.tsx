@@ -30,27 +30,23 @@ const SIZE_OPTIONS = [
 ];
 
 const COLLECTION_OPTIONS = [
-  "Mamluk",
+  "Memlük",
   "Sultani",
-  "Bidjar",
-  "Serapi",
   "Pazyryk",
-  "Gabbeh",
-  "Bakhtiari",
-  "Striped",
+  "Gebbeh",
+  "Bahtiyari",
+  "Şal",
   "Kazak",
-  "Tree of Life",
-  "Khal Muhammadi",
-  "Belgic",
+  "Hayat Ağacı",
+  "Hamyab",
+  "Bilecik", // or the spelling you confirm
   "Kilim",
-  "Runner",
-  "Persian",
-  "Waziri",
-  "Sickle Leaf",
+  "Yolluk",
   "Karakul",
-  "Pictorial Birds",
+  "Karabağ",
+  "Kuşlu",
   "Suzani",
-  "OverDye",
+  "Overdye",
 ];
 
 const SIZE_LABEL_TO_DB: Record<string, string> = {
@@ -150,17 +146,19 @@ export default function ProductsClient({ products }: { products: Product[] }) {
   const saleEndDate = new Date();
   saleEndDate.setDate(saleEndDate.getDate() + 10);
 
-  const formattedSaleDate = saleEndDate.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-  });
+ const formatTRY = (price: number) =>
+  new Intl.NumberFormat("tr-TR", {
+    style: "currency",
+    currency: "TRY",
+    minimumFractionDigits: 2,
+  }).format(price);
 
   return (
     <div className="shop-shell">
       <div className="layout-wrapper">
         <aside className={`sidebar ${isFilterOpen ? "open" : ""}`}>
           <div className="sidebar-head">
-            <h3>Browse</h3>
+            <h3>Ürünler</h3>
             <button
               className="close-drawer"
               onClick={() => setIsFilterOpen(false)}
@@ -180,7 +178,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
               !selectedCollection && !selectedSizeLabel && !query ? "active" : ""
             }`}
           >
-            All Products
+Tüm Ürünler
           </button>
 
           <div className="filter-block">
@@ -191,7 +189,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
                 setShowCollections(false);
               }}
             >
-              <span>Shop by Size</span>
+              <span>Ölçüye Göre</span>
               <span className={`arrow ${showSizes ? "open" : ""}`} />
             </button>
 
@@ -225,7 +223,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
                 setShowSizes(false);
               }}
             >
-              <span>Shop by Collection</span>
+              <span>Koleksiyona Göre</span>
               <span className={`arrow ${showCollections ? "open" : ""}`} />
             </button>
 
@@ -256,7 +254,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
           <div className="topbar">
             <div className="topbar-left">
               <h2 className="page-title">
-                {selectedCollection ? `${selectedCollection} Rugs` : "All Rugs"}
+                {selectedCollection ? `${selectedCollection} Rugs` : "Tüm Halılar"}
               </h2>
 
               <button
@@ -270,7 +268,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
             <div className="topbar-controls">
               <div className="search">
                 <input
-                  placeholder="Search rugs"
+                  placeholder="Halı Ara"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
@@ -321,7 +319,10 @@ export default function ProductsClient({ products }: { products: Product[] }) {
           <div className="product-grid">
             {paginatedProducts.map((p) => {
               const isActive = wishlist.includes(p.id);
-              const originalPrice = Number(p.price) > 0 ? Number(p.price) / 0.35 : 0;
+             const originalPrice =
+  Number(p.price) > 0
+    ? Number(p.price) / 0.85
+    : 0;
 
               return (
                 <Link
@@ -372,16 +373,18 @@ export default function ProductsClient({ products }: { products: Product[] }) {
 
                         <div className="price-block">
                           <div className="price-line">
-                            <span className="price-current">
-                              USD {Number(p.price).toFixed(2)}
-                            </span>
+                           <span className="price-current">
+  {formatTRY(Number(p.price))}
+</span>
 
-                            <span className="price-old">
-                              USD {originalPrice.toFixed(2)}
-                            </span>
+<span className="price-old">
+  {formatTRY(originalPrice)}
+</span>
                           </div>
 
-                          <p className="sale-note">65% off • Sale ends on {formattedSaleDate}</p>
+                          <p className="sale-note">
+  %15 İndirim • Sınırlı Süreli Fırsat
+</p>
                         </div>
                       </div>
                     </div>
