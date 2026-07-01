@@ -8,23 +8,23 @@ import {
 const trustPoints = [
   {
     icon: FaHandSparkles,
-    title: "Authentic Handmade Rugs",
-    text: "Hand-knotted rugs selected for detail, character, and lasting beauty.",
+    title: "El Dokuması Halılar",
+    text: "Her halı; ustalık, kalite ve zamansız tasarım anlayışıyla özenle seçilir.",
   },
   {
     icon: FaShieldAlt,
-    title: "Quality & Transparency",
-    text: "Carefully sourced materials and honest craftsmanship you can trust.",
+    title: "Kalite Garantisi",
+    text: "Doğal malzemeler, güvenilir üretim ve uzun yıllar kullanılabilecek üstün kalite.",
   },
   {
     icon: FaGlobe,
-    title: "Heritage & Craft",
-    text: "Rooted in generations of weaving tradition and timeless design.",
+    title: "Geleneksel Ustalık",
+    text: "Nesiller boyunca aktarılan el dokuma sanatını modern yaşam alanlarıyla buluşturuyoruz.",
   },
   {
     icon: FaTruck,
-    title: "Worldwide Delivery",
-    text: "Bringing handcrafted rugs from artisans to homes across the world.",
+    title: "Güvenli Teslimat",
+    text: "Siparişleriniz özenle paketlenerek Türkiye'nin her yerine güvenle ulaştırılır.",
   },
 ];
 
@@ -35,22 +35,22 @@ export default function About() {
         {/* Heading */}
         <div className="text-center">
           <h3 className="text-sm font-medium uppercase tracking-[0.28em] text-gray-600">
-            Our Heritage
+            HAKKIMIZDA
           </h3>
 
           <h2 className="mt-3 text-3xl font-extrabold text-custom-accent sm:text-4xl">
-            About Keramet Hali
+            Keramet Halı
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-[#5c554d] sm:text-lg">
-            Keramet Hali brings together generations of rug heritage, offering
-            authentic Afghan and Persian hand-knotted rugs chosen for
-            craftsmanship, character, and timeless beauty.
+            Keramet Halı olarak, el dokuması halıları geleneksel ustalık ve
+            modern yaşam anlayışıyla buluşturuyoruz. Her koleksiyonumuz kalite,
+            estetik ve uzun ömürlü kullanım düşünülerek özenle seçilmektedir.
           </p>
 
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#736b61] sm:text-base">
-            Every piece is selected with care — designed to bring warmth, story,
-            and lasting value into your home.
+            Yaşam alanlarınıza sıcaklık, zarafet ve karakter katacak özel
+            halıları sizlerle buluşturmayı hedefliyoruz.
           </p>
         </div>
 

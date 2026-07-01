@@ -92,7 +92,7 @@ export default function Header() {
             </Link>
 
             <p className="text-[11px] md:text-xs tracking-[0.25em] text-gray-600 uppercase mt-1">
-              Every House Needs
+              El Dokuması Premium Halılar
             </p>
           </div>
 
@@ -130,7 +130,7 @@ export default function Header() {
                   onClick={() => signOut(auth)}
                   className="text-xs text-red-600 hover:underline shrink-0"
                 >
-                  Logout
+                  Çıkış Yap
                 </button>
               </div>
             ) : (
@@ -145,22 +145,22 @@ export default function Header() {
         <nav className="hidden lg:flex justify-center py-3 text-gray-800 text-sm font-semibold">
           <div className="flex items-center gap-10">
             <Link href="/" className={navClass(isHome)}>
-              HOME
+              ANA SAYFA
             </Link>
-            <Link href="/#categories">RUG COLLECTION</Link>
+            <Link href="/#categories">KOLEKSİYONLAR</Link>
             <Link href="/products" className={navClass(isShop)}>
-              SHOP
+              ÜRÜNLER
             </Link>
 
             <Link
               href="/track-order"
               className={navClass(pathname === "/track-order")}
             >
-              TRACK ORDER
+              SİPARİŞ TAKİBİ
             </Link>
 
-            <Link href="/#aboutus">ABOUT</Link>
-            <Link href="/#contact">CONTACT</Link>
+            <Link href="/#aboutus">HAKKIMIZDA</Link>
+            <Link href="/#contact">İLETİŞİM</Link>
           </div>
         </nav>
       </header>
@@ -173,7 +173,7 @@ export default function Header() {
             className={`flex flex-col items-center ${bottomNavClass("/")}`}
           >
             <FaHome className="text-lg mb-1" />
-            <span>Home</span>
+            <span>Ana Sayfa</span>
           </Link>
 
           <Link
@@ -181,7 +181,7 @@ export default function Header() {
             className={`flex flex-col items-center ${bottomNavClass("/products")}`}
           >
             <FaStore className="text-lg mb-1" />
-            <span>Shop</span>
+            <span>Ürünler</span>
           </Link>
 
           {/* UPDATED TRACK ICON */}
@@ -190,7 +190,7 @@ export default function Header() {
             className={`flex flex-col items-center ${bottomNavClass("/track-order")}`}
           >
             <FaTruck className="text-lg mb-1" />
-            <span>Track</span>
+            <span>Takip</span>
           </Link>
 
           <Link
@@ -203,7 +203,7 @@ export default function Header() {
                 {wishlistCount}
               </span>
             )}
-            <span>Wishlist</span>
+            <span>Favoriler</span>
           </Link>
 
           <Link
@@ -216,7 +216,7 @@ export default function Header() {
                 {cartCount}
               </span>
             )}
-            <span>Cart</span>
+            <span>Sepet</span>
           </Link>
 
           <button
@@ -230,7 +230,7 @@ export default function Header() {
             className="flex flex-col items-center text-gray-500"
           >
             <FaUser className="text-lg mb-1" />
-            <span>{user ? "Account" : "Login"}</span>
+            <span>{user ? "Hesabım" : "Giriş"}</span>
           </button>
         </div>
       </div>
@@ -246,7 +246,7 @@ export default function Header() {
           <div className="relative w-full bg-custom-bg rounded-t-2xl p-6 shadow-xl animate-slideUp">
             <div className="text-center mb-4">
               <p className="font-semibold text-lg">
-                {user.displayName || "User"}
+                {user.displayName || "Kullanıcı"}
               </p>
               <p className="text-sm text-gray-500">{user.email}</p>
             </div>
@@ -258,14 +258,14 @@ export default function Header() {
               }}
               className="w-full py-3 bg-[#7a1f1f] text-white rounded-lg font-semibold"
             >
-              Logout
+              Çıkış Yap
             </button>
 
             <button
               onClick={() => setShowAccountModal(false)}
               className="w-full py-3 mt-3 border border-gray-300 rounded-lg"
             >
-              Close
+              Kapat
             </button>
           </div>
         </div>

@@ -7,12 +7,12 @@ import {
 
 const phoneNumbers = [
   {
-    label: "Primary Phone",
+    label: "Telefon",
     display: "+90 506 527 49 30",
     href: "tel:+905065274930",
   },
   {
-    label: "Second Phone",
+    label: "İkinci Telefon",
     display: "+90 531 921 45 75",
     href: "tel:+905319214575",
   },
@@ -45,27 +45,27 @@ export default function Contact() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="mx-auto mb-12 max-w-3xl text-center sm:mb-16">
           <h3 className="text-sm font-medium uppercase tracking-[0.28em] text-gray-600">
-            Get in Touch
+            İLETİŞİM
           </h3>
 
           <h2 className="mt-3 text-3xl font-extrabold text-custom-accent md:text-4xl">
-            Contact Us
+            Bizimle İletişime Geçin
           </h2>
-
-
         </div>
 
         <div className="overflow-hidden rounded-[30px] border border-[#eadfd8] bg-white/60 shadow-[0_18px_60px_rgba(0,0,0,0.06)] backdrop-blur-md">
           <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr]">
-            {/* Left content inside same block */}
+
+            {/* Left */}
             <div className="p-6 sm:p-8 lg:p-10 xl:p-12">
               <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#9b8f80]">
-                Keramet Hali
+                Keramet Halı
               </p>
 
               <p className="mt-4 max-w-xl text-sm leading-7 text-[#6e665d] sm:text-base">
-                Reach out for product inquiries, showroom guidance, or help
-                choosing the right handmade rug for your home or project.
+                Ürünlerimiz hakkında bilgi almak, doğru halıyı seçmek veya
+                siparişlerinizle ilgili destek almak için bizimle iletişime
+                geçebilirsiniz.
               </p>
 
               <div className="mt-8 space-y-4 sm:mt-10">
@@ -96,7 +96,7 @@ export default function Contact() {
 
               <div className="mt-10 border-t border-[#eee4de] pt-8">
                 <p className="mb-5 text-sm font-semibold uppercase tracking-[0.24em] text-gray-700">
-                  Follow Us
+                  Bizi Takip Edin
                 </p>
 
                 <div className="flex flex-wrap items-center gap-4 sm:gap-5">
@@ -120,28 +120,29 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Right content inside same block */}
+            {/* Right */}
             <div className="border-t border-[#eee4de] lg:border-l lg:border-t-0">
               <div className="px-6 py-5 sm:px-8 lg:px-10 lg:py-8">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#9b8f80]">
-                  Store Location
+                  MAĞAZA KONUMU
                 </p>
 
-             <h3 className="mt-2 text-2xl font-bold leading-tight text-custom-accent sm:text-[30px]">
+                <h3 className="mt-2 text-2xl font-bold leading-tight text-custom-accent sm:text-[30px]">
                   Keramet Halı Handmade Rugs & Kilims
                 </h3>
               </div>
 
               <div className="h-[320px] w-full sm:h-[400px] md:h-[460px] lg:h-full lg:min-h-[100%]">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24084.40256752193!2d28.93900487910156!3d41.01321460000001!2m3!1f0!2f0!3f0!2m3!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab95778da3059%3A0x4c6bef2481ac35df!2sKeramet%20Hal%C4%B1%20Handmade%20Rugs%20%26%20Kilims!5e0!3m2!1sen!2s!4v1766616159896!5m2!1sen!2s"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24084.40256752193!2d28.93900487910156!3d41.01321460000001!2m3!1f0!2f0!3f0!2m3!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab95778da3059%3A0x4c6bef2481ac35df!2sKeramet%20Hal%C4%B1%20Handmade%20Rugs%20%26%20Kilims!5e0!3m2!1str!2str!4v1766616159896!5m2!1str!2str"
                   className="h-full w-full"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Keramet Hali Location"
+                  title="Keramet Halı Konumu"
                 />
               </div>
             </div>
+
           </div>
         </div>
       </div>
