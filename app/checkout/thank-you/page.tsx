@@ -60,23 +60,22 @@ export default function ThankYouPage() {
       <main className="page">
         <div className="wrap">
           <div className="card">
-            <div className="iconWrap">✓</div>
+            <div className="iconWrap">✔</div>
 
-            <h1 className="title">Thank you for your order</h1>
+<h1 className="title">Siparişiniz Alındı!</h1>
 
             <p className="subtitle">
-            Your payment was completed successfully and your order is now being processed.
-            </p>
+Ödemeniz başarıyla tamamlandı. Siparişiniz alınmıştır ve hazırlanmaya başlanacaktır.</p>
 
             {orderNumber ? (
               <div className="orderBox">
-                <span className="orderLabel">Your order number</span>
+                <span className="orderLabel">Sipariş Numaranız</span>
                 <strong className="orderNumber">{orderNumber}</strong>
               </div>
             ) : null}
 
             <p className="note">
-           A confirmation email and order updates will be sent to you shortly.
+Sipariş onayınız ve durum güncellemeleri kısa süre içinde e-posta adresinize gönderilecektir.
             </p>
 
             <div className="actions">
@@ -85,7 +84,7 @@ export default function ThankYouPage() {
                 className="primaryBtn"
                 onClick={handleContinueShopping}
               >
-                Continue Shopping
+                Alışverişe Devam Et
               </button>
             </div>
           </div>

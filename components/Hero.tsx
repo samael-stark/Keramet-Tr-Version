@@ -6,27 +6,27 @@ import Link from "next/link";
 const slides = [
   {
     image: "/img/BannerOne.jpg",
-    tag: "Discover Elegant Rugs",
-    title: "Traditional Afghan Rugs",
-    highlight: "Afghan Rugs",
+    tag: "El Dokuması Premium Halılar",
+    title: "Geleneksel Afgan Halıları",
+    highlight: "Afgan Halıları",
     description:
-      "Our custom-designed Afghan rugs provide unparalleled quality and spiritual comfort.",
+      "Usta zanaatkârlar tarafından el dokuması olarak üretilen kaliteli Afgan halıları ile yaşam alanlarınıza zarafet katın.",
   },
   {
     image: "/img/BannerTwo.jpg",
-    tag: "Timeless Craftsmanship",
-    title: "Fine Mamluk Rugs",
-    highlight: "Mamluk Rugs",
+    tag: "Zamansız El Sanatı",
+    title: "Özel Memlük Halıları",
+    highlight: "Memlük Halıları",
     description:
-      "Experience generations of weaving tradition brought into modern living spaces.",
+      "Yüzyıllardır süregelen dokuma geleneğini modern yaşam alanlarınızla buluşturun.",
   },
   {
     image: "/img/BannerThree.jpg",
-    tag: "Authentic & Ethical",
-    title: "Discover Transitional Rugs",
-    highlight: "Transitional Rugs",
+    tag: "Doğal • El Dokuması • Kaliteli",
+    title: "Şık Sultani Halıları",
+    highlight: "Sultani Halıları",
     description:
-      "Ethically sourced, handwoven rugs designed to last a lifetime.",
+      "Doğal yünlerden üretilen, uzun yıllar kullanabileceğiniz özgün el dokuması halılar.",
   },
 ];
 
@@ -73,7 +73,9 @@ export default function Hero() {
 
             <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-white">
               {current.title.split(current.highlight)[0]}
-              <span className="text-custom-accent">{current.highlight}</span>
+              <span className="text-custom-accent">
+                {current.highlight}
+              </span>
             </h2>
 
             <p className="text-white text-lg hidden md:block">
@@ -84,7 +86,7 @@ export default function Hero() {
               href="/products"
               className="bg-custom-accent hover:bg-custom-accent-light text-white font-semibold py-3 px-8 rounded-md shadow-lg self-start transition-colors"
             >
-              Shop Now
+              Koleksiyonu İncele
             </Link>
           </div>
         </div>
@@ -99,7 +101,7 @@ export default function Hero() {
             className={`w-2.5 h-2.5 rounded-full transition-all ${
               active === i ? "bg-custom-accent" : "bg-gray-300"
             }`}
-            aria-label={`Go to slide ${i + 1}`}
+            aria-label={`Slayt ${i + 1}`}
           />
         ))}
       </div>

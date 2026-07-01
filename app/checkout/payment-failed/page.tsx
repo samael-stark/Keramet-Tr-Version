@@ -16,31 +16,30 @@ export default function PaymentFailedPage() {
 
         <div className="card">
           <div className="iconWrap">
-            <div className="icon">✕</div>
+            <div className="icon">✖</div>
           </div>
 
           <div className="content">
-            <span className="badge">Payment Error</span>
+            <span className="badge">İŞLEM BAŞARISIZ</span>
 
-            <h1>Payment Failed</h1>
+            <h1>Ödeme Başarısız</h1>
 
             <p className="description">
-              Unfortunately, your payment could not be completed at this time.
+            Maalesef ödemeniz şu anda tamamlanamadı.
             </p>
 
             <p className="subtext">
-              Please verify your payment details or try another card or payment
-              method before attempting again.
+           Lütfen kart bilgilerinizi kontrol edin veya farklı bir kart ile tekrar deneyin.
             </p>
           </div>
 
           <div className="actions">
             <Link href="/checkout/review" className="linkWrap">
-              <span className="retryBtn">Try Again</span>
+              <span className="retryBtn">Tekrar Dene</span>
             </Link>
 
             <Link href="/cart" className="linkWrap">
-              <span className="cartBtn">Back to Cart</span>
+              <span className="cartBtn">Sepete Dön</span>
             </Link>
           </div>
         </div>

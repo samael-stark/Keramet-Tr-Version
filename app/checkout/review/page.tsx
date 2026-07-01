@@ -1,5 +1,5 @@
 "use client";
-
+import PriceDisplay from "@/components/PriceDisplay";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useEffect, useMemo, useState } from "react";
@@ -17,15 +17,14 @@ type CheckoutItem = {
 
 type CheckoutPayload = {
   customer: {
-    country: string;
     fullName: string;
     streetAddress: string;
     apartment: string;
     city: string;
+    district: string;
     postalCode: string;
-    countryCode: string;
     phoneNumber: string;
-  };
+};
   items: CheckoutItem[];
   subtotal: number;
 };
@@ -65,19 +64,20 @@ export default function CheckoutReviewPage() {
     if (!checkoutData) return "";
 
     return [
-      checkoutData.customer.streetAddress,
-      checkoutData.customer.apartment,
-      checkoutData.customer.city,
-      checkoutData.customer.postalCode,
-      checkoutData.customer.country,
-    ]
+    checkoutData.customer.streetAddress,
+    checkoutData.customer.apartment,
+    checkoutData.customer.district,
+    checkoutData.customer.city,
+    checkoutData.customer.postalCode,
+]
+
       .filter(Boolean)
       .join(", ");
   }, [checkoutData]);
 
   const fullPhone = useMemo(() => {
     if (!checkoutData) return "";
-    return `${checkoutData.customer.countryCode} ${checkoutData.customer.phoneNumber}`;
+   return `+90 ${checkoutData.customer.phoneNumber}`;
   }, [checkoutData]);
 
   const handleEditAddress = () => {
@@ -97,7 +97,7 @@ const handlePlaceOrder = async () => {
     }
 
     if (!checkoutData || !checkoutData.items?.length) {
-      setOrderError("Checkout details are missing.");
+     setOrderError("Sipariş bilgileri bulunamadı.");
       return;
     }
 
@@ -110,7 +110,7 @@ const handlePlaceOrder = async () => {
       trimmedName.split(/\s+/);
 
     const firstName =
-      nameParts[0] || "Guest";
+      nameParts[0] || "Misafir";
 
     const lastName =
       nameParts.slice(1).join(" ") || "-";
@@ -123,17 +123,22 @@ const handlePlaceOrder = async () => {
 
         lastName,
 
-        phone: `${checkoutData.customer.countryCode} ${checkoutData.customer.phoneNumber}`.trim(),
+      phone: `+90 ${checkoutData.customer.phoneNumber}`,
 
-        country: checkoutData.customer.country,
+    country: "Türkiye",
 
         city: checkoutData.customer.city,
 
         addressLine1:
           checkoutData.customer.streetAddress,
 
-        addressLine2:
-          checkoutData.customer.apartment || "",
+      addressLine2:
+[
+    checkoutData.customer.apartment,
+    checkoutData.customer.district,
+]
+.filter(Boolean)
+.join(", "),
 
         postalCode:
           checkoutData.customer.postalCode || "",
@@ -143,7 +148,7 @@ const handlePlaceOrder = async () => {
         productId: item.id,
 
         title:
-          item.title || "Untitled product",
+          item.title || "İsimsiz Ürün",
 
         price: Number(item.price || 0),
 
@@ -154,7 +159,7 @@ const handlePlaceOrder = async () => {
 
       shipping: 0,
 
-      currency: "USD",
+     currency: "TRY",
     };
 
     // CREATE ORDER
@@ -180,7 +185,7 @@ const handlePlaceOrder = async () => {
     if (!orderRes.ok) {
       throw new Error(
         orderData.error ||
-          "Failed to create order"
+          "Sipariş oluşturulamadı."
       );
     }
 
@@ -246,13 +251,13 @@ try {
     if (!iyzicoRes.ok) {
       throw new Error(
         iyzicoData.error ||
-          "Failed to initialize iyzico payment"
+          "iyzico ödeme başlatılamadı."
       );
     }
 
     if (!iyzicoData.paymentPageUrl) {
       throw new Error(
-        "iyzico payment page URL missing"
+        "Ödeme sayfası oluşturulamadı."
       );
     }
 
@@ -268,7 +273,7 @@ try {
 
     setOrderError(
       error.message ||
-        "Something went wrong while placing your order."
+        "Sipariş oluşturulurken bir hata oluştu."
     );
   } finally {
     setIsSubmitting(false);
@@ -281,7 +286,7 @@ try {
         <Header />
         <main className="page">
           <div className="wrap">
-            <div className="loadingCard">Preparing review step…</div>
+            <div className="loadingCard">Sipariş özeti hazırlanıyor...</div>
           </div>
         </main>
         <Footer />
@@ -320,15 +325,15 @@ try {
         <div className="wrap">
           <div className="topbar">
             <div>
-              <h1 className="title">Review & Payment</h1>
+              <h1 className="title">Ödeme</h1>
               <p className="subtitle">
-                Confirm your delivery details and order summary before placing the order.
+               Teslimat bilgilerinizi ve siparişinizi kontrol ederek ödemenizi tamamlayın.
               </p>
             </div>
 
             <div className="steps">
-              <span className="step done">1. Address</span>
-              <span className="step active">2. Review &amp; Payment</span>
+              <span className="step done">1. Teslimat</span>
+              <span className="step active">2. Ödeme</span>
             </div>
           </div>
 
@@ -336,25 +341,25 @@ try {
             <section className="leftColumn">
               <div className="card">
                 <div className="cardHeader">
-                  <h2>Delivery details</h2>
+                  <h2>Teslimat Bilgileri</h2>
                   <button className="editBtn" onClick={handleEditAddress}>
-                    Edit
+                    Düzenle
                   </button>
                 </div>
 
                 <div className="detailBlock">
                   <div className="detailRow">
-                    <span className="label">Full name</span>
+                    <span className="label">Ad Soyad</span>
                     <span className="value">{checkoutData.customer.fullName}</span>
                   </div>
 
                   <div className="detailRow">
-                    <span className="label">Phone</span>
+                    <span className="label">Telefon</span>
                     <span className="value">{fullPhone}</span>
                   </div>
 
                   <div className="detailRow">
-                    <span className="label">Address</span>
+                    <span className="label">Adres</span>
                     <span className="value">{fullAddress}</span>
                   </div>
                 </div>
@@ -362,9 +367,9 @@ try {
 
             <div className="card">
   <div className="cardHeader">
-    <h2>Payment method</h2>
+    <h2>Ödeme Yöntemi</h2>
     <button className="editBtn" onClick={handleEditAddress}>
-      Edit
+      Düzenle
     </button>
   </div>
 
@@ -372,11 +377,10 @@ try {
     <div className="paymentIcon">💳</div>
 
     <div>
-      <p className="paymentTitle">Iyzico secure checkout</p>
+      <p className="paymentTitle">Güvenli iyzico Ödemesi</p>
 
       <p className="paymentText">
-       You will be redirected to iyzico's secure hosted payment page to complete your order safely using Visa or Mastercard.
-      </p>
+Ödemenizi güvenle tamamlamak için iyzico'nun güvenli ödeme sayfasına yönlendirileceksiniz.</p>
 
       {/* PAYMENT LOGOS ADDED HERE */}
       <div className="paymentLogos">
@@ -402,7 +406,7 @@ try {
     onClick={handlePlaceOrder}
     disabled={isSubmitting}
   >
-    {isSubmitting ? "Placing Order..." : "Place Order"}
+    {isSubmitting ? "Ödeme Sayfasına Yönlendiriliyor..." : "Ödeme Sayfasına Yönlendiriliyor..."}
   </button>
 
   {orderError ? <p className="errorText">{orderError}</p> : null}
@@ -410,7 +414,7 @@ try {
             </section>
 
             <aside className="summaryCard">
-              <h3>Order summary</h3>
+              <h3>Sipariş Özeti</h3>
 
               <div className="summaryItems">
                 {checkoutData.items.map((item) => (
@@ -418,18 +422,18 @@ try {
                     <div className="left">
                       <img
                         src={item.coverUrl || ""}
-                        alt={item.title || "Product"}
+                        alt={item.title || "Ürün"}
                       />
                       <div className="textWrap">
                         <p className="itemTitle">
-                          {item.title || "Untitled product"}
+                          {item.title || "İsimsiz Ürün"}
                         </p>
                         <p className="itemMeta">
-                          {item.category || "Rug"}
+                          {item.category || "Halı"}
                           {item.size ? ` • ${item.size}` : ""}
                         </p>
                         <div className="priceWrap">
-                          USD {Number(item.price || 0).toFixed(2)}
+                        <PriceDisplay basePrice={Number(item.price || 0)} />
                         </div>
                       </div>
                     </div>
@@ -439,16 +443,16 @@ try {
 
               <div className="totals">
                 <div className="sumRow">
-                  <span>Subtotal</span>
-                  <strong>USD {checkoutData.subtotal.toFixed(2)}</strong>
+                  <span>Ara Toplam</span>
+                  <strong><PriceDisplay basePrice={checkoutData.subtotal} /></strong>
                 </div>
                 <div className="sumRow">
-                  <span>Delivery</span>
-                  <strong>Free</strong>
+                  <span>Teslimat</span>
+                  <strong>Ücretsiz</strong>
                 </div>
                 <div className="sumRow total">
-                  <span>Total</span>
-                  <strong>USD {checkoutData.subtotal.toFixed(2)}</strong>
+                  <span>Toplam</span>
+                  <strong><PriceDisplay basePrice={checkoutData.subtotal} /></strong>
                 </div>
               </div>
             </aside>
