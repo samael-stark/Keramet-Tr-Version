@@ -10,10 +10,10 @@ import { auth, db } from "@/lib/firebase";
 import { uploadImagesToStorage } from "@/lib/upload";
 
 const ADMIN_EMAIL =
-  process.env.NEXT_PUBLIC_ADMIN_EMAIL || "keramethalisecond@gmail.com";
+  process.env.NEXT_PUBLIC_ADMIN_EMAIL || "keramethalithird@gmail.com";
 
 const MAX_IMAGES = 7;
-const CURRENCY: "USD" = "USD";
+const CURRENCY: "TRY" = "TRY";
 
 const UNIT_OPTIONS = ["ft", "in", "cm", "m"] as const;
 type Unit = (typeof UNIT_OPTIONS)[number];
@@ -371,7 +371,7 @@ export default function NewProductPage() {
 
             <p className="mt-2 text-gray-700">
               Up to {MAX_IMAGES} images. Currency is{" "}
-              <b>USD</b>.
+              <b>TRY</b>.
             </p>
           </div>
 
@@ -473,12 +473,12 @@ export default function NewProductPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
                     <div>
                       <label className={label}>
-                        Price (USD)
+                        Price (TRY)
                       </label>
 
                       <div className="mt-2 flex items-stretch">
                         <span className="inline-flex items-center justify-center w-12 rounded-l-2xl border border-gray-200 bg-gray-100 text-gray-800 font-extrabold">
-                          $
+                          ₺
                         </span>
 
                         <input

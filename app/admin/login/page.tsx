@@ -7,11 +7,11 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const ADMIN_EMAIL =
-  process.env.NEXT_PUBLIC_ADMIN_EMAIL || "keramethalisecond@gmail.com";
+  process.env.NEXT_PUBLIC_ADMIN_EMAIL || "keramethalithird@gmail.com";
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState(ADMIN_EMAIL);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -23,7 +23,7 @@ export default function AdminLoginPage() {
 
     try {
       if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-        setError(`Admin only. Use ${ADMIN_EMAIL}`);
+        setError("Unauthorized administrator account.");
         setLoading(false);
         return;
       }
