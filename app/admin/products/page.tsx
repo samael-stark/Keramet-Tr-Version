@@ -129,7 +129,13 @@ export default function AdminProductsPage() {
 
     if (!ok) return;
 
-    await deleteDoc(doc(db, "products", product.id));
+    try {
+  await deleteDoc(doc(db, "products", product.id));
+  console.log("Deleted successfully");
+} catch (err) {
+  console.error("Delete failed:", err);
+  alert(String(err));
+}
   };
 
   const filteredRows = useMemo(() => {
