@@ -78,7 +78,7 @@ export default function ProductGallery({
               className={`thumb ${i === activeIndex ? "active" : ""}`}
               onClick={() => setActiveIndex(i)}
             >
-              <img src={src} alt={`${title} thumbnail ${i + 1}`} />
+             <img src={src} alt={`${title} küçük görsel ${i + 1}`} />
             </div>
           ))}
         </div>
@@ -99,8 +99,8 @@ export default function ProductGallery({
           <button
             className={`heart-btn ${isWishlisted ? "active" : ""}`}
             onClick={toggleWishlist}
-            aria-label="Add to wishlist"
-            title="Wishlist"
+          aria-label="Favorilere Ekle"
+title="Favorilere Ekle"
           >
             <svg viewBox="0 0 24 24" width="24" height="24" className="heart-svg">
               <path
@@ -114,11 +114,11 @@ export default function ProductGallery({
             </svg>
           </button>
 
-          <button className="arrow left" onClick={prevImage} aria-label="Previous image">
+          <button className="arrow left" onClick={prevImage} aria-label="Önceki Görsel">
             ‹
           </button>
 
-          <button className="arrow right" onClick={nextImage} aria-label="Next image">
+          <button className="arrow right" onClick={nextImage}aria-label="Sonraki Görsel">
             ›
           </button>
         </div>

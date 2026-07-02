@@ -405,7 +405,7 @@ export default function NewProductPage() {
                       onChange={(e) =>
                         setTitle(e.target.value)
                       }
-                      placeholder="Handmade Vintage Afghan Rug"
+                      placeholder="El Dokuması Vintage Afgan Halısı"
                     />
                   </div>
 
@@ -420,7 +420,7 @@ export default function NewProductPage() {
                       onChange={(e) =>
                         setDescription(e.target.value)
                       }
-                      placeholder="Material, origin, condition notes, story..."
+                     placeholder="Malzeme, kökeni, durumu ve ürün açıklaması..."
                     />
                   </div>
 
@@ -436,8 +436,7 @@ export default function NewProductPage() {
                         onChange={(e) =>
                           setCategory(e.target.value)
                         }
-                        placeholder="Sultani / Serapi / Persian"
-                      />
+placeholder="Memlük / Sultani / Pazyryk"                      />
                     </div>
 
                     <div>

@@ -27,7 +27,9 @@ export default async function ProductDetailPage({
 
   const title = data.title ?? "İsimsiz Ürün";
   const price = Number(data.price ?? 0);
-  const description = data.description ?? "";
+const description =
+  data.description ??
+  "Bu ürün için henüz açıklama eklenmemiştir.";
   const images =
     Array.isArray(data.images) && data.images.length > 0
       ? data.images
@@ -66,7 +68,7 @@ export default async function ProductDetailPage({
 
               <div className="price-block">
                 <div className="price-line">
-                  <span className="now-label">Şimdi</span>
+                  <span className="now-label">İndirimli Fiyat</span>
 
                   <div className="current-price">
                     <PriceDisplay basePrice={price} />
@@ -78,9 +80,9 @@ export default async function ProductDetailPage({
                 </div>
 
                 <div className="sale-note">
-                  <span>%15 İndirim</span>
-                  <span className="dot">•</span>
-                  <span>{formattedSaleDate} tarihine kadar</span>
+                <span>%15 İndirim</span>
+<span className="dot">•</span>
+<span>Kampanya {formattedSaleDate} tarihine kadar geçerlidir</span>
                 </div>
               </div>
 

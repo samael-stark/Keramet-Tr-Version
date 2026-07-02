@@ -264,7 +264,7 @@ export default function EditProductPage() {
                 e.target.value,
               )
             }
-            placeholder="Title"
+           placeholder="Ürün Başlığı"
           />
 
           <textarea
@@ -275,7 +275,7 @@ export default function EditProductPage() {
                 e.target.value,
               )
             }
-            placeholder="Description"
+            placeholder="Ürün Açıklaması"
           />
 
           <input
@@ -286,7 +286,7 @@ export default function EditProductPage() {
                 e.target.value,
               )
             }
-            placeholder="Category"
+           placeholder="Kategori"
           />
 
           <input
@@ -298,7 +298,7 @@ export default function EditProductPage() {
                 e.target.value,
               )
             }
-            placeholder="Price"
+           placeholder="Fiyat"
           />
 
           <input
@@ -309,7 +309,7 @@ export default function EditProductPage() {
                 e.target.value,
               )
             }
-            placeholder="Made Year"
+            placeholder="Dokuma Yılı"
           />
 
           <div className="grid grid-cols-2 gap-4">
@@ -321,7 +321,7 @@ export default function EditProductPage() {
                   e.target.value,
                 )
               }
-              placeholder="Width"
+             placeholder="Genişlik"
             />
 
             <select
@@ -354,7 +354,7 @@ export default function EditProductPage() {
                   e.target.value,
                 )
               }
-              placeholder="Length"
+              placeholder="Uzunluk"
             />
 
             <select

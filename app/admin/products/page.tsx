@@ -117,13 +117,13 @@ export default function AdminProductsPage() {
     }).format(p);
   }
 
-  return p.toFixed(2);
+  return `${currency || "TRY"} ${p.toFixed(2)}`;
 };
 
   const onDelete = async (product: ProductDoc) => {
     const ok = confirm(
       `Delete "${
-        product.title || "Untitled"
+        product.title || "Unnamed Product"
       }"? This cannot be undone.`,
     );
 
@@ -144,6 +144,7 @@ export default function AdminProductsPage() {
         p.description,
         p.productId,
         p.id,
+        String(p.price),
       ]
         .join(" ")
         .toLowerCase()
