@@ -2,6 +2,7 @@
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PriceDisplay from "@/components/PriceDisplay";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -27,12 +28,14 @@ export default function WishlistPage() {
       }
 
       const snap = await getDocs(collection(db, "products"));
+
       const all = snap.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
 
       const filtered = all.filter((p) => ids.includes(p.id));
+
       setProducts(filtered);
       setLoading(false);
     }
@@ -42,13 +45,17 @@ export default function WishlistPage() {
 
   const removeFromWishlist = (id: string) => {
     const updated = wishlistIds.filter((x) => x !== id);
+
     setWishlistIds(updated);
+
     localStorage.setItem("wishlist", JSON.stringify(updated));
 
     setProducts((prev) => prev.filter((p) => p.id !== id));
+
     window.dispatchEvent(new Event("wishlistUpdated"));
 
     setToast(true);
+
     setTimeout(() => setToast(false), 2000);
   };
 
@@ -60,20 +67,31 @@ export default function WishlistPage() {
 
       <main className="wishlist-page">
         <div className="wishlist-wrapper">
-          {!isEmpty && <h1 className="wishlist-title">Your Favorites</h1>}
+          {!isEmpty && (
+            <h1 className="wishlist-title">
+              Favorilerim
+            </h1>
+          )}
 
           {loading ? (
-            <div className="loading">Loading your favorites...</div>
+            <div className="loading">
+              Favorileriniz yükleniyor...
+            </div>
           ) : isEmpty ? (
             <div className="empty-state">
-              <h2>Nothing in your wishlist yet.</h2>
+              <h2>Favorileriniz henüz boş.</h2>
 
               <p>
-                Save rugs you love and come back here to review your favorites.
+                Beğendiğiniz halıları favorilerinize ekleyin ve dilediğiniz zaman tekrar inceleyin.
               </p>
 
-              <Link href="/products" className="shop-link">
-                <span className="shop-btn">Browse rugs</span>
+              <Link
+                href="/products"
+                className="shop-link"
+              >
+                <span className="shop-btn">
+                  Halıları İncele
+                </span>
               </Link>
             </div>
           ) : (
@@ -86,7 +104,10 @@ export default function WishlistPage() {
                 >
                   <article className="wishlist-card">
                     <div className="img-wrap">
-                      <img src={p.coverUrl} alt={p.title} />
+                      <img
+                        src={p.coverUrl}
+                        alt={p.title}
+                      />
 
                       <button
                         className="wish-btn"
@@ -95,19 +116,29 @@ export default function WishlistPage() {
                           e.stopPropagation();
                           removeFromWishlist(p.id);
                         }}
-                        aria-label="Remove from wishlist"
-                        title="Remove from wishlist"
+                        aria-label="Favorilerden kaldır"
+                        title="Favorilerden kaldır"
                       >
                         <FaHeart />
                       </button>
                     </div>
 
                     <div className="card-body">
-                      {p.category && <p className="category">{p.category}</p>}
+                      {p.category && (
+                        <p className="category">
+                          {p.category}
+                        </p>
+                      )}
 
-                      <h4 className="title">{p.title}</h4>
+                      <h4 className="title">
+                        {p.title}
+                      </h4>
 
-                      <p className="price">USD {Number(p.price).toFixed(2)}</p>
+                      <div className="price">
+                        <PriceDisplay
+                          basePrice={Number(p.price)}
+                        />
+                      </div>
                     </div>
                   </article>
                 </Link>
@@ -119,7 +150,11 @@ export default function WishlistPage() {
 
       <Footer />
 
-      {toast && <div className="toast">Removed from Favorites</div>}
+      {toast && (
+        <div className="toast">
+          Favorilerden kaldırıldı
+        </div>
+      )}
 
       <style jsx>{`
         .wishlist-page {

@@ -15,9 +15,12 @@ export default function AddToCartButton({ productId }: { productId: string }) {
 
   return (
     <>
-      <button className={`add-to-cart ${added ? "added" : ""}`} onClick={handleClick}>
-        {added ? "Added ✓" : "Add to Cart"}
-      </button>
+     <button
+  className={`add-to-cart ${added ? "added" : ""}`}
+  onClick={handleClick}
+>
+  {added ? "Sepete Eklendi ✓" : "Sepete Ekle"}
+</button>
 
       <style jsx>{`
         .add-to-cart {

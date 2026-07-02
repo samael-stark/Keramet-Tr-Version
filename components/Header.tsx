@@ -92,7 +92,7 @@ export default function Header() {
             </Link>
 
             <p className="text-[11px] md:text-xs tracking-[0.25em] text-gray-600 uppercase mt-1">
-              El Dokuması Premium Halılar
+             Her Eve Yakışan El Dokuması Halılar
             </p>
           </div>
 

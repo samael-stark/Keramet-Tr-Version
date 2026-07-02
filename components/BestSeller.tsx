@@ -1,7 +1,7 @@
 "use client";
 
 import "./BestSeller.css";
-
+import PriceDisplay from "@/components/PriceDisplay";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { FaArrowRight, FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -18,9 +18,7 @@ export default function BestSeller({ products }: { products: Product[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const [wishlist, setWishlist] = useState<string[]>([]);
-  const [currency, setCurrency] = useState("USD");
-  const [rates, setRates] = useState<Record<string, number>>({});
-  const [ratesLoaded, setRatesLoaded] = useState(false);
+
 
   const scroll = (dir: "left" | "right") => {
     const el = scrollRef.current;
@@ -39,33 +37,8 @@ export default function BestSeller({ products }: { products: Product[] }) {
     if (stored) setWishlist(JSON.parse(stored));
   }, []);
 
-  useEffect(() => {
-    const saved =
-      typeof window !== "undefined" ? localStorage.getItem("currency") : null;
-    if (saved) setCurrency(saved);
-  }, []);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("currency", currency);
-    }
-  }, [currency]);
 
-  useEffect(() => {
-    async function fetchRates() {
-      try {
-        const res = await fetch("/api/exchange", { cache: "no-store" });
-        const data = await res.json();
-        setRates(data?.rates || {});
-      } catch {
-        setRates({});
-      } finally {
-        setRatesLoaded(true);
-      }
-    }
-
-    fetchRates();
-  }, []);
 
   const toggleWishlist = (id: string) => {
     let updated: string[];
@@ -81,23 +54,11 @@ export default function BestSeller({ products }: { products: Product[] }) {
     window.dispatchEvent(new Event("wishlistUpdated"));
   };
 
-  const convertPrice = (usd: number) => {
-    if (currency === "USD") return usd;
-    const rate = rates[currency];
-    if (!rate) return usd;
-    return usd * rate;
-  };
-
-  const formatPrice = (usd: number) => {
-    const value = convertPrice(usd);
-    return `${currency} ${value.toFixed(2)}`;
-  };
-
   const saleEndDate = useMemo(() => {
     const date = new Date();
     date.setDate(date.getDate() + 10);
 
-    return date.toLocaleDateString("en-GB", {
+    return date.toLocaleDateString("tr-TR", {
       day: "numeric",
       month: "long",
     });
@@ -108,10 +69,10 @@ export default function BestSeller({ products }: { products: Product[] }) {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="mb-14 text-center">
           <h3 className="text-sm font-medium uppercase tracking-widest text-gray-600">
-            Our Top Picks
+            Öne Çıkanlar
           </h3>
           <h2 className="mt-2 text-4xl font-extrabold text-custom-accent">
-            Our Best Seller
+            En Çok Tercih Edilenler
           </h2>
         </div>
 
@@ -132,7 +93,9 @@ export default function BestSeller({ products }: { products: Product[] }) {
               {products.map((p) => {
                 const isActive = wishlist.includes(p.id);
                 const originalPrice =
-                  Number(p.price) > 0 ? Number(p.price) / 0.35 : 0;
+  Number(p.price) > 0
+    ? Number(p.price) / 0.85
+    : 0;
 
                 return (
                   <Link
@@ -156,7 +119,7 @@ export default function BestSeller({ products }: { products: Product[] }) {
                               e.stopPropagation();
                               toggleWishlist(p.id);
                             }}
-                            aria-label="Add to wishlist"
+                            aria-label="Favorilere Ekle"
                             title="Wishlist"
                           >
                             <svg
@@ -186,21 +149,17 @@ export default function BestSeller({ products }: { products: Product[] }) {
 
                           <div className="price-block">
                             <div className="price-line">
-                              <span className="price-current">
-                                {ratesLoaded
-                                  ? formatPrice(Number(p.price))
-                                  : `USD ${Number(p.price).toFixed(2)}`}
-                              </span>
+                             <span className="price-current">
+  <PriceDisplay basePrice={Number(p.price)} />
+</span>
 
-                              <span className="price-old">
-                                {ratesLoaded
-                                  ? formatPrice(originalPrice)
-                                  : `USD ${originalPrice.toFixed(2)}`}
-                              </span>
+<span className="price-old">
+  <PriceDisplay basePrice={originalPrice} />
+</span>
                             </div>
 
                             <p className="sale-note">
-                              65% off • Sale ends on {saleEndDate}
+                             %15 İndirim • Kampanya Bitişi: {saleEndDate}
                             </p>
                           </div>
                         </div>
@@ -226,7 +185,7 @@ export default function BestSeller({ products }: { products: Product[] }) {
             href="/products"
             className="inline-flex items-center rounded-full border border-custom-accent px-10 py-3 font-semibold text-custom-accent transition-colors hover:bg-custom-accent hover:text-white"
           >
-            View All Rugs
+            Tüm Halıları Gör
             <FaArrowRight className="ml-2" />
           </Link>
         </div>

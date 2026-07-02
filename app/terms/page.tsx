@@ -9,88 +9,139 @@ export default function TermsPage() {
       <main className="bg-custom-bg min-h-screen">
         <div className="max-w-4xl mx-auto px-6 lg:px-10 py-16 lg:py-20">
           <h1 className="text-4xl font-extrabold text-custom-accent">
-            Terms & Conditions
+            Kullanım Koşulları
           </h1>
 
           <div className="mt-8 space-y-8 text-[#4e473f] leading-8">
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">General</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Genel Hükümler
+              </h2>
+
               <p className="mt-3">
-                By accessing and using this website and placing an order, you agree to be bound by these Terms & Conditions.
-                If you do not agree, you should not use this website or make any purchases.
+                Bu web sitesini ziyaret ederek, kullanarak veya sipariş vererek
+                işbu Kullanım Koşulları'nı kabul etmiş sayılırsınız. Bu
+                koşulları kabul etmiyorsanız web sitesini kullanmamalı ve
+                herhangi bir satın alma işlemi gerçekleştirmemelisiniz.
               </p>
+
               <p className="mt-3">
-                This website operates internationally and products are sold in United States Dollars (USD) unless otherwise stated at checkout.
+                Web sitemiz uluslararası müşterilere hizmet vermektedir.
+                Aksi belirtilmediği sürece ürün fiyatları ödeme aşamasında
+                belirtilen para birimi üzerinden sunulur.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Product Information</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Ürün Bilgileri
+              </h2>
+
               <p className="mt-3">
-                We aim to present all products as accurately as possible. However, since our rugs are handmade,
-                slight variations in color, texture, size, and design may naturally occur and are not considered defects.
+                Ürünlerimizi mümkün olduğunca doğru şekilde sunmaya özen
+                gösteriyoruz. Ancak halılarımız el dokuması olduğundan renk,
+                desen, ölçü ve doku açısından küçük farklılıklar oluşabilir.
+                Bu durum ürün kusuru olarak değerlendirilmez.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Pricing</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Fiyatlandırma
+              </h2>
+
               <p className="mt-3">
-                All prices are displayed in USD and may be updated at any time without prior notice.
-                We reserve the right to correct any pricing errors, typographical mistakes, or listing inaccuracies,
-                even after an order has been placed.
+                Ürün fiyatları önceden haber verilmeksizin değiştirilebilir.
+                Fiyatlandırma, yazım veya listeleme hatalarının tespit edilmesi
+                halinde sipariş oluşturulmuş olsa dahi gerekli düzeltmeler
+                yapılabilir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Orders</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Siparişler
+              </h2>
+
               <p className="mt-3">
-                We reserve the right to accept, refuse, or cancel any order at our discretion.
-                This may include cases involving pricing errors, stock availability, payment issues,
-                suspected fraud, or violation of these Terms.
+                Siparişleri kabul etme, reddetme veya iptal etme hakkı saklıdır.
+                Bu durum; stok yetersizliği, fiyat hataları, ödeme sorunları,
+                şüpheli işlemler veya bu kullanım koşullarının ihlali gibi
+                durumları kapsayabilir.
               </p>
+
               <p className="mt-3">
-                If an order is canceled after payment, a full refund will be issued to the original payment method.
+                Ödeme alındıktan sonra siparişin iptal edilmesi halinde,
+                ödemeniz kullanılan ödeme yöntemine iade edilir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Shipping & Delivery</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Kargo ve Teslimat
+              </h2>
+
               <p className="mt-3">
-                Shipping is handled in accordance with our Shipping Policy.
-                Delivery times are estimates only and may vary due to customs, carrier delays, or external factors.
+                Siparişlerin gönderimi ve teslimatı Kargo Politikamız
+                doğrultusunda gerçekleştirilir.
+              </p>
+
+              <p className="mt-3">
+                Teslimat süreleri tahmini olup; gümrük işlemleri, taşıyıcı firma
+                gecikmeleri veya kontrolümüz dışındaki nedenlere bağlı olarak
+                değişebilir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Force Majeure</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Mücbir Sebepler
+              </h2>
+
               <p className="mt-3">
-                We are not liable for delays or failure to perform obligations due to events beyond our reasonable control,
-                including but not limited to natural disasters, wars, strikes, pandemics, customs delays, or carrier disruptions.
+                Doğal afetler, savaşlar, grevler, salgın hastalıklar, gümrük
+                gecikmeleri, taşıyıcı firma sorunları ve benzeri kontrolümüz
+                dışındaki nedenlerden kaynaklanan gecikme veya yükümlülüklerin
+                yerine getirilememesinden sorumlu tutulamayız.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Liability</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Sorumluluğun Sınırlandırılması
+              </h2>
+
               <p className="mt-3">
-                To the maximum extent permitted by law, we are not responsible for indirect, incidental, or consequential damages
-                arising from the use of this website or purchase of products, except where such limitation is not allowed under applicable law.
+                Yürürlükteki mevzuatın izin verdiği ölçüde, web sitesinin
+                kullanımından veya ürün satın alınmasından kaynaklanabilecek
+                dolaylı, tesadüfi veya sonuç niteliğindeki zararlardan sorumlu
+                tutulamayız.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Governing Law</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Uygulanacak Hukuk
+              </h2>
+
               <p className="mt-3">
-                These Terms & Conditions are governed by the laws of the Republic of Türkiye.
-                However, if you are a consumer residing outside Türkiye, mandatory consumer protection laws in your country of residence may also apply.
+                İşbu Kullanım Koşulları Türkiye Cumhuriyeti kanunlarına tabidir.
+                Türkiye dışında ikamet eden tüketiciler bakımından, bulundukları
+                ülkedeki zorunlu tüketici koruma hükümleri saklıdır.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Changes</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Değişiklikler
+              </h2>
+
               <p className="mt-3">
-                We may update these Terms & Conditions at any time.
-                Continued use of the website after changes are published means you accept the updated version.
+                Bu Kullanım Koşulları gerekli görüldüğünde güncellenebilir.
+                Güncellenmiş metnin web sitesinde yayımlanmasının ardından
+                sitenin kullanılmaya devam edilmesi, yeni koşulların kabul
+                edildiği anlamına gelir.
               </p>
             </section>
 

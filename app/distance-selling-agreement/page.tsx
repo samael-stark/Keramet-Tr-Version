@@ -9,240 +9,166 @@ export default function DistanceSalesAgreementPage() {
       <main className="bg-custom-bg min-h-screen">
         <div className="max-w-4xl mx-auto px-6 lg:px-10 py-16 lg:py-20">
           <h1 className="text-4xl font-extrabold text-custom-accent">
-            Distance Sales Agreement
+            Mesafeli Satış Sözleşmesi
           </h1>
 
           <div className="mt-8 space-y-10 text-[#4e473f] leading-8">
 
-            {/* 1 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">1. PARTIES</h2>
-
+              <h2 className="text-2xl font-bold text-[#2d2823]">1. TARAFLAR</h2>
               <p className="mt-3">
-                This Agreement has been signed between the following parties.
+                İşbu Mesafeli Satış Sözleşmesi aşağıda bilgileri bulunan ALICI ile
+                SATICI arasında elektronik ortamda kurulmuştur.
               </p>
-
               <p className="mt-3">
-                <strong>BUYER</strong> – Name/Surname & Address provided during checkout.
+                <strong>ALICI</strong> – Sipariş sırasında beyan edilen ad, soyad,
+                adres ve iletişim bilgileri.
               </p>
-
               <p className="mt-3">
-                <strong>SELLER</strong> – Keramet Halı Handmade Rugs & Kilims <br />
-                Address: BÜYÜK MİLAS HAN, Hobyar, Cemal Nadir Sk. NO:24 İÇ KAPI NO:107, 34112 Fatih/İstanbul, Türkiye <br />
-                Phone: +90 506 527 49 30 <br />
-                Email: support@keramethali.com
+                <strong>SATICI</strong> – Keramet Halı Handmade Rugs & Kilims <br />
+                BÜYÜK MİLAS HAN, Hobyar, Cemal Nadir Sk. No:24 İç Kapı No:107,
+                34112 Fatih / İstanbul / Türkiye <br />
+                Telefon: +90 506 527 49 30 <br />
+                E-posta: support@keramethali.com
               </p>
-
               <p className="mt-3">
-                By accepting this contract, the BUYER agrees to pay all order-related costs including product price, shipping fees, customs duties (if applicable), bank charges, and all relevant taxes.
+                ALICI siparişi onaylayarak ürün bedeli, kargo ücreti, varsa gümrük
+                vergileri ve yasal yükümlülükleri ödemeyi kabul eder.
               </p>
             </section>
 
-            {/* 2 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">2. DEFINITIONS</h2>
-
+              <h2 className="text-2xl font-bold text-[#2d2823]">2. TANIMLAR</h2>
               <p className="mt-3">
-                This Agreement is governed primarily by Turkish Consumer Protection Law No. 6502 and Distance Contracts Regulation.
+                İşbu sözleşme 6502 Sayılı Tüketicinin Korunması Hakkında Kanun ve
+                Mesafeli Sözleşmeler Yönetmeliği hükümlerine uygun olarak
+                hazırlanmıştır.
               </p>
-
               <p className="mt-3">
-                For international sales, mandatory consumer protection laws of the BUYER’s country may apply only where legally required. Otherwise, Turkish law shall remain the primary governing law.
+                Türkiye dışındaki satışlarda, ALICI'nın ülkesindeki emredici
+                tüketici hükümleri saklı kalmak üzere Türk Hukuku uygulanacaktır.
               </p>
-
               <p className="mt-3">
-                All prices on the website are displayed in United States Dollars (USD). The BUYER acknowledges that currency conversion rates, bank fees, and payment provider charges may vary and are not controlled by the SELLER.
+                Sitede belirtilen fiyatlar aksi belirtilmedikçe USD cinsindendir.
+                Döviz kuru ve banka komisyonlarından SATICI sorumlu değildir.
               </p>
             </section>
 
-            {/* 3 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">3. SUBJECT</h2>
-
+              <h2 className="text-2xl font-bold text-[#2d2823]">3. KONU</h2>
               <p className="mt-3">
-                This Agreement regulates the rights and obligations of the parties regarding the sale, payment, international shipment, and delivery of handmade carpet and kilim products ordered electronically.
+                Bu sözleşme internet sitesi üzerinden sipariş verilen el dokuması
+                halı ve kilimlerin satışı, ödemesi, teslimatı ve tarafların hak ve
+                yükümlülüklerini düzenler.
               </p>
             </section>
 
-            {/* 4 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">4. SELLER INFORMATION</h2>
-
+              <h2 className="text-2xl font-bold text-[#2d2823]">4. SATICI BİLGİLERİ</h2>
               <p className="mt-3">
-                Keramet Halı Handmade Rugs & Kilims <br />
-                BÜYÜK MİLAS HAN, Hobyar, Cemal Nadir Sk. NO:24 İÇ KAPI NO:107, 34112 Fatih/İstanbul, Türkiye <br />
-                Phone: +90 506 527 49 30 <br />
-                Email: support@keramethali.com
+                Keramet Halı Handmade Rugs & Kilims<br/>
+                BÜYÜK MİLAS HAN, Hobyar, Cemal Nadir Sk. No:24 İç Kapı No:107,
+                Fatih / İstanbul / Türkiye<br/>
+                Telefon: +90 506 527 49 30<br/>
+                E-posta: support@keramethali.com
               </p>
             </section>
 
-            {/* 5 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">5. BUYER INFORMATION</h2>
-
+              <h2 className="text-2xl font-bold text-[#2d2823]">5. ALICI BİLGİLERİ</h2>
               <p className="mt-3">
-                The delivery address, contact details, and identity information provided by the BUYER during checkout shall be used as official order information.
+                Sipariş sırasında girilen teslimat ve fatura bilgileri resmi
+                kayıt olarak esas alınacaktır.
               </p>
             </section>
 
-            {/* 6 */}
             <section>
               <h2 className="text-2xl font-bold text-[#2d2823]">
-                6. INTERNATIONAL SHIPPING, CUSTOMS & DELIVERY
+                6. TESLİMAT, ULUSLARARASI GÖNDERİ VE GÜMRÜK
               </h2>
-
               <p className="mt-3">
-                The SELLER ships products worldwide. Delivery times may vary depending on destination country, customs procedures, courier services, and local regulations.
+                SATICI ürünlerini Türkiye'den dünyanın birçok ülkesine gönderir.
+                Teslimat süreleri ülke, taşıyıcı firma ve gümrük işlemlerine göre
+                değişebilir.
               </p>
-
               <p className="mt-3">
-                The BUYER acknowledges that international shipments may be subject to customs inspection, import restrictions, or delays beyond the SELLER’s control.
-              </p>
-
-              <p className="mt-3">
-                All customs duties, import taxes, VAT, brokerage fees, and any local charges are the sole responsibility of the BUYER.
-              </p>
-
-              <p className="mt-3">
-                The SELLER is not responsible for delays caused by customs authorities, courier companies, airline transport, or other third-party logistics providers.
-              </p>
-
-              <p className="mt-3">
-                Delivery times are estimates only and not guaranteed exact dates.
-              </p>
-
-              <p className="mt-3">
-                For international returns, all return shipping costs, customs return charges, and cross-border fees are the responsibility of the BUYER unless otherwise agreed in writing.
-              </p>
-
-              <p className="mt-3">
-                The BUYER is responsible for ensuring that imported goods comply with the laws of their country.
+                Gümrük vergileri, ithalat masrafları ve yerel vergiler ALICI'ya
+                aittir. SATICI gümrük gecikmelerinden sorumlu değildir.
               </p>
             </section>
 
-            {/* 7 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">7. PAYMENT TERMS</h2>
-
+              <h2 className="text-2xl font-bold text-[#2d2823]">7. ÖDEME</h2>
               <p className="mt-3">
-                All payments must be completed at the time of order via approved payment methods. Orders will not be processed until full payment is successfully received.
-              </p>
-
-              <p className="mt-3">
-                The SELLER reserves the right to cancel, suspend, or verify any order in cases of payment failure, suspected fraud, or security concerns.
+                Siparişler yalnızca ödemenin başarıyla tamamlanmasının ardından
+                işleme alınır. SATICI şüpheli işlemleri doğrulama veya iptal etme
+                hakkını saklı tutar.
               </p>
             </section>
 
-            {/* 8 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">8. FRAUD PREVENTION & SECURITY</h2>
-
+              <h2 className="text-2xl font-bold text-[#2d2823]">8. GÜVENLİK</h2>
               <p className="mt-3">
-                The SELLER reserves the right to request identity verification, payment confirmation, or additional documentation in order to prevent fraud or unauthorized transactions.
-              </p>
-
-              <p className="mt-3">
-                Failure to provide requested information may result in order cancellation without liability to the SELLER.
+                Dolandırıcılığı önlemek amacıyla kimlik doğrulaması veya ek belge
+                talep edilebilir.
               </p>
             </section>
 
-            {/* 9 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">9. GENERAL PROVISIONS</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">9. GENEL HÜKÜMLER</h2>
+              <div className="mt-3 whitespace-pre-line">{`ALICI ürün özelliklerini, fiyatı, ödeme ve teslimat bilgilerini okuyup onayladığını kabul eder.
 
-              <div className="mt-3 whitespace-pre-line">
-{`9. GENERAL PROVISIONS
+Ürünler yasal süre içerisinde teslim edilir.
 
-9.1. The BUYER accepts, declares and undertakes that he/she has read the basic characteristics, sales price and payment method of the product subject to the contract on the website of the SELLER, and the preliminary information regarding the delivery, and that he/she has been informed and has given the necessary confirmation electronically. BUYER; Confirming the Preliminary Information electronically, accepting, declaring and undertaking that he/she has obtained the address to be given to the BUYER by the SELLER before the establishment of the distance sales contract, the basic features of the ordered products, the price of the products including taxes, payment and delivery information accurately and completely.
+SATICI gerekli hallerde eşdeğer ürün sunabilir.
 
-9.2. Each product subject to the contract is delivered to the BUYER or the person and/or organization at the address indicated by the BUYER within the period specified in the preliminary information section on the website, depending on the distance of the BUYER's residence, provided that it does not exceed the legal period of 30 days.
+Mücbir sebepler teslimat sürelerini etkileyebilir.
 
-9.3. The SELLER undertakes to deliver the product subject to the contract completely, in accordance with the order specifications and legal requirements.
+ALICI teslim sırasında ürünü kontrol etmekle yükümlüdür.
 
-9.4. The SELLER may supply a product of equal quality and price with BUYER approval.
-
-9.5. If fulfillment becomes impossible, SELLER refunds within legal timeframes.
-
-9.6. The BUYER accepts electronic confirmation as binding agreement.
-
-9.7. Chargeback/fraud cases may require return of goods.
-
-9.8. Force majeure includes customs delays, logistics interruptions, war, strikes, pandemics, and government actions.
-
-9.9. Communication consent is granted by BUYER for order processing.
-
-9.10. Goods must be inspected upon delivery.
-
-9.11. SELLER may request identity verification in suspicious transactions.
-
-9.12. BUYER is responsible for accuracy of provided information.
-
-9.13. BUYER agrees to comply with applicable laws.
-
-9.14. Misuse of website is prohibited.
-
-9.15. External links are not under SELLER responsibility.
-
-9.16. Legal enforcement applies in case of violation.`}
-              </div>
+Yanlış bilgi verilmesinden doğacak sonuçlardan ALICI sorumludur.`}</div>
             </section>
 
-            {/* 10 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">10. RIGHT OF WITHDRAWAL</h2>
-
-              <div className="mt-3 whitespace-pre-line">
-{`10.1. BUYER may withdraw within 14 days of delivery without justification, in accordance with applicable law. Return shipping costs belong to BUYER unless item is defective or incorrect.
-
-10.2. Withdrawal requires written notice and return of unused product in original condition.`}
-              </div>
-            </section>
-
-            {/* 11 */}
-            <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">
-                11. NON-RETURNABLE PRODUCTS
-              </h2>
-
+              <h2 className="text-2xl font-bold text-[#2d2823]">10. CAYMA HAKKI</h2>
               <p className="mt-3">
-                Products that are custom-made, altered, or specially requested by the BUYER may not be eligible for return unless defective or incorrectly delivered.
+                ALICI, yürürlükteki mevzuat kapsamında teslimden itibaren 14 gün
+                içinde cayma hakkını kullanabilir. İade şartları İade Politikası
+                kapsamında değerlendirilir.
               </p>
             </section>
 
-            {/* 12 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">
-                12. DEFAULT AND LEGAL CONSEQUENCES
-              </h2>
-
+              <h2 className="text-2xl font-bold text-[#2d2823]">11. İADE EDİLEMEYEN ÜRÜNLER</h2>
               <p className="mt-3">
-                The BUYER accepts responsibility for payment defaults including interest, collection costs, and legal enforcement expenses.
+                Kişiye özel hazırlanan veya değişiklik yapılan ürünlerde ilgili
+                mevzuat hükümleri uygulanır.
               </p>
             </section>
 
-            {/* 13 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">13. COMPETENT COURT</h2>
-
+              <h2 className="text-2xl font-bold text-[#2d2823]">12. TEMERRÜT</h2>
               <p className="mt-3">
-                Turkish consumer arbitration boards and courts shall have jurisdiction, unless mandatory consumer protection laws of the BUYER’s country apply.
+                Ödeme yükümlülüğünün yerine getirilmemesi halinde yürürlükteki
+                mevzuat hükümleri uygulanacaktır.
               </p>
             </section>
 
-            {/* 14 */}
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">14. ENFORCEMENT</h2>
-
+              <h2 className="text-2xl font-bold text-[#2d2823]">13. YETKİLİ MERCİ</h2>
               <p className="mt-3">
-                Completion of payment confirms acceptance of this Agreement.
+                Uyuşmazlıklarda T.C. Ticaret Bakanlığı tarafından belirlenen
+                parasal sınırlar dahilinde Tüketici Hakem Heyetleri ve Tüketici
+                Mahkemeleri yetkilidir.
               </p>
+            </section>
 
+            <section>
+              <h2 className="text-2xl font-bold text-[#2d2823]">14. YÜRÜRLÜK</h2>
               <p className="mt-3">
-                SELLER: Keramet Halı Handmade Rugs & Kilims
+                Siparişin tamamlanması ile ALICI bu sözleşmenin tüm hükümlerini
+                kabul etmiş sayılır.
               </p>
-
-              <p className="mt-3">BUYER:</p>
-              <p className="mt-3">DATE:</p>
             </section>
 
           </div>

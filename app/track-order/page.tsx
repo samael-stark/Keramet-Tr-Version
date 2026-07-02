@@ -1,5 +1,5 @@
 "use client";
-
+import PriceDisplay from "@/components/PriceDisplay";
 import { FormEvent, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -14,7 +14,7 @@ type TrackOrderResponse = {
   paymentStatus: string;
   createdAt: string | null;
   total: number;
-  currency: string;
+    currency: string;
   items: {
     title: string;
     image: string;
@@ -35,6 +35,13 @@ const STATUS_FLOW = [
   "delivered",
 ];
 
+const STATUS_LABELS: Record<string, string> = {
+  order_confirmed: "Sipariş Onaylandı",
+  processing: "Hazırlanıyor",
+  shipped: "Kargoya Verildi",
+  delivered: "Teslim Edildi",
+};
+
 function formatDate(value: string | null) {
   if (!value) return "—";
   const date = new Date(value);
@@ -42,20 +49,6 @@ function formatDate(value: string | null) {
   return date.toLocaleString();
 }
 
-function getCurrencySymbol(currency: string) {
-  switch (currency) {
-    case "USD":
-      return "$";
-    case "EUR":
-      return "€";
-    case "GBP":
-      return "£";
-    case "TRY":
-      return "₺";
-    default:
-      return `${currency} `;
-  }
-}
 
 export default function TrackOrderPage() {
   const [orderNumber, setOrderNumber] = useState("");
@@ -85,12 +78,16 @@ export default function TrackOrderPage() {
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        throw new Error(data.error || "Failed to find order.");
+      throw new Error(
+  data.error || "Sipariş bilgileri bulunamadı."
+);
       }
 
       setOrder(data.order);
     } catch (err: any) {
-      setError(err.message || "Failed to find order.");
+      setError(
+  err.message || "Sipariş bilgileri bulunamadı."
+);
     } finally {
       setLoading(false);
     }
@@ -110,16 +107,16 @@ export default function TrackOrderPage() {
         <div className="mx-auto max-w-5xl">
           <div className="rounded-[1.75rem] border border-white/50 bg-white/20 p-5 shadow-xl backdrop-blur-xl md:rounded-[2rem] md:p-8">
             <h1 className="text-2xl font-extrabold text-custom-accent md:text-3xl">
-              Track Your Order
-            </h1>
+Sipariş Takibi
+</h1>
 
             <div className="mt-4 rounded-2xl border border-white/40 bg-white/70 p-4 text-sm text-gray-700 md:p-5">
               <p className="mb-2 font-semibold text-gray-900">
-                How to track your order
+              Siparişinizi Nasıl Takip Edebilirsiniz?your order
               </p>
               <ul className="space-y-1">
-                <li>• Enter your order number without the # symbol</li>
-                <li>• Use the same email used during checkout</li>
+                <li>• Sipariş numaranızı # işareti olmadan girin.</li>
+                <li>• Sipariş sırasında kullandığınız e-posta adresini girin.</li>
               </ul>
             </div>
 
@@ -131,7 +128,7 @@ export default function TrackOrderPage() {
                 type="text"
                 value={orderNumber}
                 onChange={(e) => setOrderNumber(e.target.value)}
-                placeholder="Example: KRM-123456"
+              placeholder="Örnek: KRM-123456"
                 className="rounded-2xl border bg-white/70 px-4 py-3 outline-none focus:border-custom-accent"
                 required
               />
@@ -140,13 +137,13 @@ export default function TrackOrderPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email"
+               placeholder="E-posta Adresiniz"
                 className="rounded-2xl border bg-white/70 px-4 py-3 outline-none focus:border-custom-accent"
                 required
               />
 
               <button className="rounded-2xl bg-custom-accent py-3 font-semibold text-white transition hover:bg-custom-accent-light md:col-span-2">
-                {loading ? "Checking..." : "Track Order"}
+                {loading ? "Kontrol Ediliyor..." : "Siparişi Takip Et"}
               </button>
             </form>
 
@@ -160,13 +157,13 @@ export default function TrackOrderPage() {
                   #{order.orderNumber}
                 </h2>
                 <p className="mt-1 text-sm text-gray-600">
-                  Placed on {formatDate(order.createdAt)}
+               Sipariş Tarihi: {formatDate(order.createdAt)}
                 </p>
               </div>
 
               <div className="rounded-[1.75rem] bg-white/20 p-5 shadow-xl backdrop-blur-xl md:rounded-[2rem] md:p-6">
                 <h3 className="mb-5 font-bold text-gray-900 md:mb-6">
-                  Order Progress
+                 Sipariş Durumu
                 </h3>
 
                 <div className="overflow-x-auto">
@@ -198,9 +195,9 @@ export default function TrackOrderPage() {
                             }`}
                           />
 
-                          <p className="mt-3 px-2 text-xs font-medium capitalize text-gray-700">
-                            {step.replaceAll("_", " ")}
-                          </p>
+                        <p className="mt-3 px-2 text-xs font-medium text-gray-700">
+  {STATUS_LABELS[step]}
+</p>
                         </div>
                       );
                     })}
@@ -210,7 +207,7 @@ export default function TrackOrderPage() {
 
               <div className="rounded-[1.75rem] bg-white/20 p-5 shadow-xl backdrop-blur-xl md:rounded-[2rem] md:p-6">
                 <h3 className="mb-5 font-bold text-gray-900 md:mb-6">
-                  Timeline
+                  Geçmiş
                 </h3>
 
                 <div className="relative space-y-6">
@@ -242,7 +239,7 @@ export default function TrackOrderPage() {
               </div>
 
               <div className="rounded-[1.75rem] bg-white/20 p-5 shadow-xl backdrop-blur-xl md:rounded-[2rem] md:p-6">
-                <h3 className="mb-5 font-bold text-gray-900 md:mb-6">Items</h3>
+                <h3 className="mb-5 font-bold text-gray-900 md:mb-6">Sipariş Ürünleri</h3>
 
                 <div className="space-y-4">
                   {order.items.map((item, index) => (
@@ -263,18 +260,16 @@ export default function TrackOrderPage() {
                       </div>
 
                       <div className="text-sm font-semibold text-gray-900 sm:text-base">
-                        {getCurrencySymbol(order.currency)}
-                        {item.price}
+                        <PriceDisplay basePrice={item.price} />
                       </div>
                     </div>
                   ))}
                 </div>
 
                 <div className="mt-6 flex items-center justify-between rounded-2xl border border-white/50 bg-white/60 p-4">
-                  <span className="font-semibold text-gray-800">Total</span>
+                  <span className="font-semibold text-gray-800">Toplam</span>
                   <span className="font-bold text-custom-accent">
-                    {getCurrencySymbol(order.currency)}
-                    {order.total}
+                  <PriceDisplay basePrice={order.total} />
                   </span>
                 </div>
               </div>

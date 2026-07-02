@@ -9,78 +9,130 @@ export default function ReturnPolicyPage() {
       <main className="bg-custom-bg min-h-screen">
         <div className="max-w-4xl mx-auto px-6 lg:px-10 py-16 lg:py-20">
           <h1 className="text-4xl font-extrabold text-custom-accent">
-            Return Policy
+            İade Politikası
           </h1>
 
           <div className="mt-8 space-y-8 text-[#4e473f] leading-8">
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Returns</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                İade Hakkı
+              </h2>
+
               <p className="mt-3">
-                We want you to be satisfied with your purchase. If you are not
-                fully satisfied, you may contact us within 14 days of receiving
-                your order to request a return, in accordance with applicable consumer protection laws.
+                Satın aldığınız üründen memnun kalmanız bizim için önemlidir.
+                Siparişinizi teslim aldıktan sonra, yürürlükteki tüketici
+                mevzuatına uygun olarak 14 gün içerisinde bizimle iletişime
+                geçerek iade talebinde bulunabilirsiniz.
               </p>
+
               <p className="mt-3">
-                To initiate a return, you must contact us at support@keramethali.com before sending any items back.
+                İade işlemini başlatmadan önce, herhangi bir ürünü geri
+                göndermeden önce bizimle iletişime geçmeniz gerekmektedir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Return Conditions</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                İade Koşulları
+              </h2>
+
               <p className="mt-3">
-                Returned items must be in their original condition, unused,
-                unwashed, and returned with original packaging where possible.
-                Items showing signs of damage, misuse, alteration, or wear may
-                not qualify for a refund.
+                İade edilecek ürünler kullanılmamış, yıkanmamış, zarar
+                görmemiş ve mümkünse orijinal ambalajı ile birlikte
+                gönderilmelidir.
               </p>
+
               <p className="mt-3">
-                Returned products must include all original accessories, tags, and packaging if available.
+                Kullanım, hasar, değişiklik veya aşınma belirtileri bulunan
+                ürünler iade kapsamına alınmayabilir.
+              </p>
+
+              <p className="mt-3">
+                Varsa ürünle birlikte gönderilen tüm aksesuarlar, etiketler ve
+                orijinal ambalaj da iade paketine dahil edilmelidir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Return Shipping Costs</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                İade Kargo Ücretleri
+              </h2>
+
               <p className="mt-3">
-                Return shipping costs are the responsibility of the customer unless the item is defective, damaged, or incorrect.
+                Ürün hatalı, hasarlı veya yanlış gönderilmediği sürece iade
+                kargo masrafları müşteriye aittir.
               </p>
+
               <p className="mt-3">
-                For international orders, the customer is responsible for all return shipping arrangements, costs, and any customs duties,
-                import/export fees, or local taxes that may apply during return shipment.
+                Uluslararası siparişlerde iade gönderiminin organizasyonu,
+                kargo ücretleri, gümrük vergileri, ithalat/ihracat masrafları ve
+                uygulanabilecek diğer yerel vergiler müşterinin
+                sorumluluğundadır.
               </p>
+
               <p className="mt-3">
-                The SELLER is not responsible for delays, loss, or retention of returned shipments by customs authorities or carriers.
+                Satıcı; gümrük işlemleri, taşıyıcı firmalar veya resmi kurumlar
+                nedeniyle oluşabilecek gecikmelerden, kayıplardan veya iade
+                gönderisinin alıkonulmasından sorumlu değildir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Refunds</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Para İadesi
+              </h2>
+
               <p className="mt-3">
-                Once the returned item is received and inspected, approved refunds will be issued to the original payment method.
+                İade edilen ürün tarafımıza ulaşıp kontrol edildikten sonra,
+                onaylanan iadeler ödeme sırasında kullanılan aynı ödeme yöntemi
+                ile gerçekleştirilecektir.
               </p>
+
               <p className="mt-3">
-                Refund processing time may vary depending on the customer’s bank or payment provider (typically 5–14 business days after approval).
+                Para iadesinin hesabınıza yansıma süresi, bankanıza veya ödeme
+                kuruluşuna bağlı olarak değişebilir. Bu süreç genellikle onaydan
+                sonra 5 ila 14 iş günü arasında tamamlanmaktadır.
               </p>
+
               <p className="mt-3">
-                Original shipping costs are non-refundable unless the return is due to our error (wrong or defective item).
+                İade nedeni firmamızdan kaynaklanan bir hata (yanlış veya
+                kusurlu ürün gönderimi) olmadığı sürece, ilk gönderim kargo
+                ücreti iade edilmez.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Non-Returnable Cases</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                İade Edilemeyen Ürünler
+              </h2>
+
               <p className="mt-3">
-                Custom-made, altered, or specially requested items may not be eligible for return unless they arrive damaged or incorrect.
+                Özel ölçüyle hazırlanan, kişiye özel üretilen veya müşteri
+                talebine göre değiştirilen ürünler; hasarlı veya yanlış
+                gönderilmedikleri sürece iade edilemez.
               </p>
+
               <p className="mt-3">
-                For hygiene and safety reasons, certain items may also be excluded from return eligibility if applicable under law.
+                Ayrıca yürürlükteki mevzuat kapsamında hijyen veya güvenlik
+                nedeniyle iadesi mümkün olmayan ürünler de iade kapsamı dışında
+                tutulabilir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Proof of Return</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                İade Gönderi Takibi
+              </h2>
+
               <p className="mt-3">
-                Customers are advised to retain proof of shipment and tracking information for returned items.
-                We are not responsible for items lost or delayed during return transit.
+                İade gönderileriniz için kargo takip numarasını ve gönderi
+                belgesini saklamanızı tavsiye ederiz.
+              </p>
+
+              <p className="mt-3">
+                İade sürecinde taşıma sırasında kaybolan veya geciken
+                gönderilerden firmamız sorumlu değildir.
               </p>
             </section>
 

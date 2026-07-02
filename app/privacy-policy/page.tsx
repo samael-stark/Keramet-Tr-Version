@@ -9,116 +9,177 @@ export default function PrivacyPolicyPage() {
       <main className="bg-custom-bg min-h-screen">
         <div className="max-w-4xl mx-auto px-6 lg:px-10 py-16 lg:py-20">
           <h1 className="text-4xl font-extrabold text-custom-accent">
-            Privacy Policy
+            Gizlilik Politikası
           </h1>
 
           <div className="mt-8 space-y-8 text-[#4e473f] leading-8">
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Overview</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Genel Bakış
+              </h2>
+
               <p className="mt-3">
-                Keramet Hali values your privacy and is committed to protecting your personal data.
-                This Privacy Policy explains how we collect, use, store, and protect your information
-                when you visit our website or make a purchase, in accordance with applicable data protection laws
-                including international privacy standards such as GDPR principles.
+                Keramet Halı, kişisel verilerinizin gizliliğine önem verir ve
+                bilgilerinizin korunmasını taahhüt eder. Bu Gizlilik Politikası,
+                web sitemizi ziyaret ettiğinizde veya sipariş verdiğinizde
+                kişisel verilerinizin nasıl toplandığını, kullanıldığını,
+                saklandığını ve korunduğunu açıklar. Veri işleme süreçlerimiz,
+                yürürlükteki veri koruma mevzuatı ve uluslararası gizlilik
+                standartları doğrultusunda yürütülmektedir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Information We Collect</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Toplanan Bilgiler
+              </h2>
+
               <p className="mt-3">
-                We may collect personal information including your name, surname, email address, phone number,
-                billing and shipping address, payment details (processed securely by third-party providers),
-                and order history when you use our website or place an order.
+                Web sitemizi kullandığınızda veya sipariş oluşturduğunuzda ad,
+                soyad, e-posta adresi, telefon numarası, fatura ve teslimat
+                adresi, ödeme bilgileri (güvenli şekilde üçüncü taraf ödeme
+                sağlayıcıları tarafından işlenir) ve sipariş geçmişi gibi
+                kişisel bilgileri toplayabiliriz.
               </p>
+
               <p className="mt-3">
-                We may also collect limited technical data such as IP address, browser type, and device information
-                to improve website functionality and security.
+                Ayrıca web sitemizin güvenliğini ve performansını geliştirmek
+                amacıyla IP adresi, tarayıcı türü ve cihaz bilgileri gibi sınırlı
+                teknik veriler de toplanabilir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">How We Use Your Information</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Bilgileriniz Nasıl Kullanılır?
+              </h2>
+
               <p className="mt-3">
-                We use your personal information to process and deliver orders, provide customer support,
-                communicate with you about your order, improve our services, prevent fraud, and comply with legal obligations.
+                Kişisel bilgileriniz; siparişlerinizi işlemek ve teslim etmek,
+                müşteri desteği sağlamak, siparişleriniz hakkında sizinle
+                iletişime geçmek, hizmetlerimizi geliştirmek, dolandırıcılığı
+                önlemek ve yasal yükümlülüklerimizi yerine getirmek amacıyla
+                kullanılmaktadır.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Legal Basis for Processing</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Veri İşlemenin Hukuki Dayanağı
+              </h2>
+
               <p className="mt-3">
-                We process your personal data based on contract performance (order processing),
-                legal obligations (tax and accounting requirements), and legitimate interests
-                (fraud prevention, service improvement, and customer communication).
+                Kişisel verileriniz; satış sözleşmesinin yerine getirilmesi,
+                yasal yükümlülüklerin yerine getirilmesi (vergi ve muhasebe
+                işlemleri) ve meşru menfaatlerimiz (müşteri hizmetleri,
+                dolandırıcılığın önlenmesi ve hizmet kalitesinin artırılması)
+                kapsamında işlenmektedir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Payment Security</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Ödeme Güvenliği
+              </h2>
+
               <p className="mt-3">
-                All payments are processed securely through third-party payment providers.
-                We do not store full credit card or debit card information on our servers.
+                Tüm ödemeler güvenli üçüncü taraf ödeme sağlayıcıları aracılığıyla
+                gerçekleştirilmektedir. Kredi veya banka kartı bilgileriniz
+                sunucularımızda saklanmaz.
               </p>
+
               <p className="mt-3">
-                Payment processing is handled in compliance with industry security standards (such as PCI-DSS where applicable).
+                Ödeme işlemleri, uygulanabilir sektör güvenlik standartlarına
+                (örneğin PCI-DSS) uygun şekilde yürütülmektedir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Cookies & Tracking Technologies</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Çerezler (Cookies) ve Takip Teknolojileri
+              </h2>
+
               <p className="mt-3">
-                Our website may use cookies and similar tracking technologies to improve user experience,
-                analyze traffic, and enhance website performance.
-                You may disable cookies through your browser settings, but some features of the website may not function properly.
+                Web sitemiz kullanıcı deneyimini geliştirmek, ziyaretçi
+                istatistiklerini analiz etmek ve performansı artırmak amacıyla
+                çerezler ve benzeri teknolojiler kullanabilir. Tarayıcı
+                ayarlarınız üzerinden çerezleri devre dışı bırakabilirsiniz;
+                ancak bu durumda bazı özellikler düzgün çalışmayabilir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Data Sharing</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Verilerin Paylaşılması
+              </h2>
+
               <p className="mt-3">
-                We do not sell your personal data.
+                Kişisel verileriniz hiçbir şekilde satılmaz veya ticari amaçla
+                üçüncü kişilerle paylaşılmaz.
               </p>
+
               <p className="mt-3">
-                We may share limited data only with trusted third-party service providers such as payment processors,
-                shipping companies, and IT service providers strictly for order fulfillment and operational purposes.
+                Siparişlerinizin işlenmesi ve teslimatı için yalnızca ödeme
+                kuruluşları, kargo firmaları ve teknik hizmet sağlayıcıları gibi
+                güvenilir iş ortaklarımızla gerekli ölçüde veri paylaşımı
+                yapılabilir.
               </p>
+
               <p className="mt-3">
-                Your data may be transferred internationally as part of order processing and delivery services,
-                depending on your location and shipping destination.
+                Siparişinizin teslimat adresine bağlı olarak verileriniz,
+                uluslararası gönderim süreçleri kapsamında farklı ülkelere
+                aktarılabilir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Data Retention</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Veri Saklama Süresi
+              </h2>
+
               <p className="mt-3">
-                We retain personal data only for as long as necessary to fulfill the purposes outlined in this policy,
-                including legal, accounting, and tax obligations.
+                Kişisel verileriniz yalnızca bu politikada belirtilen amaçların
+                yerine getirilmesi ve yasal yükümlülüklerin karşılanması için
+                gerekli olan süre boyunca saklanmaktadır.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Your Rights</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Haklarınız
+              </h2>
+
               <p className="mt-3">
-                Depending on your location, you may have rights to access, correct, update, or request deletion
-                of your personal data. You may also object to or restrict certain processing activities,
-                subject to legal requirements.
+                Bulunduğunuz ülkenin yürürlükteki mevzuatına bağlı olarak,
+                kişisel verilerinize erişme, düzeltme, güncelleme veya silinmesini
+                talep etme hakkına sahip olabilirsiniz. Ayrıca belirli veri işleme
+                faaliyetlerine itiraz etme veya bunların sınırlandırılmasını
+                isteme hakkınız da bulunabilir.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Data Security</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                Veri Güvenliği
+              </h2>
+
               <p className="mt-3">
-                We implement reasonable technical and organizational measures to protect your personal data
-                against unauthorized access, loss, misuse, or disclosure.
+                Kişisel verilerinizi yetkisiz erişim, kayıp, kötüye kullanım ve
+                izinsiz açıklamaya karşı korumak amacıyla uygun teknik ve idari
+                güvenlik önlemleri uygulanmaktadır.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#2d2823]">Contact</h2>
+              <h2 className="text-2xl font-bold text-[#2d2823]">
+                İletişim
+              </h2>
+
               <p className="mt-3">
-                If you have any questions about this Privacy Policy or how your data is handled,
-                you may contact Keramet Hali through the contact information provided on our website.
+                Gizlilik Politikamız veya kişisel verilerinizin işlenmesi hakkında
+                sorularınız olması durumunda, web sitemizde yer alan iletişim
+                bilgilerimiz üzerinden bizimle iletişime geçebilirsiniz.
               </p>
             </section>
 

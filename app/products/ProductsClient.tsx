@@ -144,7 +144,12 @@ export default function ProductsClient({ products }: { products: Product[] }) {
   const hasActiveFilters = !!selectedCollection || !!selectedSizeLabel || !!query;
 
   const saleEndDate = new Date();
-  saleEndDate.setDate(saleEndDate.getDate() + 10);
+saleEndDate.setDate(saleEndDate.getDate() + 10);
+
+const formattedSaleEndDate = saleEndDate.toLocaleDateString("tr-TR", {
+  day: "numeric",
+  month: "long",
+});
 
  const formatTRY = (price: number) =>
   new Intl.NumberFormat("tr-TR", {
@@ -254,14 +259,14 @@ Tüm Ürünler
           <div className="topbar">
             <div className="topbar-left">
               <h2 className="page-title">
-                {selectedCollection ? `${selectedCollection} Rugs` : "Tüm Halılar"}
+               {selectedCollection ? selectedCollection : "Tüm Halılar"}
               </h2>
 
               <button
                 className="mobile-filter-btn"
                 onClick={() => setIsFilterOpen(true)}
               >
-                Filters
+                Filtreler
               </button>
             </div>
 
@@ -295,7 +300,7 @@ Tüm Ürünler
             <div className="active-filters">
               {query && (
                 <span className="active-pill">
-                  Search: {query}
+                  Arama: {query}
                   <button onClick={() => setQuery("")}>×</button>
                 </span>
               )}
@@ -382,8 +387,8 @@ Tüm Ürünler
 </span>
                           </div>
 
-                          <p className="sale-note">
-  %15 İndirim • Sınırlı Süreli Fırsat
+                <p className="sale-note">
+  %15 İndirim • Kampanya {formattedSaleEndDate} tarihinde sona eriyor
 </p>
                         </div>
                       </div>
@@ -396,8 +401,8 @@ Tüm Ürünler
 
           {filteredProducts.length === 0 && (
             <div className="empty-state">
-              <h3>No products found</h3>
-              <p>Try a different search or remove filters.</p>
+              <h3>Ürün bulunamadı</h3>
+              <p>Farklı bir arama yapmayı veya filtreleri temizlemeyi deneyin.</p>
             </div>
           )}
 
@@ -408,7 +413,7 @@ Tüm Ürünler
                 onClick={() => setCurrentPage((prev) => prev - 1)}
                 className="page-btn"
               >
-                Previous
+                Önceki
               </button>
 
               {Array.from({ length: totalPages }).map((_, i) => {
@@ -432,7 +437,7 @@ Tüm Ürünler
                 onClick={() => setCurrentPage((prev) => prev + 1)}
                 className="page-btn"
               >
-                Next
+                Sonraki
               </button>
             </div>
           )}
