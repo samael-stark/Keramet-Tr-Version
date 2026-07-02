@@ -39,7 +39,7 @@ const TURKISH_PROVINCES = [
   "Artvin",
   "Aydın",
   "Balıkesir",
-  "Bilecik",
+  "Bilicik",
   "Bingöl",
   "Bitlis",
   "Bolu",

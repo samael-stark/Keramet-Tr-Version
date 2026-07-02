@@ -39,7 +39,7 @@ const COLLECTION_OPTIONS = [
   "Kazak",
   "Hayat Ağacı",
   "Hamyab",
-  "Bilecik", // or the spelling you confirm
+  "Bilicik", // or the spelling you confirm
   "Kilim",
   "Yolluk",
   "Karakul",

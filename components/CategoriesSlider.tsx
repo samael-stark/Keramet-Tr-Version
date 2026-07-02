@@ -65,7 +65,7 @@ const categories = [
   {
     title: "BİLECİK",
     subtitle: "ANADOLU ZARAFETİ",
-    value: "Bilecik",
+    value: "Bilicik",
     image: "",
   },
   {
