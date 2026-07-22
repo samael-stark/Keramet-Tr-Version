@@ -212,9 +212,9 @@ export default function Footer() {
 
         </div>
 
-        <div className="mt-16 pt-8 border-t border-custom-bg/30 text-center text-sm text-custom-bg/80">
-          © 2026 Keramet Halı. Tüm hakları saklıdır.
-        </div>
+<div className="mt-16 pt-8 border-t border-custom-bg/30 text-center text-sm text-custom-bg/80">
+  © {new Date().getFullYear()} Keramet Halı. Tüm hakları saklıdır.
+</div>
 
       </div>
     </footer>

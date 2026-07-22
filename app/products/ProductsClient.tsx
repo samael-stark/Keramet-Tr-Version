@@ -416,21 +416,31 @@ Tüm Ürünler
                 Önceki
               </button>
 
-              {Array.from({ length: totalPages }).map((_, i) => {
-                const page = i + 1;
 
-                return (
-                  <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`page-btn ${
-                      page === currentPage ? "active-page" : ""
-                    }`}
-                  >
-                    {page}
-                  </button>
-                );
-              })}
+            {Array.from({ length: totalPages }, (_, i) => i + 1)
+  .filter((page) => {
+    return (
+      page === 1 ||
+      page === totalPages ||
+      (page >= currentPage - 1 && page <= currentPage + 1)
+    );
+  })
+  .map((page, index, pages) => (
+    <div key={page} style={{ display: "contents" }}>
+      {index > 0 && page - pages[index - 1] > 1 && (
+        <span className="page-dots">...</span>
+      )}
+
+      <button
+        onClick={() => setCurrentPage(page)}
+        className={`page-btn ${
+          page === currentPage ? "active-page" : ""
+        }`}
+      >
+        {page}
+      </button>
+    </div>
+  ))}
 
               <button
                 disabled={currentPage === totalPages}

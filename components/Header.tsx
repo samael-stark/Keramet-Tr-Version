@@ -149,7 +149,7 @@ export default function Header() {
             </Link>
             <Link href="/#categories">KOLEKSİYONLAR</Link>
             <Link href="/products" className={navClass(isShop)}>
-              ÜRÜNLER
+              MAĞAZA
             </Link>
 
             <Link
