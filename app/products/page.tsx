@@ -18,6 +18,7 @@ export default async function ProductsPage() {
       coverUrl: data.coverUrl || "",
       size: data.size || "",
       category: data.category || "",
+      stock: data.stock ?? 1,
       description: data.description || "",
       images: data.images || [],
       madeYear: data.madeYear || null,
@@ -30,7 +31,11 @@ export default async function ProductsPage() {
     };
   });
 
-  const activeProducts = products.filter((product) => product.isActive !== false);
+const activeProducts = products.filter(
+  (product) =>
+    product.isActive !== false &&
+    Number(product.stock ?? 1) > 0
+);
 
   return (
     <>
