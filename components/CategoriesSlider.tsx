@@ -42,7 +42,7 @@ const categories = [
     title: "ŞAL",
     subtitle: "İNCE DOKUMA",
     value: "Şal",
-    image: "",
+    image: "/img/Categories/striped.jpg",
   },
   {
     title: "KAZAK",
@@ -60,13 +60,13 @@ const categories = [
     title: "HAMYAB",
     subtitle: "GELENEKSEL DOKU",
     value: "Hamyab",
-    image: "",
+    image: "/img/Categories/khalmuhammadi.jpg",
   },
   {
-    title: "BİLECİK",
+    title: "BİLİCİK",
     subtitle: "ANADOLU ZARAFETİ",
     value: "Bilicik",
-    image: "",
+    image: "/img/Categories/belgic.jpg",
   },
   {
     title: "KİLİM",
@@ -78,7 +78,7 @@ const categories = [
     title: "YOLLUK",
     subtitle: "KORİDORLAR İÇİN",
     value: "Yolluk",
-    image: "",
+    image: "/img/Categories/runnerrugs.jpg",
   },
   {
     title: "KARAKUL",
@@ -90,14 +90,15 @@ const categories = [
     title: "KARABAĞ",
     subtitle: "KAFKAS ESİNTİSİ",
     value: "Karabağ",
-    image: "",
+    image: "/img/Categories/Karabağ.jpg",
   },
   {
-    title: "KUŞLU",
-    subtitle: "DOĞADAN İLHAM",
-    value: "Kuşlu",
-    image: "",
-  },
+  title: "KHORJIN",
+  subtitle: "GELENEKSEL DOKU",
+  value: "Khorjin",
+  image: "/img/Categories/khorjin.jpg",
+},
+
   {
     title: "SUZANİ",
     subtitle: "ZARİF NAKIŞLAR",
