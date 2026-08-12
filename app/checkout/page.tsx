@@ -247,11 +247,12 @@ const validate = () => {
 
     setSubmitting(true);
 
-    const payload = {
-      customer: form,
-      items,
-      subtotal,
-    };
+   const payload = {
+  customer: form,
+  items,
+  subtotal,
+  currency: "TRY",
+};
 
     sessionStorage.setItem("checkoutDetails", JSON.stringify(payload));
     router.push("/checkout/review");

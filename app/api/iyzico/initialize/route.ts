@@ -163,8 +163,8 @@ export async function POST(
                   ?.total || 0
               ).toFixed(2),
 
-              currency:
-                "USD",
+             currency:
+  "TRY",
 
               basketId:
                 orderId,
