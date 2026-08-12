@@ -40,14 +40,14 @@ const COLLECTION_OPTIONS = [
   "Kazak",
   "Hayat Ağacı",
   "Hamyab",
-  "Bilicik", // or the spelling you confirm
+  "Bilicik",
   "Kilim",
   "Yolluk",
   "Karakul",
   "Karabağ",
-  "Kuşlu",
   "Suzani",
   "Overdye",
+  "Khorjin",
 ];
 
 const SIZE_LABEL_TO_DB: Record<string, string> = {

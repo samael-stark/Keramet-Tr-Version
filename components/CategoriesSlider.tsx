@@ -96,7 +96,7 @@ const categories = [
   title: "KHORJIN",
   subtitle: "GELENEKSEL DOKU",
   value: "Khorjin",
-  image: "/img/Categories/khorjin.jpg",
+  image: "/img/Categories/Khorjin.jpg",
 },
 
   {
