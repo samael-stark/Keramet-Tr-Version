@@ -60,13 +60,13 @@ const categories = [
     title: "HAMYAB",
     subtitle: "GELENEKSEL DOKU",
     value: "Hamyab",
-    image: "/img/Categories/khalmuhammadi.jpg",
+    image: "/img/Categories/Hamyab.jpg",
   },
   {
     title: "BİLİCİK",
     subtitle: "ANADOLU ZARAFETİ",
     value: "Bilicik",
-    image: "/img/Categories/belgic.jpg",
+    image: "/img/Categories/BİLİCİK.jpg",
   },
   {
     title: "KİLİM",
