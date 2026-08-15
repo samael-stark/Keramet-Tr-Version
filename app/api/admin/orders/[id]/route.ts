@@ -200,21 +200,21 @@ export async function PATCH(
      */
     if (data?.customer?.email) {
       try {
-        await resend.emails.send({
-          from: resendConfig.from,
-          to: data.customer.email,
-          subject: `Order Update #${data.orderNumber}`,
-          html: getOrderStatusEmailHtml({
-            orderNumber: data.orderNumber || "",
-            customerName:
-              `${data.customer.firstName || ""} ${
-                data.customer.lastName || ""
-              }`.trim() || "Customer",
-            status,
-            note,
-            trackUrl: "https://kerametrugs.com/track-order",
-          }),
-        });
+   await resend.emails.send({
+  from: resendConfig.from,
+  to: data.customer.email,
+  subject: `Sipariş Güncellemesi #${data.orderNumber}`,
+  html: getOrderStatusEmailHtml({
+    orderNumber: data.orderNumber || "",
+    customerName:
+      `${data.customer.firstName || ""} ${
+        data.customer.lastName || ""
+      }`.trim() || "Müşteri",
+    status,
+    note,
+    trackUrl: "https://keramethali.com/track-order",
+  }),
+});
       } catch (emailError) {
         console.error("Status email error:", emailError);
       }
