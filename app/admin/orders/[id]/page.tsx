@@ -185,6 +185,98 @@ export default function OrderDetailPage() {
           </div>
         )}
 
+{/* CUSTOMER DETAILS */}
+<div className="rounded-[1.75rem] bg-white/20 p-6 shadow-xl backdrop-blur-xl">
+  <h2 className="mb-5 text-lg font-bold">
+    Customer Details
+  </h2>
+
+  <div className="grid gap-4 md:grid-cols-2">
+    <div className="rounded-2xl border border-white/50 bg-white/50 p-4">
+      <p className="text-xs font-semibold text-gray-500">
+        Full Name
+      </p>
+      <p className="mt-1 font-semibold text-gray-900">
+        {`${order.customer.firstName || ""} ${
+          order.customer.lastName || ""
+        }`.trim() || "—"}
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/50 bg-white/50 p-4">
+      <p className="text-xs font-semibold text-gray-500">
+        Email
+      </p>
+      <p className="mt-1 break-words font-semibold text-gray-900">
+        {order.customer.email || "—"}
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/50 bg-white/50 p-4">
+      <p className="text-xs font-semibold text-gray-500">
+        Phone
+      </p>
+      <p className="mt-1 font-semibold text-gray-900">
+        {order.customer.phone || "—"}
+      </p>
+    </div>
+  </div>
+</div>
+
+{/* DELIVERY ADDRESS */}
+<div className="rounded-[1.75rem] bg-white/20 p-6 shadow-xl backdrop-blur-xl">
+  <h2 className="mb-5 text-lg font-bold">
+    Delivery Address
+  </h2>
+
+  <div className="grid gap-4 md:grid-cols-2">
+    <div className="rounded-2xl border border-white/50 bg-white/50 p-4">
+      <p className="text-xs font-semibold text-gray-500">
+        Country
+      </p>
+      <p className="mt-1 font-semibold text-gray-900">
+        {order.customer.country || "—"}
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/50 bg-white/50 p-4">
+      <p className="text-xs font-semibold text-gray-500">
+        City
+      </p>
+      <p className="mt-1 font-semibold text-gray-900">
+        {order.customer.city || "—"}
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/50 bg-white/50 p-4 md:col-span-2">
+      <p className="text-xs font-semibold text-gray-500">
+        Address
+      </p>
+      <p className="mt-1 font-semibold leading-relaxed text-gray-900">
+        {order.customer.addressLine1 || "—"}
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/50 bg-white/50 p-4">
+      <p className="text-xs font-semibold text-gray-500">
+        Apartment / District
+      </p>
+      <p className="mt-1 font-semibold leading-relaxed text-gray-900">
+        {order.customer.addressLine2 || "—"}
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/50 bg-white/50 p-4">
+      <p className="text-xs font-semibold text-gray-500">
+        Postal Code
+      </p>
+      <p className="mt-1 font-semibold text-gray-900">
+        {order.customer.postalCode || "—"}
+      </p>
+    </div>
+  </div>
+</div>
+
         {/* STATUS UPDATE */}
         <div className="rounded-[1.75rem] bg-white/20 p-6 shadow-xl backdrop-blur-xl">
           <h2 className="mb-4 text-lg font-bold">Update Fulfillment Status</h2>
