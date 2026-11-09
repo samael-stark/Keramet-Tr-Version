@@ -131,12 +131,14 @@ export default function Header() {
             scrolled ? "max-h-0" : "max-h-12"
           }`}
         >
-          <div className="mx-auto flex max-w-7xl items-center justify-center gap-6 px-4 py-2 text-[11px] tracking-[0.14em] md:justify-between">
-            <span className="hidden md:inline">EL DOKUMASI · TEK PARÇA · ÖZGÜN HALILAR</span>
-            <span>GÜVENLİ ÖDEME · 2–5 İŞ GÜNÜNDE KARGODA</span>
+          {/* Left: shipping · Center: installments · Right: phone.
+              Phones show only the centered installment line. */}
+          <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-6 px-4 py-2 text-[11px] tracking-[0.14em] md:grid-cols-3">
+            <span className="hidden md:block">GÜVENLİ ÖDEME · 1–2 İŞ GÜNÜNDE KARGODA</span>
+            <span className="text-center font-semibold">PEŞİN FİYATINA 3 TAKSİT</span>
             <a
               href="tel:+905065274930"
-              className="hidden items-center gap-2 hover:text-gold md:inline-flex"
+              className="hidden items-center gap-2 justify-self-end hover:text-gold md:inline-flex"
             >
               <FaPhoneAlt className="text-[10px]" />
               +90 506 527 49 30

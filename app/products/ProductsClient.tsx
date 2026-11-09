@@ -140,7 +140,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
           </h1>
 
           <p className="mt-3 text-sm text-muted">
-            {filteredProducts.length} el dokuması halı · Her biri tek parça
+            {filteredProducts.length} Ürün
           </p>
         </div>
       </div>

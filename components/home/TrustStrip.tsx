@@ -11,7 +11,7 @@ const points = [
   {
     icon: FaTruck,
     title: "Özenli Paketleme",
-    text: "2–5 iş günü içinde kargoda",
+    text: "1–2 iş günü içinde kargoda",
   },
   {
     icon: FaLock,

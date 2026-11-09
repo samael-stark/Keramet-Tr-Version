@@ -131,7 +131,7 @@ export function CheckoutSummary({
           </li>
           <li className="flex items-center gap-2.5">
             <FaTruck className="text-custom-accent" />
-            2–5 iş günü içinde özenle paketlenip kargoda
+            1–2 iş günü içinde özenle paketlenip kargoda
           </li>
         </ul>
       </div>

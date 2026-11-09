@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,7 +47,8 @@ export default function RootLayout({
         {/* Added mobile bottom padding to prevent bottom nav overlap */}
         <div className="min-h-screen">
           <div className="pb-24 lg:pb-0">{children}</div>
-        </div>      </body>
+        </div>
+        <WhatsAppButton />      </body>
     </html>
   );
 }

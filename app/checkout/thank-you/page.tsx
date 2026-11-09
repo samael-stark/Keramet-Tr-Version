@@ -78,7 +78,7 @@ export default function ThankYouPage() {
             {[
               { title: "E-posta onayı", text: "Sipariş özetiniz e-posta adresinize gönderilir." },
               { title: "Hazırlık", text: "Halınız özenle kontrol edilip paketlenir." },
-              { title: "Kargo", text: "2–5 iş günü içinde kargoya teslim edilir." },
+              { title: "Kargo", text: "1–2 iş günü içinde kargoya teslim edilir." },
             ].map((step, i) => (
               <li key={step.title} className="rounded-sm bg-paper p-4">
                 <p className="text-xs font-semibold text-custom-accent">0{i + 1}</p>

@@ -93,7 +93,7 @@ export default async function ProductDetailPage({
 
   const trust = [
     { icon: FaHandSparkles, text: "El dokuması, tek ve özgün parça" },
-    { icon: FaTruck, text: "2–5 iş günü içinde özenle paketlenip kargoda" },
+    { icon: FaTruck, text: "1–2 iş günü içinde özenle paketlenip kargoda" },
     { icon: FaLock, text: "iyzico altyapısı ile güvenli ödeme" },
     { icon: FaPhoneAlt, text: "Sorularınız için bize telefonla ulaşın" },
   ];
