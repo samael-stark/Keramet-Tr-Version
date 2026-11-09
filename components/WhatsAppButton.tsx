@@ -12,6 +12,11 @@ export default function WhatsAppButton() {
   // Not needed in the admin panel.
   if (pathname?.startsWith("/admin")) return null;
 
+  // On phones it would cover the totals / pay buttons in the cart and
+  // checkout, so it's desktop-only there.
+  const hideOnMobile =
+    pathname === "/cart" || pathname?.startsWith("/checkout");
+
   return (
     <a
       href={WHATSAPP_URL}
@@ -19,7 +24,9 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       aria-label="WhatsApp ile bize yazın"
       title="WhatsApp ile bize yazın"
-      className="group fixed bottom-24 right-4 z-40 flex items-center gap-3 lg:bottom-6 lg:right-6"
+      className={`group fixed bottom-24 right-4 z-40 items-center gap-3 lg:bottom-6 lg:right-6 lg:flex ${
+        hideOnMobile ? "hidden" : "flex"
+      }`}
     >
       {/* Label on desktop hover */}
       <span className="pointer-events-none hidden translate-x-2 rounded-full bg-paper px-4 py-2 text-sm font-semibold text-ink opacity-0 shadow-lg transition duration-300 group-hover:translate-x-0 group-hover:opacity-100 lg:block">

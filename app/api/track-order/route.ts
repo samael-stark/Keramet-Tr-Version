@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
     if (!orderNumber || !email) {
       return NextResponse.json(
-        { error: "Order number and email are required." },
+        { error: "Sipariş numarası ve e-posta adresi gereklidir." },
         { status: 400 }
       );
     }
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
 
     if (snapshot.empty) {
       return NextResponse.json(
-        { error: "No order found with those details." },
+        { error: "Bu bilgilerle eşleşen bir sipariş bulunamadı. Lütfen sipariş numaranızı ve e-posta adresinizi kontrol edin." },
         { status: 404 }
       );
     }
@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("Track order error:", error);
     return NextResponse.json(
-      { error: "Failed to track order." },
+      { error: "Sipariş bilgileri alınamadı. Lütfen tekrar deneyin." },
       { status: 500 }
     );
   }

@@ -1,7 +1,8 @@
 "use client";
-import PriceDisplay from "@/components/PriceDisplay";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
+import { CheckoutSteps, CheckoutSummary, StateCard } from "@/components/checkout/CheckoutParts";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -253,38 +254,30 @@ const validate = () => {
     router.push("/checkout/review");
   };
 
+  const inputClass = (hasError?: string) =>
+    `h-12 w-full rounded-sm border bg-paper px-4 text-sm text-ink outline-none transition focus:border-custom-accent ${
+      hasError ? "border-custom-accent" : "border-line"
+    }`;
+
+  const labelClass = "mb-1.5 block text-xs font-semibold text-ink/80";
+
+  const fieldError = (message?: string) =>
+    message ? <p className="mt-1.5 text-xs text-custom-accent">{message}</p> : null;
+
   if (!ready) {
     return (
       <>
         <Header />
-        <main className="page">
-          <div className="wrap">
-            <div className="loadingCard">Teslimat Sayfası Yükleniyor...</div>
+        <main className="min-h-screen bg-custom-bg">
+          <PageHero title="Teslimat" crumbs={[{ href: "/cart", label: "Sepet" }, { label: "Teslimat" }]} />
+          <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10 lg:py-14">
+            <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
+              <div className="h-96 animate-pulse rounded-sm bg-paper" />
+              <div className="h-72 animate-pulse rounded-sm bg-paper" />
+            </div>
           </div>
         </main>
         <Footer />
-
-        <style jsx>{`
-          .page {
-            background: #f5f5eb;
-            min-height: 100vh;
-          }
-
-          .wrap {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 48px 20px 70px;
-          }
-
-          .loadingCard {
-            background: rgba(255, 255, 255, 0.82);
-            border: 1px solid rgba(122, 31, 31, 0.08);
-            border-radius: 18px;
-            padding: 28px;
-            font-weight: 700;
-            color: #1c1c1c;
-          }
-        `}</style>
       </>
     );
   }
@@ -293,62 +286,20 @@ const validate = () => {
     return (
       <>
         <Header />
-        <main className="page">
-          <div className="wrap">
-            <div className="emptyCard">
-              <h1>Sepetiniz boş.</h1>
-              <p>Devam etmek için sepetinize ürün ekleyin.</p>
-              <Link href="/products">
-                <span className="filledBtn">Halıları İncele</span>
+        <main className="min-h-screen bg-custom-bg">
+          <PageHero title="Teslimat" crumbs={[{ href: "/cart", label: "Sepet" }, { label: "Teslimat" }]} />
+          <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10 lg:py-14">
+            <StateCard title="Sepetiniz boş" text="Devam etmek için sepetinize ürün ekleyin.">
+              <Link
+                href="/products"
+                className="mt-8 inline-flex items-center rounded-full bg-custom-accent px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-custom-accent-light"
+              >
+                Halıları İncele
               </Link>
-            </div>
+            </StateCard>
           </div>
         </main>
         <Footer />
-
-        <style jsx>{`
-          .page {
-            background: #f5f5eb;
-            min-height: 100vh;
-          }
-
-          .wrap {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 48px 20px 70px;
-          }
-
-          .emptyCard {
-            background: rgba(255, 255, 255, 0.82);
-            border: 1px solid rgba(122, 31, 31, 0.08);
-            border-radius: 18px;
-            padding: 32px;
-            text-align: center;
-          }
-
-          .emptyCard h1 {
-            font-size: 28px;
-            font-weight: 900;
-            color: #1c1c1c;
-            margin-bottom: 10px;
-          }
-
-          .emptyCard p {
-            color: rgba(0, 0, 0, 0.6);
-            margin-bottom: 18px;
-          }
-
-          .filledBtn {
-            display: inline-block;
-            border: 1px solid #7a1f1f;
-            background: #7a1f1f;
-            color: #fff;
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer;
-          }
-        `}</style>
       </>
     );
   }
@@ -357,486 +308,149 @@ const validate = () => {
     <>
       <Header />
 
-      <main className="page">
-        <div className="wrap">
-          <div className="topbar">
-            <div>
-              <h1 className="title">Teslimat</h1>
-              <p className="subtitle">
-             Siparişinizi tamamlamak için teslimat bilgilerinizi giriniz.
-              </p>
-            </div>
-
-            <div className="steps">
-              <span className="step active">1. Teslimat</span>
-              <span className="step">2. Ödeme</span>
-            </div>
-          </div>
-
-          <div className="grid">
-            <section className="formCard">
-              <h2>Teslimat Bilgileri</h2>
-
-
-
-              <div className="field">
-                <label>Ad Soyad *</label>
-                <input
-                  type="text"
-                  value={form.fullName}
-                  onChange={(e) => handleChange("fullName", e.target.value)}
-               placeholder="Ad Soyad"
-                />
-                {errors.fullName ? <p className="error">{errors.fullName}</p> : null}
-              </div>
-
-              <div className="field">
-                <label>Adres *</label>
-                <input
-                  type="text"
-                  value={form.streetAddress}
-                  onChange={(e) => handleChange("streetAddress", e.target.value)}
-                 placeholder="Mahalle, Cadde, Sokak, Bina No, Daire No"
-                />
-                {errors.streetAddress ? (
-                  <p className="error">{errors.streetAddress}</p>
-                ) : null}
-              </div>
-
-              <div className="field">
-                <label>Apartman / Daire (Opsiyonel)</label>
-                <input
-                  type="text"
-                  value={form.apartment}
-                  onChange={(e) => handleChange("apartment", e.target.value)}
-                  placeholder="Apartman, Kat, Daire No (Opsiyonel)"
-                />
-              </div>
-
-              <div className="field">
-                 <label>Şehir *</label>
-              <select
-    value={form.city}
-    onChange={(e) => handleChange("city", e.target.value)}
->
-    <option value="">Şehir Seçiniz</option>
-
-    {TURKISH_PROVINCES.map((city) => (
-        <option key={city} value={city}>
-            {city}
-        </option>
-    ))}
-</select>
-                {errors.city ? <p className="error">{errors.city}</p> : null}
-              </div>
-
-          <div className="field">
-    <label>İlçe *</label>
-
-    <input
-        type="text"
-        value={form.district}
-        onChange={(e) => handleChange("district", e.target.value)}
-       placeholder="İlçe Giriniz"
-    />
-
-    {errors.district ? (
-        <p className="error">{errors.district}</p>
-    ) : null}
-</div>
-
-<div className="field">
-    <label>Posta Kodu</label>
-
-    <input
-        type="text"
-        value={form.postalCode}
-        onChange={(e) => handleChange("postalCode", e.target.value)}
-        placeholder="34010"
-    />
-</div>
-
-<div className="field">
-    <label>Telefon Numarası *</label>
-
-    <div
-        style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-        }}
-    >
-        <span
-            style={{
-                padding: "13px 16px",
-                border: "1px solid rgba(122,31,31,.16)",
-                borderRadius: "12px",
-                background: "#fff",
-                fontWeight: 700,
-                minWidth: "65px",
-                textAlign: "center",
-            }}
+      <main className="min-h-screen bg-custom-bg">
+        <PageHero
+          title="Teslimat"
+          label="Güvenli Ödeme"
+          crumbs={[{ href: "/cart", label: "Sepet" }, { label: "Teslimat" }]}
+          subtitle="Siparişinizi tamamlamak için teslimat bilgilerinizi giriniz."
         >
-            +90
-        </span>
+          <CheckoutSteps current={1} />
+        </PageHero>
 
-        <input
-            type="tel"
-            value={form.phoneNumber}
-            onChange={(e) => handleChange("phoneNumber", e.target.value)}
-            placeholder="5XX XXX XX XX"
-            style={{ flex: 1 }}
-        />
-    </div>
+        <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10 lg:py-14">
+          <div className="grid items-start gap-8 lg:grid-cols-[1fr_400px] lg:gap-12">
+            <section className="rounded-sm border border-line bg-paper p-6 md:p-8">
+              <h2 className="font-display text-3xl font-semibold text-ink">
+                Teslimat Bilgileri
+              </h2>
+              <p className="mt-1 text-xs text-muted">* ile işaretli alanlar zorunludur.</p>
 
-    {errors.phoneNumber ? (
-        <p className="error">{errors.phoneNumber}</p>
-    ) : null}
-</div>
+              <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                <label className="block sm:col-span-2">
+                  <span className={labelClass}>Ad Soyad *</span>
+                  <input
+                    type="text"
+                    value={form.fullName}
+                    onChange={(e) => handleChange("fullName", e.target.value)}
+                    placeholder="Ad Soyad"
+                    autoComplete="name"
+                    className={inputClass(errors.fullName)}
+                  />
+                  {fieldError(errors.fullName)}
+                </label>
 
-              <button
-                type="button"
-                className="continueBtn"
-                onClick={handleContinue}
-                disabled={submitting}
-              >
-                {submitting ? "Kaydediliyor..." : "Onay ve Ödemeye Devam Et"}
-              </button>
+                <label className="block sm:col-span-2">
+                  <span className={labelClass}>Adres *</span>
+                  <input
+                    type="text"
+                    value={form.streetAddress}
+                    onChange={(e) => handleChange("streetAddress", e.target.value)}
+                    placeholder="Mahalle, Cadde, Sokak, Bina No"
+                    autoComplete="address-line1"
+                    className={inputClass(errors.streetAddress)}
+                  />
+                  {fieldError(errors.streetAddress)}
+                </label>
+
+                <label className="block sm:col-span-2">
+                  <span className={labelClass}>Apartman / Daire (Opsiyonel)</span>
+                  <input
+                    type="text"
+                    value={form.apartment}
+                    onChange={(e) => handleChange("apartment", e.target.value)}
+                    placeholder="Apartman, Kat, Daire No"
+                    autoComplete="address-line2"
+                    className={inputClass()}
+                  />
+                </label>
+
+                <label className="block">
+                  <span className={labelClass}>Şehir *</span>
+                  <select
+                    value={form.city}
+                    onChange={(e) => handleChange("city", e.target.value)}
+                    className={inputClass(errors.city)}
+                  >
+                    <option value="">Şehir Seçiniz</option>
+                    {TURKISH_PROVINCES.map((city) => (
+                      <option key={city} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                  </select>
+                  {fieldError(errors.city)}
+                </label>
+
+                <label className="block">
+                  <span className={labelClass}>İlçe *</span>
+                  <input
+                    type="text"
+                    value={form.district}
+                    onChange={(e) => handleChange("district", e.target.value)}
+                    placeholder="İlçe"
+                    className={inputClass(errors.district)}
+                  />
+                  {fieldError(errors.district)}
+                </label>
+
+                <label className="block">
+                  <span className={labelClass}>Posta Kodu</span>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={form.postalCode}
+                    onChange={(e) => handleChange("postalCode", e.target.value)}
+                    placeholder="34010"
+                    autoComplete="postal-code"
+                    className={inputClass()}
+                  />
+                </label>
+
+                <label className="block">
+                  <span className={labelClass}>Telefon Numarası *</span>
+                  <span className="flex gap-2">
+                    <span className="flex h-12 items-center rounded-sm border border-line bg-custom-bg px-4 text-sm font-semibold text-ink">
+                      +90
+                    </span>
+                    <input
+                      type="tel"
+                      value={form.phoneNumber}
+                      onChange={(e) => handleChange("phoneNumber", e.target.value)}
+                      placeholder="5XX XXX XX XX"
+                      autoComplete="tel-national"
+                      className={inputClass(errors.phoneNumber)}
+                    />
+                  </span>
+                  {fieldError(errors.phoneNumber)}
+                </label>
+              </div>
+
+              <div className="mt-8 flex flex-col-reverse gap-3 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+                <Link
+                  href="/cart"
+                  className="text-center text-xs font-semibold uppercase tracking-[0.14em] text-muted hover:text-custom-accent"
+                >
+                  ← Sepete Dön
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={handleContinue}
+                  disabled={submitting}
+                  className="rounded-full bg-custom-accent px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_12px_26px_rgba(96,25,21,0.22)] transition hover:-translate-y-0.5 hover:bg-custom-accent-light disabled:opacity-70"
+                >
+                  {submitting ? "Kaydediliyor…" : "Ödeme Adımına Geç"}
+                </button>
+              </div>
             </section>
 
-            <aside className="summaryCard">
-              <h3>Sipariş Özeti</h3>
-
-              <div className="summaryItems">
-                {items.map((item) => (
-                  <div key={item.id} className="summaryRow">
-                    <div className="left">
-                      <img
-                        src={item.coverUrl || ""}
-                        alt={item.title || "Ürün"}
-                      />
-                      <div className="textWrap">
-                        <p className="itemTitle">
-                          {item.title || "İsimsiz Ürün"}
-                        </p>
-                        <p className="itemMeta">
-                          {item.category || "Halı"}
-                          {item.size ? ` • ${item.size}` : ""}
-                        </p>
-                       <div className="priceWrap">
-    <PriceDisplay basePrice={item.price} />
-</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="totals">
-                <div className="sumRow">
-                  <span>Ara Toplam</span>
-                <strong>
-    <PriceDisplay basePrice={subtotal} />
-</strong>
-                </div>
-                <div className="sumRow">
-                  <span>Teslimat</span>
-                  <strong>Ücretsiz</strong>
-                </div>
-                <div className="sumRow total">
-                  <span>Toplam</span>
-                 <strong>
-    <PriceDisplay basePrice={subtotal} />
-</strong>
-                </div>
-              </div>
-            </aside>
+            <CheckoutSummary items={items} subtotal={subtotal} />
           </div>
         </div>
       </main>
 
       <Footer />
-
-      <style jsx>{`
-        .page {
-          background: #f5f5eb;
-          min-height: 100vh;
-        }
-
-        .wrap {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 48px 20px 70px;
-        }
-
-        .topbar {
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          gap: 20px;
-          margin-bottom: 28px;
-        }
-
-        .title {
-          font-size: 42px;
-          font-weight: 900;
-          color: #7a1f1f;
-          margin-bottom: 8px;
-        }
-
-        .subtitle {
-          color: rgba(0, 0, 0, 0.6);
-          line-height: 1.5;
-          max-width: 560px;
-        }
-
-        .steps {
-          display: flex;
-          gap: 12px;
-          flex-wrap: wrap;
-          justify-content: flex-end;
-        }
-
-        .step {
-          font-size: 13px;
-          font-weight: 700;
-          color: rgba(0, 0, 0, 0.48);
-          padding: 10px 14px;
-          border-radius: 999px;
-          background: rgba(255, 255, 255, 0.72);
-          border: 1px solid rgba(122, 31, 31, 0.08);
-          white-space: nowrap;
-        }
-
-        .step.active {
-          color: #7a1f1f;
-          background: rgba(122, 31, 31, 0.08);
-          border-color: rgba(122, 31, 31, 0.14);
-        }
-
-        .grid {
-          display: grid;
-          grid-template-columns: 1fr 390px;
-          gap: 24px;
-          align-items: start;
-        }
-
-        .formCard,
-        .summaryCard {
-          background: rgba(255, 255, 255, 0.82);
-          border: 1px solid rgba(122, 31, 31, 0.08);
-          border-radius: 20px;
-          padding: 24px;
-          box-shadow: 0 10px 28px rgba(122, 31, 31, 0.05);
-        }
-
-        .formCard h2,
-        .summaryCard h3 {
-          font-size: 22px;
-          font-weight: 900;
-          margin-bottom: 20px;
-          color: #1c1c1c;
-        }
-
-        .field {
-          margin-bottom: 16px;
-        }
-
-        .field label {
-          display: block;
-          margin-bottom: 8px;
-          font-size: 14px;
-          font-weight: 800;
-          color: #4b1b1b;
-        }
-
-        .field input,
-        .field select {
-          width: 100%;
-          border: 1px solid rgba(122, 31, 31, 0.16);
-          background: #fff;
-          border-radius: 12px;
-          padding: 13px 14px;
-          font-size: 14px;
-          outline: none;
-        }
-
-        .field input:focus,
-        .field select:focus {
-          border-color: #7a1f1f;
-          box-shadow: 0 0 0 3px rgba(122, 31, 31, 0.08);
-        }
-
-        .double {
-          display: grid;
-          grid-template-columns: 220px 1fr;
-          gap: 14px;
-        }
-
-        .error {
-          margin-top: 6px;
-          font-size: 13px;
-          color: #b91c1c;
-          font-weight: 700;
-        }
-
-        .continueBtn {
-          width: 100%;
-          border: none;
-          background: #7a1f1f;
-          color: #fff;
-          font-weight: 900;
-          padding: 14px 16px;
-          border-radius: 14px;
-          cursor: pointer;
-          box-shadow: 0 10px 22px rgba(122, 31, 31, 0.22);
-          margin-top: 8px;
-          transition: background 0.2s ease, opacity 0.2s ease;
-        }
-
-        .continueBtn:hover {
-          background: #641919;
-        }
-
-        .continueBtn:disabled {
-          opacity: 0.7;
-          cursor: not-allowed;
-        }
-
-        .summaryItems {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-          margin-bottom: 22px;
-        }
-
-        .summaryRow {
-          padding-bottom: 14px;
-          border-bottom: 1px solid rgba(122, 31, 31, 0.08);
-        }
-
-        .left {
-          display: flex;
-          align-items: flex-start;
-          gap: 12px;
-          min-width: 0;
-        }
-
-        .left img {
-          width: 58px;
-          height: 78px;
-          object-fit: cover;
-          border-radius: 12px;
-          background: #fff;
-          flex-shrink: 0;
-        }
-
-        .textWrap {
-          min-width: 0;
-          flex: 1;
-        }
-
-        .itemTitle {
-          font-size: 14px;
-          font-weight: 800;
-          color: #1c1c1c;
-          line-height: 1.42;
-          margin-bottom: 6px;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          word-break: break-word;
-          overflow-wrap: anywhere;
-          max-width: 100%;
-        }
-
-        .itemMeta {
-          font-size: 13px;
-          color: rgba(0, 0, 0, 0.58);
-          margin-bottom: 10px;
-        }
-
-        .priceWrap {
-          font-size: 15px;
-          font-weight: 900;
-          color: #7a1f1f;
-        }
-
-        .totals {
-          padding-top: 4px;
-        }
-
-        .sumRow {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          font-size: 15px;
-          margin-bottom: 12px;
-          color: #1c1c1c;
-        }
-
-        .sumRow strong {
-          color: #7a1f1f;
-        }
-
-        .sumRow.total {
-          margin-top: 10px;
-          padding-top: 14px;
-          border-top: 1px solid rgba(122, 31, 31, 0.1);
-          font-weight: 900;
-          font-size: 17px;
-        }
-
-        @media (max-width: 1024px) {
-          .grid {
-            grid-template-columns: 1fr;
-          }
-
-          .topbar {
-            flex-direction: column;
-            align-items: flex-start;
-          }
-
-          .steps {
-            justify-content: flex-start;
-          }
-
-          .title {
-            font-size: 34px;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .double {
-            grid-template-columns: 1fr;
-          }
-
-          .wrap {
-            padding: 32px 16px 70px;
-          }
-
-          .formCard,
-          .summaryCard {
-            padding: 20px;
-          }
-
-          .left img {
-            width: 56px;
-            height: 76px;
-          }
-
-          .itemTitle {
-            font-size: 13px;
-            line-height: 1.45;
-          }
-
-          .step {
-            font-size: 12px;
-            padding: 9px 12px;
-          }
-        }
-      `}</style>
     </>
   );
 }
