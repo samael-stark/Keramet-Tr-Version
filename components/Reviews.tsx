@@ -1,181 +1,215 @@
 "use client";
 
-import "./Reviews.css";
-
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   FaChevronLeft,
   FaChevronRight,
   FaStar,
   FaArrowRight,
 } from "react-icons/fa";
+import SectionHeading from "@/components/home/SectionHeading";
 
+// Real reviews from our Etsy store (international customers), translated
+// into Turkish. The note under the cards says so.
 const reviews = [
   {
     name: "Lon",
-    date: "27 Mar, 2026",
+    date: "27 Mart 2026",
     rating: 5,
-    text: "This rug is spectacular and the quality is outstanding! Fast delivery and exactly as pictured and described. This is the place to buy your rugs!",
+    text: "Bu halı muhteşem, kalitesi ise olağanüstü! Teslimat çok hızlıydı ve ürün tam olarak fotoğraflardaki ve açıklamadaki gibi. Halı almak için doğru adres burası!",
     productTitle:
-      "Hand Knotted Gabbeh Tree of Life Wool Rug: 6x8 Afghan Area Rug",
+      "El Dokuması Gabbeh Hayat Ağacı Yün Halı: 6x8 Afgan Halısı",
     productImage: "/img/reviews/review1.jpg",
   },
   {
     name: "Irene",
-    date: "18 Feb, 2026",
+    date: "18 Şubat 2026",
     rating: 5,
-    text: "Thank you for a beautiful product that arrived super fast and for great personal service. The only thing I miss is a certificate of origin that describes the product in detail. This would be important in case I would need to sell the product.",
+    text: "Çok hızlı ulaşan bu güzel ürün ve ilgili, samimi hizmetiniz için teşekkür ederim. Tek eksik bulduğum şey, ürünü ayrıntılı olarak anlatan bir menşe belgesi oldu. Ürünü ileride satmak istersem bu benim için önemli olurdu.",
     productTitle:
-      "7x10 ft Hand Knotted Red Floral Sultani Afghan Area Wool Rug - Natural Vegetable Dye",
+      "7x10 ft El Dokuması Kırmızı Çiçek Desenli Sultani Afgan Yün Halı – Doğal Kök Boya",
     productImage: "/img/reviews/review2.jpg",
   },
   {
     name: "Azhir",
-    date: "07 Feb, 2026",
+    date: "7 Şubat 2026",
     rating: 5,
-    text: "My purchase from this vendor was excellent. My wife and I were in the market for a large rug for a new house, and this vendor had the style I wanted. I messaged them to understand pricing and shipping options, and we made the sale. Shipping arrived extremely quick for an international sale and being very heavy/large. Overall, highly recommend.",
+    text: "Bu satıcıdan yaptığım alışveriş mükemmeldi. Eşimle yeni evimiz için büyük bir halı arıyorduk ve aradığımız tarz bu mağazadaydı. Fiyat ve kargo seçeneklerini öğrenmek için mesaj attım ve alışverişi tamamladık. Uluslararası bir gönderi olmasına, halının da çok ağır ve büyük olmasına rağmen kargo son derece hızlı geldi. Kesinlikle tavsiye ederim.",
     productTitle:
-      "10x13 ft Hand Knotted Brown Floral Sultani Afghan Wool Area Rug - Natural Vegetable Dye",
+      "10x13 ft El Dokuması Kahverengi Çiçek Desenli Sultani Afgan Yün Halı – Doğal Kök Boya",
     productImage: "/img/reviews/review3.jpg",
   },
   {
     name: "Cynthia",
-    date: "15 Dec, 2025",
+    date: "15 Aralık 2025",
     rating: 5,
-    text: "Beautiful service, quick delivery, and great quality.",
+    text: "Harika hizmet, hızlı teslimat ve üstün kalite.",
     productTitle:
-      "Hand Knotted 5x7 Afghan Wool Rug - Sultani Design - Natural Vegetable Dye",
+      "El Dokuması 5x7 Afgan Yün Halı – Sultani Desen – Doğal Kök Boya",
     productImage: "/img/reviews/review4.jpg",
   },
   {
     name: "Kenneth",
-    date: "15 Dec, 2025",
+    date: "15 Aralık 2025",
     rating: 5,
-    text: "I’m very pleased with the carpet. Beautiful colours and very well finished. Love the colourful binding around the edge tassels. It lies absolutely flat. The carpet looks very good in the room I bought it for. Shipping and delivery was very quick. I thoroughly recommend this seller. A+++",
+    text: "Halıdan çok memnunum. Renkleri çok güzel, işçiliği de çok özenli. Kenar püsküllerindeki renkli bağlamalara bayıldım. Zemine tamamen düz seriliyor ve aldığım odada çok güzel duruyor. Kargo ve teslimat çok hızlıydı. Bu satıcıyı gönül rahatlığıyla tavsiye ederim. A+++",
     productTitle:
-      "Hand Knotted Blue Pazyryk 6x8 Afghan Wool Rug, Natural Vegetable Dye",
+      "El Dokuması Mavi Pazırık 6x8 Afgan Yün Halı – Doğal Kök Boya",
     productImage: "/img/reviews/review5.jpg",
   },
   {
     name: "Catarina",
-    date: "15 Sept, 2025",
+    date: "15 Eylül 2025",
     rating: 5,
-    text: "This rug is amazing! it's everything I hoped for. It is just as described and the photos don't do it justice. Also, Keramet was very thoughtful and packed a smaller rug as a gift :) I would buy again from this shop!",
-    productTitle:
-      "7x10 Pazyryk Afghan Rug: Hand-Knotted Wool, Horse Design",
+    text: "Bu halı harika! Umduğum her şey. Tam anlatıldığı gibi; fotoğraflar gerçek güzelliğini yansıtmıyor bile. Ayrıca Keramet çok düşünceliydi ve hediye olarak küçük bir halı daha göndermişti :) Bu mağazadan tekrar alışveriş yaparım!",
+    productTitle: "7x10 Pazırık Afgan Halısı: El Dokuması Yün, At Desenli",
     productImage: "/img/reviews/review6.jpg",
   },
 ];
 
+const LONG_REVIEW = 220;
+
 export default function Reviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [expanded, setExpanded] = useState<number | null>(null);
 
   const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return;
+    const el = scrollRef.current;
+    if (!el) return;
 
-    scrollRef.current.scrollBy({
-      left:
-        dir === "left"
-          ? -scrollRef.current.clientWidth
-          : scrollRef.current.clientWidth,
+    el.scrollBy({
+      left: dir === "left" ? -el.clientWidth : el.clientWidth,
       behavior: "smooth",
     });
   };
 
   return (
-    <section className="border-t border-gray-200 bg-custom-bg py-24">
+    <section className="bg-custom-bg py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="mb-16 text-center">
-          <h3 className="text-sm font-medium uppercase tracking-widest text-gray-600">
-            MÜŞTERİ YORUMLARI
-          </h3>
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-6 lg:mb-14">
+          <SectionHeading
+            align="left"
+            label="Müşteri Yorumları"
+            title="Müşterilerimiz Ne Diyor?"
+            intro="El dokuması halılarımızı tercih eden müşterilerimizin gerçek deneyimlerini keşfedin."
+          />
 
-          <h2 className="mt-3 text-4xl font-extrabold text-custom-accent">
-            Müşterilerimiz Ne Diyor?
-          </h2>
+          <div className="hidden items-center gap-3 sm:flex">
+            <button
+              onClick={() => scroll("left")}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-custom-accent/30 text-custom-accent transition hover:bg-custom-accent hover:text-white"
+              aria-label="Sola Kaydır"
+            >
+              <FaChevronLeft />
+            </button>
 
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600">
-            El dokuması halılarımızı tercih eden müşterilerimizin gerçek
-            deneyimlerini keşfedin.
-          </p>
+            <button
+              onClick={() => scroll("right")}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-custom-accent/30 text-custom-accent transition hover:bg-custom-accent hover:text-white"
+              aria-label="Sağa Kaydır"
+            >
+              <FaChevronRight />
+            </button>
+          </div>
         </div>
 
-        <div className="relative flex items-center">
-          <button
-            onClick={() => scroll("left")}
-            className="hidden lg:flex absolute -left-12 z-10 rounded-full bg-white/70 p-3 text-custom-accent shadow-xl backdrop-blur-md transition hover:bg-white"
-            aria-label="Sola Kaydır"
-          >
-            <FaChevronLeft />
-          </button>
+        <div
+          ref={scrollRef}
+          className="no-scrollbar -mx-6 flex snap-x snap-mandatory items-stretch gap-5 overflow-x-auto scroll-smooth px-6 pb-2 lg:mx-0 lg:px-0"
+        >
+          {reviews.map((review, index) => {
+            const isLong = review.text.length > LONG_REVIEW;
+            const isOpen = expanded === index;
 
-          <div
-            ref={scrollRef}
-            className="no-scrollbar overflow-x-auto scroll-smooth -mx-6 px-6 pb-4 lg:mx-0 lg:px-0"
-          >
-            <div className="grid grid-flow-col auto-cols-[88%] gap-6 sm:auto-cols-[60%] lg:auto-cols-[calc((100%-3rem)/3)]">
-              {reviews.map((review, index) => (
-                <article key={index} className="review-card">
-                  <div className="review-top">
-                    <div>
-                      <h4 className="review-name">{review.name}</h4>
-                      <p className="review-date">{review.date}</p>
-                    </div>
-                  </div>
+            return (
+              <article
+                key={review.name + review.date}
+                className="flex w-[86%] flex-shrink-0 snap-start flex-col rounded-sm border border-line bg-paper p-7 sm:w-[60%] lg:w-[calc((100%-2.5rem)/3)]"
+              >
+                <div className="flex items-start justify-between">
+                  <span
+                    aria-hidden
+                    className="font-display text-6xl leading-none text-custom-accent/25"
+                  >
+                    “
+                  </span>
 
                   <div
-                    className="stars"
-                    aria-label={`${review.rating} yıldız`}
+                    className="flex gap-1 text-[13px] text-[#c8962e]"
+                    aria-label={`5 üzerinden ${review.rating} yıldız`}
                   >
                     {Array.from({ length: review.rating }).map((_, i) => (
                       <FaStar key={i} />
                     ))}
                   </div>
+                </div>
 
-                  <p className="review-text">{review.text}</p>
+                <p
+                  className={`mt-2 text-[15px] leading-7 text-ink/85 ${
+                    isLong && !isOpen ? "line-clamp-5" : ""
+                  }`}
+                >
+                  {review.text}
+                </p>
 
-                  <div className="product-tile">
-                    <div className="product-tile-image">
-                      <img
-                        src={review.productImage}
-                        alt={review.productTitle}
-                      />
-                    </div>
+                {isLong ? (
+                  <button
+                    onClick={() => setExpanded(isOpen ? null : index)}
+                    className="mt-2 self-start text-xs font-semibold uppercase tracking-[0.16em] text-custom-accent hover:text-custom-accent-light"
+                  >
+                    {isOpen ? "Daha az göster" : "Devamını oku"}
+                  </button>
+                ) : null}
 
-                    <div className="product-tile-content">
-                      <p className="product-tile-label">
-                        Değerlendirilen Ürün
-                      </p>
-
-                      <p className="product-tile-title">
-                        {review.productTitle}
-                      </p>
-                    </div>
+                <div className="mt-6 flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-custom-accent font-display text-lg font-semibold text-white">
+                    {review.name.charAt(0)}
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-ink">
+                      {review.name}
+                    </p>
+                    <p className="text-xs text-muted">{review.date}</p>
                   </div>
-                </article>
-              ))}
-            </div>
-          </div>
+                </div>
 
-          <button
-            onClick={() => scroll("right")}
-            className="hidden lg:flex absolute -right-12 z-10 rounded-full bg-white/70 p-3 text-custom-accent shadow-xl backdrop-blur-md transition hover:bg-white"
-            aria-label="Sağa Kaydır"
-          >
-            <FaChevronRight />
-          </button>
+                <div className="mt-auto flex items-center gap-3 border-t border-line pt-5">
+                  <img
+                    src={review.productImage}
+                    alt={review.productTitle}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-14 w-14 shrink-0 rounded-sm object-cover"
+                  />
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted">
+                      Değerlendirilen Ürün
+                    </p>
+                    <p className="mt-1 line-clamp-2 text-xs leading-5 text-ink/80">
+                      {review.productTitle}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
-        <div className="mt-14 text-center">
+        <div className="mt-12 flex flex-col items-center gap-4 text-center">
           <a
             href="https://www.etsy.com/shop/KERAMETHALI?dd_referrer=#reviews"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center rounded-full border border-custom-accent px-10 py-3 font-semibold text-custom-accent transition-colors hover:bg-custom-accent hover:text-white"
+            className="inline-flex items-center gap-3 rounded-full border border-custom-accent px-10 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] text-custom-accent transition hover:bg-custom-accent hover:text-white"
           >
             Tüm Yorumları Gör
-            <FaArrowRight className="ml-2" />
+            <FaArrowRight />
           </a>
+
+          <p className="text-xs text-muted">
+            Yorumlar Etsy mağazamızdaki uluslararası müşterilerimize aittir ve
+            Türkçeye çevrilmiştir.
+          </p>
         </div>
       </div>
     </section>

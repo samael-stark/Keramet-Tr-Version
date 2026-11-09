@@ -1,221 +1,175 @@
 import Link from "next/link";
-import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaTiktok,
+  FaPhoneAlt,
+} from "react-icons/fa";
+
+const quickLinks = [
+  { href: "/", label: "Ana Sayfa" },
+  { href: "/#categories", label: "Koleksiyonlar" },
+  { href: "/products", label: "Mağaza" },
+  { href: "/track-order", label: "Sipariş Takibi" },
+  { href: "/#aboutus", label: "Hakkımızda" },
+  { href: "/#contact", label: "İletişim" },
+];
+
+const policyLinks = [
+  { href: "/distance-selling-agreement", label: "Mesafeli Satış Sözleşmesi" },
+  { href: "/privacy-policy", label: "Gizlilik Politikası" },
+  { href: "/return-policy", label: "İade Politikası" },
+  { href: "/shipping-policy", label: "Kargo Politikası" },
+  { href: "/terms", label: "Kullanım Koşulları" },
+];
+
+const socials = [
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61580349339271#",
+    icon: FaFacebookF,
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/keramethali/",
+    icon: FaInstagram,
+  },
+  {
+    name: "TikTok",
+    href: "https://www.tiktok.com/@keramet.hali",
+    icon: FaTiktok,
+  },
+];
+
+const phones = [
+  { display: "+90 506 527 49 30", href: "tel:+905065274930" },
+  { display: "+90 531 921 45 75", href: "tel:+905319214575" },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-custom-accent">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-
+    <footer className="bg-[#3d0f0c] text-custom-bg">
+      <div className="mx-auto max-w-7xl px-6 pb-10 pt-16 lg:px-10 lg:pt-20">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-extrabold tracking-widest text-custom-bg">
-              KERAMET HALI
-            </h3>
+            <Link href="/" className="inline-flex items-center gap-3">
+              <img
+                src="/img/Kerametlogo.png"
+                alt="Keramet Halı logosu"
+                className="h-12 w-12 rounded-full bg-custom-bg object-contain p-1"
+              />
+              <span className="whitespace-nowrap font-display text-2xl font-semibold uppercase tracking-[0.1em]">
+                Keramet Halı
+              </span>
+            </Link>
 
-            <p className="mt-4 text-custom-bg/80 leading-relaxed">
-              Her Eve Yakışan El Dokuması Halılar
+            <p className="mt-5 max-w-xs text-sm leading-7 text-custom-bg/70">
+              Her eve yakışan el dokuması halılar. Her biri tek parça, her biri
+              ustasının emeğini taşır.
             </p>
+
+            <div className="mt-6 flex gap-3">
+              {socials.map((social) => {
+                const Icon = social.icon;
+
+                return (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={social.name}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-custom-bg/30 text-custom-bg transition hover:bg-custom-bg hover:text-custom-accent"
+                  >
+                    <Icon />
+                  </a>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick links */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-widest text-custom-bg mb-4">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
               Hızlı Erişim
-            </h4>
-
-            <ul className="space-y-3 font-medium">
-              <li>
-                <Link
-                  href="/"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  Ana Sayfa
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/#categories"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                Koleksiyonlar
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/products"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  Mağaza
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/track-order"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  Sipariş Takibi
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/#aboutus"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  Hakkımızda
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/#contact"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  İletişim
-                </Link>
-              </li>
+            </h3>
+            <ul className="mt-5 space-y-3 text-sm">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-custom-bg/75 transition hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Policies */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-widest text-custom-bg mb-4">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
               Politikalar
-            </h4>
-
-            <ul className="space-y-3 font-medium">
-              <li>
-                <Link
-                  href="/distance-selling-agreement"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  Mesafeli Satış Sözleşmesi
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/privacy-policy"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  Gizlilik Politikası
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/return-policy"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  İade Politikası
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/shipping-policy"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  Kargo Politikası
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/terms"
-                  className="text-custom-bg/80 hover:text-custom-bg transition"
-                >
-                  Kullanım Koşulları
-                </Link>
-              </li>
+            </h3>
+            <ul className="mt-5 space-y-3 text-sm">
+              {policyLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-custom-bg/75 transition hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Social + Payments */}
+          {/* Contact + payments */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-widest text-custom-bg mb-4">
-              Bizi Takip Edin
-            </h4>
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
+              İletişim
+            </h3>
+            <ul className="mt-5 space-y-3 text-sm">
+              {phones.map((phone) => (
+                <li key={phone.href}>
+                  <a
+                    href={phone.href}
+                    className="inline-flex items-center gap-3 text-custom-bg/75 transition hover:text-white"
+                  >
+                    <FaPhoneAlt className="text-xs text-gold" />
+                    {phone.display}
+                  </a>
+                </li>
+              ))}
+            </ul>
 
-            <div className="flex items-center gap-4">
-
-              <a
-                href="https://www.facebook.com/profile.php?id=61580349339271#"
-                target="_blank"
-                rel="noreferrer"
-                className="group w-12 h-12 rounded-xl border border-custom-bg/40 flex items-center justify-center transition hover:bg-custom-bg"
-              >
-                <FaFacebookF className="text-custom-bg group-hover:text-custom-accent transition" />
-              </a>
-
-              <a
-                href="https://www.instagram.com/keramethali/"
-                target="_blank"
-                rel="noreferrer"
-                className="group w-12 h-12 rounded-xl border border-custom-bg/40 flex items-center justify-center transition hover:bg-custom-bg"
-              >
-                <FaInstagram className="text-custom-bg group-hover:text-custom-accent transition" />
-              </a>
-
-              <a
-                href="https://www.tiktok.com/@keramet.hali"
-                target="_blank"
-                rel="noreferrer"
-                className="group w-12 h-12 rounded-xl border border-custom-bg/40 flex items-center justify-center transition hover:bg-custom-bg"
-              >
-                <FaTiktok className="text-custom-bg group-hover:text-custom-accent transition" />
-              </a>
-
+            <p className="mt-8 text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
+              Güvenli Ödeme
+            </p>
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              {[
+                { src: "/payment-logos/pay_with_iyzico.svg", alt: "iyzico ile öde" },
+                { src: "/payment-logos/Visa_Inc._logo.svg", alt: "Visa" },
+                { src: "/payment-logos/Mastercard-logo.svg", alt: "Mastercard" },
+              ].map((logo) => (
+                <span
+                  key={logo.src}
+                  className="flex h-9 items-center rounded-sm bg-custom-bg px-3"
+                >
+                  <img src={logo.src} alt={logo.alt} className="h-5 w-auto object-contain" />
+                </span>
+              ))}
             </div>
-
-            {/* Payment Logos */}
-            <div className="mt-6">
-              <p className="text-sm text-custom-bg/70 mb-3">
-                Güvenli Ödeme
-              </p>
-
-              <div className="flex items-center gap-3 flex-wrap">
-
-                <div className="bg-[#f9f6e3] px-3 py-2 rounded-lg flex items-center justify-center">
-                  <img
-                    src="/payment-logos/pay_with_iyzico.svg"
-                    alt="Iyzico"
-                    className="h-5 w-auto object-contain"
-                  />
-                </div>
-
-                <div className="bg-[#f9f6e3] px-3 py-2 rounded-lg flex items-center justify-center">
-                  <img
-                    src="/payment-logos/Visa_Inc._logo.svg"
-                    alt="Visa"
-                    className="h-5 w-auto object-contain"
-                  />
-                </div>
-
-                <div className="bg-[#f9f6e3] px-3 py-2 rounded-lg flex items-center justify-center">
-                  <img
-                    src="/payment-logos/Mastercard-logo.svg"
-                    alt="Mastercard"
-                    className="h-5 w-auto object-contain"
-                  />
-                </div>
-
-              </div>
-            </div>
-
           </div>
-
         </div>
 
-<div className="mt-16 pt-8 border-t border-custom-bg/30 text-center text-sm text-custom-bg/80">
-  © {new Date().getFullYear()} Keramet Halı. Tüm hakları saklıdır.
-</div>
-
+        <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-custom-bg/15 pt-8 text-xs text-custom-bg/60 md:flex-row">
+          <p>© {new Date().getFullYear()} Keramet Halı. Tüm hakları saklıdır.</p>
+          <p>El dokuması · Tek parça · Özgün tasarım</p>
+        </div>
       </div>
     </footer>
   );
