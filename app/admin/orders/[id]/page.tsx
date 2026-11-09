@@ -11,9 +11,13 @@ type OrderStatusHistoryItem = {
 };
 
 type OrderItem = {
+  productId?: string;
   title: string;
   image: string;
   price: number;
+  productCode?: string;
+  stock?: number | null;
+  productExists?: boolean;
 };
 
 type OrderDetail = {
@@ -184,6 +188,80 @@ export default function OrderDetailPage() {
             {success}
           </div>
         )}
+
+        {/* ORDERED PRODUCTS (product code + current stock: admin only) */}
+        <div className="rounded-[1.75rem] bg-white/20 p-6 shadow-xl backdrop-blur-xl">
+          <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="text-lg font-bold">Ordered Products</h2>
+            <p className="text-sm text-gray-600">
+              Total:{" "}
+              <b className="text-gray-900">
+                {getCurrencySymbol(order.pricing.currency)}
+                {Number(order.pricing.total).toLocaleString("tr-TR", {
+                  minimumFractionDigits: 2,
+                })}
+              </b>
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {order.items.length ? (
+              order.items.map((item, index) => {
+                const soldOut =
+                  typeof item.stock === "number" && item.stock <= 0;
+
+                return (
+                  <div
+                    key={`${item.productId || item.title}-${index}`}
+                    className="flex flex-wrap items-center gap-4 rounded-2xl border border-white/50 bg-white/50 p-4"
+                  >
+                    {item.image ? (
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="h-20 w-16 shrink-0 rounded-lg object-cover"
+                      />
+                    ) : null}
+
+                    <div className="min-w-0 flex-1">
+                      <p className="font-semibold text-gray-900">
+                        {item.title || "—"}
+                      </p>
+                      <p className="mt-1 text-sm text-gray-700">
+                        {getCurrencySymbol(order.pricing.currency)}
+                        {Number(item.price).toLocaleString("tr-TR", {
+                          minimumFractionDigits: 2,
+                        })}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      <span className="rounded-full bg-gray-900 px-3 py-1 text-xs font-bold tracking-wide text-white">
+                        Product ID: {item.productCode || "—"}
+                      </span>
+
+                      <span
+                        className={`rounded-full px-3 py-1 text-xs font-bold ${
+                          item.productExists === false
+                            ? "bg-gray-200 text-gray-700"
+                            : soldOut
+                              ? "bg-red-100 text-red-800"
+                              : "bg-green-100 text-green-800"
+                        }`}
+                      >
+                        {item.productExists === false
+                          ? "Product deleted"
+                          : `Stock: ${item.stock ?? "—"}${soldOut ? " (sold)" : ""}`}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <p className="text-sm text-gray-700">No products on this order.</p>
+            )}
+          </div>
+        </div>
 
 {/* CUSTOMER DETAILS */}
 <div className="rounded-[1.75rem] bg-white/20 p-6 shadow-xl backdrop-blur-xl">
