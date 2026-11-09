@@ -149,7 +149,7 @@ export async function POST(
         ) => {
           iyzipay.checkoutFormInitialize.create(
             {
-              locale: "en",
+              locale: "tr",
 
               conversationId,
 
@@ -174,8 +174,11 @@ export async function POST(
 
               callbackUrl: `${origin}/api/iyzico/callback`,
 
+              // Installment counts offered on the iyzico form.
+              // iyzico only accepts 1, 2, 3, 6, 9, 12; it still hides any
+              // option the card or the merchant agreement doesn't support.
               enabledInstallments:
-                [1],
+                [1, 2, 3, 6, 9, 12],
 
               buyer: {
                 id:

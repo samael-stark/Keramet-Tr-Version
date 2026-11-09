@@ -67,7 +67,7 @@ export async function POST(req: Request) {
       subtotal,
       shipping,
       total,
-      currency: "USD",
+      currency: "TRY",
     });
   } catch (error) {
     console.error("Checkout error:", error);

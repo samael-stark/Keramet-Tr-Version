@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { auth, db } from "@/lib/firebase";
 import { uploadImagesToStorage } from "@/lib/upload";
+import { refreshProductCache } from "@/lib/products-client";
 
 const ADMIN_EMAIL =
   process.env.NEXT_PUBLIC_ADMIN_EMAIL || "keramethalithird@gmail.com";
@@ -334,6 +335,8 @@ export default function NewProductPage() {
         },
       });
 
+      await refreshProductCache();
+
       router.push("/admin/products");
     } catch (err: any) {
       setError(
@@ -438,7 +441,7 @@ export default function NewProductPage() {
                         onChange={(e) =>
                           setCategory(e.target.value)
                         }
-placeholder="Memlük / Sultani / Pazyryk"                      />
+placeholder="Memlük / Sultani / Pazırık"                      />
                     </div>
 
                     <div>

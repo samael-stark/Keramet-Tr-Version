@@ -4,8 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PriceDisplay from "@/components/PriceDisplay";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { fetchProductsByIds } from "@/lib/products-client";
 import Link from "next/link";
 import { FaHeart } from "react-icons/fa";
 
@@ -27,14 +26,8 @@ export default function WishlistPage() {
         return;
       }
 
-      const snap = await getDocs(collection(db, "products"));
-
-      const all = snap.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      const filtered = all.filter((p) => ids.includes(p.id));
+      // Read only the wishlisted products (1 read each), not the whole collection.
+      const filtered = await fetchProductsByIds(ids);
 
       setProducts(filtered);
       setLoading(false);
