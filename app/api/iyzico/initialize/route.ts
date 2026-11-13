@@ -358,12 +358,27 @@ export async function POST(
       iyzicoData.status !==
       "success"
     ) {
+      // Keep iyzico's reason so a rejected payment (e.g. an amount above the
+      // merchant's transaction limit) can be diagnosed from the admin panel.
       await orderRef.update({
         updatedAt:
           FieldValue.serverTimestamp(),
 
         "payment.status":
           "failed",
+
+        "payment.failureStage":
+          "initialize",
+
+        "payment.failureReason":
+          iyzicoData.errorMessage ||
+          "Payment initialize failed",
+
+        "payment.errorCode":
+          iyzicoData.errorCode || "",
+
+        "payment.errorGroup":
+          iyzicoData.errorGroup || "",
       });
 
       return NextResponse.json(

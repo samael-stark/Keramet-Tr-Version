@@ -131,6 +131,13 @@ export async function GET(
         fulfillmentStatus,
         fulfillmentStatusLabel: getStatusLabel(fulfillmentStatus),
         paymentStatus: data?.payment?.status || data?.status || "pending",
+        paymentFailure: data?.payment?.failureReason
+          ? {
+              stage: data.payment.failureStage || "",
+              reason: String(data.payment.failureReason),
+              code: data.payment.errorCode || data.payment.rawResponse?.errorCode || "",
+            }
+          : null,
         createdAt: data?.createdAt?.toDate
           ? data.createdAt.toDate().toISOString()
           : null,

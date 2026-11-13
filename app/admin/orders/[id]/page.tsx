@@ -27,6 +27,7 @@ type OrderDetail = {
   fulfillmentStatus: string;
   fulfillmentStatusLabel: string;
   paymentStatus: string;
+  paymentFailure?: { stage: string; reason: string; code: string } | null;
   createdAt: string | null;
   customer: {
     firstName: string;
@@ -189,6 +190,23 @@ export default function OrderDetailPage() {
             {success}
           </div>
         )}
+
+        {order.paymentFailure ? (
+          <div className="rounded-[1.25rem] border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+            <p className="font-bold">
+              Payment failed
+              {order.paymentFailure.stage === "initialize"
+                ? " before the iyzico payment page opened"
+                : ""}
+            </p>
+            <p className="mt-1">
+              iyzico: {order.paymentFailure.reason}
+              {order.paymentFailure.code
+                ? ` (code ${order.paymentFailure.code})`
+                : ""}
+            </p>
+          </div>
+        ) : null}
 
         {/* ORDERED PRODUCTS (product code + current stock: admin only) */}
         <div className="rounded-[1.75rem] bg-white/20 p-6 shadow-xl backdrop-blur-xl">
