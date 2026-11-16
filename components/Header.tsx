@@ -29,7 +29,7 @@ const NAV_LINKS = [
 
 // Announcement bar messages (on phones they rotate).
 const ANNOUNCEMENTS = [
-  "PEŞİN FİYATINA 3 TAKSİT",
+  "PEŞİN FİYATINA 6 TAKSİT",
   "GÜVENLİ ÖDEME · 1–2 İŞ GÜNÜNDE KARGODA",
 ];
 
